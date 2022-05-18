@@ -1,0 +1,22 @@
+{
+  "extends": ["@react-native-community", "prettier"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "quoteProps": "preserve",
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "es5",
+        "useTabs": false
+      }
+    ],
+    "no-bitwise": 0,
+    "prefer-const": "warn",
+    "no-console": ["error", { "allow": ["warn", "error"] }]
+  },
+  "globals": {
+      "JSX": "readonly"
+  },
+  "plugins": ["prettier"]
+}
