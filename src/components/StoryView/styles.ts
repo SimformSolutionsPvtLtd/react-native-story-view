@@ -9,6 +9,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  label: {
+    flex: 1,
+    alignSelf: 'center',
+  },
   divStory: {
     flexDirection: 'row',
     alignSelf: 'center',
@@ -31,6 +35,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   parentView: {
+    width: '100%',
+    height: '100%',
     flexDirection: 'row',
   },
   customView: {
@@ -47,15 +53,15 @@ const styles = StyleSheet.create({
   bottomView: {
     position: 'absolute',
     bottom: 0,
+    zIndex: 99,
     left: 0,
     right: 0,
-    width: '100%',
+  },
+  mainView: {
+    position: 'absolute',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignSelf: 'baseline',
-    textAlignVertical: 'bottom',
-    paddingTop: '3%',
-    paddingBottom: '2%',
+    width: '100%',
+    height: '100%',
   },
   progressView: {
     flex: 1,

@@ -3,6 +3,7 @@ import { render } from '@testing-library/react-native';
 import StoryView from '../StoryView';
 import StoryContainer from '../StoryContainer';
 import ProgressView from '../ProgressView';
+import { Footer } from '../../Footer';
 
 jest.useFakeTimers();
 jest.mock('react-native-video', () => 'Video');
@@ -36,6 +37,15 @@ describe('ProgressView component', () => {
         length={[]}
         progress={0}
       />
+    );
+    expect(toJSON()).toMatchSnapshot();
+  });
+});
+
+describe('StoryView should render Footer component', () => {
+  it('Match Snapshot', () => {
+    const { toJSON } = render(
+      <StoryContainer stories={[]} footerComponent={<Footer />} />
     );
     expect(toJSON()).toMatchSnapshot();
   });
