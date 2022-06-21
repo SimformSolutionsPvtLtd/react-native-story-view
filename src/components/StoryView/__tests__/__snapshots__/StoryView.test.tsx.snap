@@ -1,17 +1,211 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CounterButton component Match Snapshot 1`] = `
+exports[`ProgressView component Match Snapshot 1`] = `
 <View
+  collapsable={false}
   style={
     Object {
       "alignItems": "center",
-      "flex": 1,
-      "justifyContent": "center",
+      "flexDirection": "row",
+      "height": 16.428571428571427,
+      "justifyContent": "space-between",
+      "position": "absolute",
+      "top": 16.428571428571427,
+      "width": "98%",
+    }
+  }
+/>
+`;
+
+exports[`StoryContainer component Match Snapshot 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+>
+  <View
+    onLayout={[Function]}
+    style={
+      Object {
+        "paddingBottom": 0,
+      }
+    }
+  >
+    <View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "center",
+                "flexDirection": "row",
+              }
+            }
+          >
+            <ActivityIndicator
+              animating={true}
+              color="#575899"
+              size="large"
+              style={
+                Object {
+                  "flex": 1,
+                  "left": "45%",
+                  "position": "absolute",
+                  "top": "50%",
+                }
+              }
+            />
+            <Video
+              onError={[Function]}
+              onLoad={[Function]}
+              onLoadStart={[Function]}
+              paused={false}
+              resizeMode="contain"
+              source={
+                Object {
+                  "uri": undefined,
+                }
+              }
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "height": 1334,
+                    "width": 750,
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "position": "absolute",
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            collapsable={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "height": 16.428571428571427,
+                "justifyContent": "space-between",
+                "position": "absolute",
+                "top": 16.428571428571427,
+                "width": "98%",
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "flexDirection": "column",
+              "position": "absolute",
+              "width": 750,
+              "zIndex": 99,
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignSelf": "baseline",
+              "bottom": 0,
+              "flexDirection": "column",
+              "justifyContent": "center",
+              "left": 0,
+              "paddingBottom": "2%",
+              "paddingTop": "3%",
+              "position": "absolute",
+              "right": 0,
+              "textAlignVertical": "bottom",
+              "width": "100%",
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "flexDirection": "column",
+              "position": "absolute",
+              "width": 750,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
+
+exports[`StoryView component Match Snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "center",
+      "flexDirection": "row",
     }
   }
 >
-  <Text>
-    Story View
-  </Text>
+  <ActivityIndicator
+    animating={true}
+    color="#575899"
+    size="large"
+    style={
+      Object {
+        "flex": 1,
+        "left": "45%",
+        "position": "absolute",
+        "top": "50%",
+      }
+    }
+  />
+  <Video
+    onError={[Function]}
+    onLoad={[Function]}
+    onLoadStart={[Function]}
+    resizeMode="contain"
+    source={
+      Object {
+        "uri": undefined,
+      }
+    }
+    style={
+      Array [
+        Object {
+          "backgroundColor": "transparent",
+          "height": 1334,
+          "width": 750,
+        },
+      ]
+    }
+  />
 </View>
 `;

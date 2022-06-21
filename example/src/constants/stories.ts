@@ -1,0 +1,117 @@
+const stories = [
+  {
+    id: 1,
+    username: 'Patel',
+    title: 'New Story',
+    profile: '',
+    stories: [
+      {
+        id: 1,
+        url: 'http://files.simformsolutions.com.s3.amazonaws.com/simformscreen/AddAddressInputs.tsx__GavelApp_2022-05-31_20-36-14.png',
+        type: 'image',
+        duration: 2,
+        isReadMore: true,
+        storyId: 1,
+      },
+    ],
+  },
+  {
+    id: 2,
+    username: 'Viraj',
+    profile:
+      "https://i.postimg.cc/G2wsmMPg/IMG20190211143503.jpg",
+    title: "2021-01-07T03:24:00",
+    stories: [
+      {
+        id: 0,
+        url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+        type: 'video',
+        duration: 0,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 1,
+        url: 'https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        type: 'image',
+        duration: 4,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 2,
+        url: 'https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-water-1164-large.mp4',
+        type: 'video',
+        duration: 0,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 3,
+        url: 'https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        type: 'image',
+        duration: 2,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 4,
+        url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+        type: 'video',
+        duration: 0,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 5,
+        url: 'https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        type: 'image',
+        duration: 4,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 6,
+        url: 'https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smart-watch-with-the-stopwatch-running-32808-large.mp4',
+        type: 'video',
+        duration: 0,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 7,
+        url: 'https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        type: 'image',
+        duration: 2,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 8,
+        url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+        type: 'video',
+        duration: 0,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 9,
+        url: 'https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        type: 'image',
+        duration: 4,
+        isReadMore: true,
+        storyId: 2,
+      },
+      {
+        id: 10,
+        url: 'https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smart-watch-with-the-stopwatch-running-32808-large.mp4',
+        type: 'video',
+        duration: 0,
+        isReadMore: true,
+        storyId: 2,
+      },
+    ],
+  }
+];
+
+export default stories;

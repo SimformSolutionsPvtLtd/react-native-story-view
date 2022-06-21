@@ -6,7 +6,9 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "jsx": "react",
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "module": "ESNext",
     "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
@@ -25,6 +27,12 @@
     "strict": true,
     "target": "ES2018",
   },
-  "exclude": ["example/node_modules/**", "node_modules/**","**/__tests__/*"],
-  "include": ["src"]
+  "exclude": [
+    "example/node_modules/**",
+    "node_modules/**",
+    "**/__tests__/*"
+  ],
+  "include": [
+    "src"
+  ]
 }

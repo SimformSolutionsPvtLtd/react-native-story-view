@@ -21,16 +21,17 @@
   ],
   "scripts": {
     "clean": "rm -rf node_modules",
-    "build": "rm -rf lib && tsc -p .",
+    "build": "rm -rf lib && tsc -p . && cp -R ./src/assets ./lib/ ",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' -c .eslintrc --fix ",
-    "build_local":"yarn build && yarn pack",
+    "build_local": "yarn build && yarn pack",
     "test": "jest",
     "postinstall": "husky install"
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-video": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -41,9 +42,11 @@
     "@testing-library/react-native": "^9.0.0",
     "@types/jest": "^27.4.0",
     "@types/react-native": "^0.66.15",
+    "@types/react-native-video": "^5.0.13",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^27.4.6",
     "eslint": "^7.32.0",
+    "react-native-video": "^5",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.4",
     "jest": "^27.4.7",

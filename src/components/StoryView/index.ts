@@ -1,4 +1,5 @@
-import StoryView from './StoryView';
+import StoryContainer from './StoryContainer';
+import UserHeaderView from './UserHeaderView';
 
-export { StoryView };
 export type { StoryViewProps } from './types';
+export { UserHeaderView, StoryContainer };
