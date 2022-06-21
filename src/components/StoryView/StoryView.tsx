@@ -8,7 +8,7 @@ import { StoryViewProps, StroyTypes } from './types';
 
 const StoryView = (props: StoryViewProps) => {
   const [loading, setLoading] = useState(true);
-  const image = props.stories[props.progressIndex];
+  const image = props?.stories?.[props?.progressIndex];
 
   const onLoadStart = () => {
     setLoading(false);

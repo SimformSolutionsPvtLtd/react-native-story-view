@@ -1,6 +1,7 @@
 import type { FunctionComponentElement } from 'react';
 import type { ImageSourcePropType, ImageStyle, ViewStyle } from 'react-native';
 import type { OnLoadData } from 'react-native-video';
+import type { FooterComponentProps } from '../Footer/types';
 
 export enum StroyTypes {
   Image = 'image',
@@ -81,7 +82,7 @@ export interface StoryContainerProps extends CommonProps {
   headerComponent?: FunctionComponentElement<CommonProps> | undefined;
   userProfile?: UserProps | undefined;
   footerView?: FooterViewProps | undefined;
-  footerComponent?: FunctionComponentElement<CommonProps> | undefined;
+  footerComponent?: FooterComponentProps;
   onComplete?: Function;
   customView?: FunctionComponentElement<CommonProps> | undefined;
 }

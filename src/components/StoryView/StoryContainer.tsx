@@ -74,12 +74,7 @@ const StoryContainer = (props: StoryContainerProps) => {
           {props?.headerComponent && props.headerComponent}
         </View>
         <View style={styles.bottomView}>
-          {/* {props.footerView?.isShowReply && !props.footerComponent && (
-              <FooterView />
-            )} */}
-          {!props.footerView?.isShowReply && props.footerComponent && (
-            <View style={styles.bottomView}>{props.footerComponent}</View>
-          )}
+          {props?.footerComponent && props.footerComponent}
         </View>
         <View style={styles.customView}>{props.customView}</View>
       </View>

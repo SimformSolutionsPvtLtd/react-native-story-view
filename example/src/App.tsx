@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
-import { StoryContainer, UserHeaderView } from 'react-native-story-view';
+import { Footer, StoryContainer, UserHeaderView } from 'react-native-story-view';
 import { stories } from './constants';
 import { getDateWithNow } from './utils/commonHelper';
 
@@ -10,6 +10,16 @@ const App = () => {
   const openStories = () => {
     setIsStoryViewShow(true);
   }
+
+  const renderFooter = () => {
+    return (
+      <Footer
+        onIconPress={() => {
+          Alert.alert('Icon pressed');
+        }}
+      />
+    );
+  };
 
   return (
     <>
@@ -28,6 +38,7 @@ const App = () => {
           visible={true}
           stories={stories[1].stories}
           maxVideoDuration={25}
+          footerComponent={renderFooter()}
           headerComponent={
             <UserHeaderView
               userImage={{ uri: stories[1].profile ?? '' }}

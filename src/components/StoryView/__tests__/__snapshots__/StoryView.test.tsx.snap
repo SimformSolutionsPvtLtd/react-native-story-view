@@ -34,6 +34,8 @@ exports[`StoryContainer component Match Snapshot 1`] = `
         style={
           Object {
             "flexDirection": "row",
+            "height": "100%",
+            "width": "100%",
           }
         }
       >
@@ -136,17 +138,11 @@ exports[`StoryContainer component Match Snapshot 1`] = `
         <View
           style={
             Object {
-              "alignSelf": "baseline",
               "bottom": 0,
-              "flexDirection": "column",
-              "justifyContent": "center",
               "left": 0,
-              "paddingBottom": "2%",
-              "paddingTop": "3%",
               "position": "absolute",
               "right": 0,
-              "textAlignVertical": "bottom",
-              "width": "100%",
+              "zIndex": 99,
             }
           }
         />
@@ -208,4 +204,23 @@ exports[`StoryView component Match Snapshot 1`] = `
     }
   />
 </View>
+`;
+
+exports[`StoryView should render Footer component Match Snapshot 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+>
+  <View
+    onLayout={[Function]}
+    style={
+      Object {
+        "paddingBottom": 0,
+      }
+    }
+  >
+    <View>
+      <View />
+    </View>
+  </View>
+</RCTSafeAreaView>
 `;
