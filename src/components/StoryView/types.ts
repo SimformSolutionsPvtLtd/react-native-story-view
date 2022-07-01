@@ -14,6 +14,13 @@ export enum ClickPosition {
   Left = 'left',
 }
 
+export enum ProgressState {
+  Default = 0,
+  InProgress = 1,
+  Completed = 2,
+  Paused = 3,
+}
+
 export interface CommonProps {
   images?: Array<string>;
   duration?: number | undefined;

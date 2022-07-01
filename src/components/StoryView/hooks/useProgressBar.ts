@@ -2,9 +2,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, Easing } from 'react-native';
 import { Colors } from '../../../theme';
 import type { ProgressBarProps } from '../types';
+import { ProgressState } from '../types';
 
 const useProgressBar = (props: ProgressBarProps) => {
-  const scale = useRef(new Animated.Value(0)).current;
+  const scaleRef = useRef(new Animated.Value(0));
+  const scale = scaleRef?.current;
   const [width, setWidth] = useState<number>(0);
   const { duration, active } = props;
   const [pauseTime, setPauseTime] = useState<number>(0);
@@ -26,7 +28,7 @@ const useProgressBar = (props: ProgressBarProps) => {
   const getDuration = useCallback(() => {
     const totalPlaytime = duration * 1000;
     if (props.pause) {
-      scale.stopAnimation(() => undefined);
+      scale.stopAnimation();
       return 0;
     }
     if (pauseTime === 0) {
@@ -38,9 +40,9 @@ const useProgressBar = (props: ProgressBarProps) => {
 
   useEffect(() => {
     switch (active) {
-      case 0:
+      case ProgressState.Default:
         return scale.setValue(0);
-      case 1:
+      case ProgressState.InProgress:
         if (props.isLoaded)
           return Animated.timing(scale, {
             toValue: width,
@@ -53,8 +55,12 @@ const useProgressBar = (props: ProgressBarProps) => {
         else {
           return scale.setValue(0);
         }
-      case 2:
+      case ProgressState.Completed:
         return scale.setValue(width);
+      case ProgressState.Paused:
+        return scale.setValue(
+          Number.parseInt(JSON.stringify(scaleRef.current), 10)
+        );
       default:
         return scale.setValue(0);
     }

@@ -20,138 +20,122 @@ exports[`ProgressView component Match Snapshot 1`] = `
 exports[`StoryContainer component Match Snapshot 1`] = `
 <RCTSafeAreaView
   emulateUnlessSupported={true}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
 >
   <View
     onLayout={[Function]}
     style={
-      Object {
-        "paddingBottom": 0,
-      }
+      Array [
+        Object {
+          "flex": 1,
+        },
+        Object {
+          "paddingBottom": 0,
+        },
+      ]
     }
   >
-    <View>
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
       <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "flexDirection": "row",
-            "height": "100%",
-            "width": "100%",
+            "opacity": 1,
           }
         }
       >
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "alignSelf": "center",
+              "height": "100%",
+              "paddingBottom": 4,
+              "width": 750,
             }
           }
         >
-          <View
+          <ActivityIndicator
+            animating={true}
+            color="#575899"
+            size="large"
             style={
               Object {
-                "alignSelf": "center",
-                "flexDirection": "row",
+                "flex": 1,
+                "left": "45%",
+                "position": "absolute",
+                "top": "50%",
               }
             }
-          >
-            <ActivityIndicator
-              animating={true}
-              color="#575899"
-              size="large"
-              style={
+          />
+          <Video
+            onError={[Function]}
+            onLoad={[Function]}
+            onLoadStart={[Function]}
+            paused={false}
+            resizeMode="contain"
+            source={
+              Object {
+                "uri": undefined,
+              }
+            }
+            style={
+              Array [
                 Object {
+                  "backgroundColor": "transparent",
+                  "borderRadius": 4,
                   "flex": 1,
-                  "left": "45%",
-                  "position": "absolute",
-                  "top": "50%",
-                }
-              }
-            />
-            <Video
-              onError={[Function]}
-              onLoad={[Function]}
-              onLoadStart={[Function]}
-              paused={false}
-              resizeMode="contain"
-              source={
-                Object {
-                  "uri": undefined,
-                }
-              }
-              style={
-                Array [
-                  Object {
-                    "backgroundColor": "transparent",
-                    "height": 1334,
-                    "width": 750,
-                  },
-                ]
-              }
-            />
-          </View>
+                  "overflow": "hidden",
+                },
+              ]
+            }
+          />
         </View>
-        <View
-          style={
+      </View>
+      <View
+        style={
+          Array [
             Object {
               "flex": 1,
               "flexDirection": "row",
               "position": "absolute",
               "width": "100%",
-            }
-          }
-        >
-          <View
-            collapsable={false}
-            style={
-              Object {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "height": 16.428571428571427,
-                "justifyContent": "space-between",
-                "position": "absolute",
-                "top": 16.428571428571427,
-                "width": "98%",
-              }
-            }
-          />
-        </View>
+            },
+            Object {
+              "opacity": 1,
+            },
+          ]
+        }
+      >
         <View
+          collapsable={false}
           style={
             Object {
-              "flexDirection": "column",
+              "alignItems": "center",
+              "flexDirection": "row",
+              "height": 16.428571428571427,
+              "justifyContent": "space-between",
               "position": "absolute",
-              "width": 750,
-              "zIndex": 99,
-            }
-          }
-        />
-        <View
-          style={
-            Object {
-              "bottom": 0,
-              "left": 0,
-              "position": "absolute",
-              "right": 0,
-              "zIndex": 99,
-            }
-          }
-        />
-        <View
-          style={
-            Object {
-              "flexDirection": "column",
-              "position": "absolute",
-              "width": 750,
+              "top": 16.428571428571427,
+              "width": "98%",
             }
           }
         />
@@ -166,7 +150,9 @@ exports[`StoryView component Match Snapshot 1`] = `
   style={
     Object {
       "alignSelf": "center",
-      "flexDirection": "row",
+      "height": "100%",
+      "paddingBottom": 4,
+      "width": 750,
     }
   }
 >
@@ -197,8 +183,9 @@ exports[`StoryView component Match Snapshot 1`] = `
       Array [
         Object {
           "backgroundColor": "transparent",
-          "height": 1334,
-          "width": 750,
+          "borderRadius": 4,
+          "flex": 1,
+          "overflow": "hidden",
         },
       ]
     }
@@ -209,18 +196,24 @@ exports[`StoryView component Match Snapshot 1`] = `
 exports[`StoryView should render Footer component Match Snapshot 1`] = `
 <RCTSafeAreaView
   emulateUnlessSupported={true}
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
 >
   <View
     onLayout={[Function]}
     style={
-      Object {
-        "paddingBottom": 0,
-      }
+      Array [
+        Object {
+          "flex": 1,
+        },
+        Object {
+          "paddingBottom": 0,
+        },
+      ]
     }
-  >
-    <View>
-      <View />
-    </View>
-  </View>
+  />
 </RCTSafeAreaView>
 `;

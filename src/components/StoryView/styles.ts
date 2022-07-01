@@ -14,12 +14,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   divStory: {
-    flexDirection: 'row',
     alignSelf: 'center',
+    height:'100%',
+    width: Metrics.screenWidth,
+    paddingBottom:4
   },
   imgStyle: {
     width: Metrics.screenWidth,
-    height: Metrics.screenHeight,
+    height:'100%',
     alignSelf: 'center',
     resizeMode: 'contain',
   },
@@ -35,9 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   parentView: {
-    width: '100%',
-    height: '100%',
-    flexDirection: 'row',
+    flex:1,
   },
   customView: {
     position: 'absolute',
@@ -51,11 +51,7 @@ const styles = StyleSheet.create({
     zIndex: 99,
   },
   bottomView: {
-    position: 'absolute',
-    bottom: 0,
-    zIndex: 99,
-    left: 0,
-    right: 0,
+    justifyContent:'flex-end',
   },
   mainView: {
     position: 'absolute',
@@ -70,8 +66,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   contentVideoView: {
-    height: Metrics.screenHeight,
-    width: Metrics.screenWidth,
+    flex:1,
+    borderRadius:4,
+    overflow:'hidden',
     backgroundColor: 'transparent',
   },
   progressBarArray: {

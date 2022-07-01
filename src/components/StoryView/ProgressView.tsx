@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
 import ProgressBar from './ProgressBar';
 import styles from './styles';
+import { ProgressState } from './types';
 import type { ProgressBarsProps } from './types';
 
 const ProgressView = (props: ProgressBarsProps) => {
@@ -23,6 +24,20 @@ const ProgressView = (props: ProgressBarsProps) => {
     }
   }, [opacity, props.pause]);
 
+  const getProgressState = useCallback(
+    (i: number) => {
+      if (props?.pause) {
+        return ProgressState.Paused;
+      } else if (i === props.currentIndex) {
+        return ProgressState.InProgress;
+      } else if (i < props.currentIndex) {
+        return ProgressState.Completed;
+      }
+      return ProgressState.Default;
+    },
+    [props?.pause, props.currentIndex]
+  );
+
   return (
     <Animated.View style={[styles.progressBarArray]}>
       {props.length.map((i: number, index) => (
@@ -34,7 +49,7 @@ const ProgressView = (props: ProgressBarsProps) => {
           currentIndex={props.currentIndex}
           next={props.next}
           length={props.stories.length}
-          active={i === props.currentIndex ? 1 : i < props.currentIndex ? 2 : 0}
+          active={getProgressState(i)}
           isLoaded={props.isLoaded}
           pause={props.pause}
         />

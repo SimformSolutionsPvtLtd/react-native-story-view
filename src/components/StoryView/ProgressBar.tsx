@@ -23,6 +23,11 @@ const ProgressBar = (props: ProgressBarProps) => {
   };
 
   useEffect(() => {
+    setPauseTime(0);
+    setStartTime(0);
+  }, [currentIndex, setStartTime, setPauseTime]);
+
+  useEffect(() => {
     if (index === currentIndex) {
       if (props.pause) {
         const endTime = Date.now();
