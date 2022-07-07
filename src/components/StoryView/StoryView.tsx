@@ -18,7 +18,7 @@ const StoryView = (props: StoryViewProps) => {
     <View style={styles.divStory}>
       {image?.type === StroyTypes.Image ? (
         <ProgressiveImage
-          viewStyle={props.imageStyle ? props.imageStyle : styles.imgStyle}
+          viewStyle={props?.imageStyle ?? styles.imgStyle}
           imgSource={{ uri: image.url ?? '' }}
           thumbnailSource={{ uri: image.url ?? '' }}
           onImageLoaded={props.onImageLoaded}

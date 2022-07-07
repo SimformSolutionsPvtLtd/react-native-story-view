@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, moderateScale, scale, verticalScale } from '../../theme';
+import { Colors, Metrics, moderateScale, scale, verticalScale } from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.black
   },
   scrollContainer: {
     alignItems: 'center',

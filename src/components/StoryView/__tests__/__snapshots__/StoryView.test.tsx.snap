@@ -22,6 +22,7 @@ exports[`StoryContainer component Match Snapshot 1`] = `
   emulateUnlessSupported={true}
   style={
     Object {
+      "backgroundColor": "#000000",
       "flex": 1,
     }
   }
@@ -31,6 +32,7 @@ exports[`StoryContainer component Match Snapshot 1`] = `
     style={
       Array [
         Object {
+          "backgroundColor": "#000000",
           "flex": 1,
         },
         Object {
@@ -198,6 +200,7 @@ exports[`StoryView should render Footer component Match Snapshot 1`] = `
   emulateUnlessSupported={true}
   style={
     Object {
+      "backgroundColor": "#000000",
       "flex": 1,
     }
   }
@@ -207,6 +210,7 @@ exports[`StoryView should render Footer component Match Snapshot 1`] = `
     style={
       Array [
         Object {
+          "backgroundColor": "#000000",
           "flex": 1,
         },
         Object {

@@ -12,18 +12,10 @@ const useProgressBar = (props: ProgressBarProps) => {
   const [pauseTime, setPauseTime] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
 
-  const barActiveColor =
-    props.barStyle && props.barStyle.barActiveColor
-      ? props.barStyle.barActiveColor
-      : Colors.activeColor;
-
+  const barActiveColor = props?.barStyle?.barActiveColor ?? Colors.activeColor;
   const barInActiveColor =
-    props.barStyle && props.barStyle.barInActiveColor
-      ? props.barStyle.barInActiveColor
-      : Colors.inActiveColor;
-
-  const barHeight =
-    props.barStyle && props.barStyle.barHeight ? props.barStyle.barHeight : 4;
+    props?.barStyle?.barInActiveColor ?? Colors.inActiveColor;
+  const barHeight = props?.barStyle?.barHeight ?? 2;
 
   const getDuration = useCallback(() => {
     const totalPlaytime = duration * 1000;

@@ -14,6 +14,7 @@ exports[`Footer Component Match Snapshot 1`] = `
     style={
       Object {
         "alignItems": "center",
+        "borderColor": "#ffffff",
         "borderRadius": 36,
         "borderWidth": 1,
         "flex": 1,
@@ -26,9 +27,13 @@ exports[`Footer Component Match Snapshot 1`] = `
   >
     <TextInput
       placeholder="Send Message"
+      placeholderTextColor="#ffffff"
       style={
         Object {
+          "color": "#ffffff",
           "flex": 1,
+          "fontSize": 15.6,
+          "height": 73.92857142857143,
           "paddingHorizontal": 24,
           "paddingVertical": 24.642857142857142,
         }
@@ -63,6 +68,7 @@ exports[`Footer Component Match Snapshot 1`] = `
         Object {
           "height": 36,
           "marginRight": 16,
+          "tintColor": "#ffffff",
           "width": 36,
         }
       }
@@ -85,6 +91,7 @@ exports[`Footer Icon Props Match Snapshot 1`] = `
     style={
       Object {
         "alignItems": "center",
+        "borderColor": "#ffffff",
         "borderRadius": 36,
         "borderWidth": 1,
         "flex": 1,
@@ -97,9 +104,13 @@ exports[`Footer Icon Props Match Snapshot 1`] = `
   >
     <TextInput
       placeholder="Send Message"
+      placeholderTextColor="#ffffff"
       style={
         Object {
+          "color": "#ffffff",
           "flex": 1,
+          "fontSize": 15.6,
+          "height": 73.92857142857143,
           "paddingHorizontal": 24,
           "paddingVertical": 24.642857142857142,
         }
@@ -123,6 +134,7 @@ exports[`Footer TextInput Match Snapshot 1`] = `
     style={
       Object {
         "alignItems": "center",
+        "borderColor": "#ffffff",
         "borderRadius": 36,
         "borderWidth": 1,
         "flex": 1,
@@ -135,9 +147,13 @@ exports[`Footer TextInput Match Snapshot 1`] = `
   >
     <TextInput
       placeholder="Send Message"
+      placeholderTextColor="#ffffff"
       style={
         Object {
+          "color": "#ffffff",
           "flex": 1,
+          "fontSize": 15.6,
+          "height": 73.92857142857143,
           "paddingHorizontal": 24,
           "paddingVertical": 24.642857142857142,
         }
@@ -172,6 +188,7 @@ exports[`Footer TextInput Match Snapshot 1`] = `
         Object {
           "height": 36,
           "marginRight": 16,
+          "tintColor": "#ffffff",
           "width": 36,
         }
       }
