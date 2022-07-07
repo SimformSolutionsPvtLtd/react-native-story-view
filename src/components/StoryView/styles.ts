@@ -1,10 +1,16 @@
 import { StyleSheet } from 'react-native';
-import { Colors, Metrics, moderateScale, scale, verticalScale } from '../../theme';
+import {
+  Colors,
+  Metrics,
+  moderateScale,
+  scale,
+  verticalScale,
+} from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.black
+    backgroundColor: Colors.black,
   },
   scrollContainer: {
     alignItems: 'center',
@@ -16,13 +22,13 @@ const styles = StyleSheet.create({
   },
   divStory: {
     alignSelf: 'center',
-    height:'100%',
+    height: '100%',
     width: Metrics.screenWidth,
-    paddingBottom:4
+    paddingBottom: 4,
   },
   imgStyle: {
     width: Metrics.screenWidth,
-    height:'100%',
+    height: '100%',
     alignSelf: 'center',
     resizeMode: 'contain',
   },
@@ -38,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   parentView: {
-    flex:1,
+    flex: 1,
   },
   customView: {
     position: 'absolute',
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
     zIndex: 99,
   },
   bottomView: {
-    justifyContent:'flex-end',
+    justifyContent: 'flex-end',
   },
   mainView: {
     position: 'absolute',
@@ -67,9 +73,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   contentVideoView: {
-    flex:1,
-    borderRadius:4,
-    overflow:'hidden',
+    flex: 1,
+    borderRadius: 4,
+    overflow: 'hidden',
     backgroundColor: 'transparent',
   },
   progressBarArray: {

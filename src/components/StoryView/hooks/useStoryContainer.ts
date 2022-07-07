@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { NativeTouchEvent } from 'react-native';
-import { Keyboard } from 'react-native';
+import { Keyboard, NativeTouchEvent } from 'react-native';
 import type { OnLoadData } from 'react-native-video';
 import { useKeyboardListener } from '../../../hooks';
 import { Metrics } from '../../../theme';
@@ -91,7 +90,8 @@ const useStoryContainer = (props: StoryContainerProps) => {
     onArrowClick,
     onStoryPressHold,
     onStoryPressRelease,
-    opacity: visibleElements ? 1 : 0
+    isKeyboardVisible,
+    opacity: visibleElements ? 1 : 0,
   };
 };
 

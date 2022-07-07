@@ -42,6 +42,7 @@ exports[`StoryContainer component Match Snapshot 1`] = `
     }
   >
     <View
+      onLayout={[Function]}
       style={
         Object {
           "flex": 1,

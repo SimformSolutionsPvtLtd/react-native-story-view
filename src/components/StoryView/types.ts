@@ -1,5 +1,10 @@
-import type { FunctionComponentElement } from 'react';
-import type { ImageSourcePropType, ImageStyle, ViewStyle } from 'react-native';
+import type { FunctionComponentElement, RefObject } from 'react';
+import type {
+  ImageSourcePropType,
+  ImageStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 import type { OnLoadData } from 'react-native-video';
 import type { FooterComponentProps } from '../Footer/types';
 
@@ -68,6 +73,7 @@ export interface StoryViewProps {
 
 export interface StoryViewProps extends CommonProps {
   progressIndex: number;
+  viewRef?: RefObject<View>;
 }
 
 export interface ProgressiveImageProps {

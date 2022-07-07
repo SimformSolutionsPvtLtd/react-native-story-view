@@ -15,7 +15,7 @@ const StoryView = (props: StoryViewProps) => {
   };
 
   return (
-    <View style={styles.divStory}>
+    <View style={styles.divStory} ref={props?.viewRef}>
       {image?.type === StroyTypes.Image ? (
         <ProgressiveImage
           viewStyle={props?.imageStyle ?? styles.imgStyle}

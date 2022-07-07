@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   KeyboardAvoidingView,
   SafeAreaView,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { Metrics } from '../../theme';
 import { useStoryContainer } from './hooks';
@@ -26,8 +26,11 @@ const StoryContainer = (props: StoryContainerProps) => {
     setDuration,
     onArrowClick,
     onStoryPressHold,
-    onStoryPressRelease
+    isKeyboardVisible,
+    onStoryPressRelease,
   } = useStoryContainer(props);
+
+  const viewRef = useRef<View>(null);
 
   useEffect(() => {
     setLoaded(false);
@@ -39,7 +42,13 @@ const StoryContainer = (props: StoryContainerProps) => {
   const storyViewContent = () => {
     return (
       <>
-        <View style={props.containerStyle ?? styles.parentView}>
+        <View
+          onLayout={({ nativeEvent }) => {
+            if (isKeyboardVisible) return;
+            const { height } = nativeEvent.layout;
+            viewRef?.current?.setNativeProps({ height });
+          }}
+          style={props.containerStyle ?? styles.parentView}>
           <TouchableOpacity
             activeOpacity={1}
             delayLongPress={200}
@@ -47,6 +56,7 @@ const StoryContainer = (props: StoryContainerProps) => {
             onLongPress={onStoryPressHold}
             onPressOut={onStoryPressRelease}>
             <StoryView
+              viewRef={viewRef}
               stories={props.stories}
               duration={duration}
               onVideoLoaded={onVideoLoaded}
@@ -96,7 +106,7 @@ const StoryContainer = (props: StoryContainerProps) => {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Metrics.isIOS ? 'padding' : 'height'}>
+        behavior={Metrics.isIOS ? 'padding' : undefined}>
         {props.visible && storyViewContent()}
       </KeyboardAvoidingView>
     </SafeAreaView>
