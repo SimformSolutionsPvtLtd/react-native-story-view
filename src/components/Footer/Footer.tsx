@@ -15,6 +15,7 @@ const Footer = ({
   iconProps,
   textProps,
   viewProps,
+  customInput,
   ...rest
 }: FooterProps) => {
   const isKeyboardVisible = useKeyboardListener();
@@ -22,12 +23,16 @@ const Footer = ({
   return (
     <View style={styles.container} {...viewProps}>
       <View style={styles.sectionStyle}>
-        <TextInput
-          style={styles.input}
-          placeholder={Strings.sendMessage}
-          placeholderTextColor={Colors.white}
-          {...rest}
-        />
+        <>
+          {customInput ?? (
+            <TextInput
+              style={styles.input}
+              placeholder={Strings.sendMessage}
+              placeholderTextColor={Colors.white}
+              {...rest}
+            />
+          )}
+        </>
         {isKeyboardVisible && shouldShowTextInputSend && (
           <TouchableOpacity onPress={onSendTextPress}>
             <Text style={styles.sendText} {...textProps}>

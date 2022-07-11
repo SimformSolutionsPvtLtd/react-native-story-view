@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Keyboard, NativeTouchEvent } from 'react-native';
+import { Keyboard, NativeTouchEvent, StyleSheet } from 'react-native';
 import type { OnLoadData } from 'react-native-video';
 import { useKeyboardListener } from '../../../hooks';
-import { Metrics } from '../../../theme';
+import { Colors, Metrics } from '../../../theme';
+import styles from '../styles';
 import { ClickPosition, StoryContainerProps } from '../types';
 
 const useStoryContainer = (props: StoryContainerProps) => {
-  const [progressIndex, setProgressIndex] = useState(0);
+  const [progressIndex, setProgressIndex] = useState(props?.progressIndex ?? 0);
   const [isLoaded, setLoaded] = useState(false);
   const [duration, setDuration] = useState(0);
   const [isPause, setPause] = useState(false);
@@ -57,6 +58,7 @@ const useStoryContainer = (props: StoryContainerProps) => {
   const onChange = (position: number) => {
     if (!isPause) {
       if (position < props.stories.length) {
+        props?.onChangePosition?.(position);
         setProgressIndex(position);
       } else {
         if (typeof props.onComplete === 'function') {
@@ -76,6 +78,14 @@ const useStoryContainer = (props: StoryContainerProps) => {
     setPause(false);
   };
 
+  const rootStyle = StyleSheet.flatten([styles.container, props?.style]);
+  const containerStyle = StyleSheet.flatten([
+    styles.container,
+    {
+      backgroundColor: props?.backgroundColor ?? Colors.black,
+    },
+  ]);
+
   return {
     isPause,
     progressIndex,
@@ -92,6 +102,8 @@ const useStoryContainer = (props: StoryContainerProps) => {
     onStoryPressRelease,
     isKeyboardVisible,
     opacity: visibleElements ? 1 : 0,
+    rootStyle,
+    containerStyle,
   };
 };
 

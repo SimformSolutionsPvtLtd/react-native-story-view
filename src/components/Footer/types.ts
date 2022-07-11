@@ -1,6 +1,7 @@
 import type React from 'react';
 import type {
   ImageProps,
+  TextInput,
   TextInputProps,
   TextProps,
   ViewProps,
@@ -14,6 +15,7 @@ export type FooterProps = TextInputProps & {
   textProps?: TextProps;
   viewProps?: ViewProps;
   shouldShowTextInputSend?: boolean;
+  customInput?: TextInput | null;
   shouldShowSendImage?: boolean;
   onIconPress?: () => void | null;
   onSendTextPress?: () => void | null;
