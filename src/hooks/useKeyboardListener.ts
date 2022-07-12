@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Keyboard } from 'react-native';
+import { Metrics } from '../theme';
 
 const useKeyboardListener = () => {
-  const [isKeyboardVisible, setKeyboardVisible] = useState<Boolean>(false);
+  const [isKeyboardVisible, setKeyboardVisible] = useState<boolean>(false);
 
   useEffect(() => {
     const keyboardWillShowListener = Keyboard.addListener(
-      'keyboardWillShow',
+      Metrics.isIOS ? 'keyboardWillShow' : 'keyboardDidShow',
       () => {
         setKeyboardVisible(true);
       }
     );
     const keyboardWillHideListener = Keyboard.addListener(
-      'keyboardWillHide',
+      Metrics.isIOS ? 'keyboardWillHide' : 'keyboardDidHide',
       () => {
         setKeyboardVisible(false);
       }

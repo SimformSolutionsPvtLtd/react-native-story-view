@@ -1,3 +1,3 @@
-import Strings from './Strings';
+import Strings from './strings';
 
 export { Strings };

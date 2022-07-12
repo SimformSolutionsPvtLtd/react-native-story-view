@@ -1,14 +1,22 @@
-import { useState } from 'react';
-import type { NativeTouchEvent } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Keyboard, NativeTouchEvent } from 'react-native';
 import type { OnLoadData } from 'react-native-video';
+import { useKeyboardListener } from '../../../hooks';
 import { Metrics } from '../../../theme';
 import { ClickPosition, StoryContainerProps } from '../types';
 
-const useAuth = (props: StoryContainerProps) => {
+const useStoryContainer = (props: StoryContainerProps) => {
   const [progressIndex, setProgressIndex] = useState(0);
   const [isLoaded, setLoaded] = useState(false);
   const [duration, setDuration] = useState(0);
   const [isPause, setPause] = useState(false);
+  const [visibleElements, setVisibleElements] = useState(true);
+
+  const isKeyboardVisible = useKeyboardListener();
+
+  useEffect(() => {
+    setPause(isKeyboardVisible);
+  }, [isKeyboardVisible]);
 
   const onImageLoaded = () => {
     setLoaded(true);
@@ -20,6 +28,10 @@ const useAuth = (props: StoryContainerProps) => {
   };
 
   const changeStory = (evt: NativeTouchEvent) => {
+    if (isKeyboardVisible) {
+      Keyboard.dismiss();
+      return;
+    }
     if (evt.locationX > Metrics.screenWidth / 2) {
       onArrowClick(ClickPosition.Right);
     } else {
@@ -54,6 +66,16 @@ const useAuth = (props: StoryContainerProps) => {
     }
   };
 
+  const onStoryPressHold = () => {
+    setVisibleElements(false);
+    setPause(true);
+  };
+
+  const onStoryPressRelease = () => {
+    setVisibleElements(true);
+    setPause(false);
+  };
+
   return {
     isPause,
     progressIndex,
@@ -66,7 +88,11 @@ const useAuth = (props: StoryContainerProps) => {
     onVideoLoaded,
     changeStory,
     onArrowClick,
+    onStoryPressHold,
+    onStoryPressRelease,
+    isKeyboardVisible,
+    opacity: visibleElements ? 1 : 0,
   };
 };
 
-export default useAuth;
+export default useStoryContainer;

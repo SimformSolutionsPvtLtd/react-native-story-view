@@ -3,6 +3,7 @@ import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Icons } from '../../assets';
 import { Strings } from '../../constants';
 import { useKeyboardListener } from '../../hooks';
+import { Colors } from '../../theme';
 import styles from './styles';
 import type { FooterProps } from './types';
 
@@ -24,6 +25,7 @@ const Footer = ({
         <TextInput
           style={styles.input}
           placeholder={Strings.sendMessage}
+          placeholderTextColor={Colors.white}
           {...rest}
         />
         {isKeyboardVisible && shouldShowTextInputSend && (

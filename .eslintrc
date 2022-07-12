@@ -11,12 +11,14 @@
         "useTabs": false
       }
     ],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
     "no-bitwise": 0,
     "prefer-const": "warn",
     "no-console": ["error", { "allow": ["warn", "error"] }]
   },
   "globals": {
-      "JSX": "readonly"
+    "JSX": "readonly"
   },
   "plugins": ["prettier"]
 }

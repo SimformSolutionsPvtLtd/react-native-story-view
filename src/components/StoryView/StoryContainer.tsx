@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   KeyboardAvoidingView,
   SafeAreaView,
@@ -18,14 +18,19 @@ const StoryContainer = (props: StoryContainerProps) => {
     isPause,
     isLoaded,
     duration,
-    setPause,
+    opacity,
     onImageLoaded,
     onVideoLoaded,
     changeStory,
     setLoaded,
     setDuration,
     onArrowClick,
+    onStoryPressHold,
+    isKeyboardVisible,
+    onStoryPressRelease,
   } = useStoryContainer(props);
+
+  const viewRef = useRef<View>(null);
 
   useEffect(() => {
     setLoaded(false);
@@ -36,55 +41,73 @@ const StoryContainer = (props: StoryContainerProps) => {
 
   const storyViewContent = () => {
     return (
-      <View
-        style={props.containerStyle ? props.containerStyle : styles.parentView}>
-        <TouchableOpacity
-          activeOpacity={1}
-          delayLongPress={500}
-          onPress={(e: { nativeEvent: any }) => changeStory(e.nativeEvent)}
-          onLongPress={() => setPause(true)}
-          onPressOut={() => setPause(false)}>
-          <StoryView
-            stories={props.stories}
-            duration={duration}
-            onVideoLoaded={onVideoLoaded}
-            onImageLoaded={onImageLoaded}
-            progressIndex={progressIndex}
-            imageStyle={props.imageStyle}
-            pause={isPause}
-          />
-        </TouchableOpacity>
-        {(props?.enableProgress || true) && (
-          <View style={styles.progressView}>
-            <ProgressView
-              next={() => onArrowClick(ClickPosition.Right)}
-              isLoaded={isLoaded}
-              duration={duration}
-              pause={!props.enableProgress && isPause}
+      <>
+        <View
+          onLayout={({ nativeEvent }) => {
+            if (isKeyboardVisible) return;
+            const { height } = nativeEvent.layout;
+            viewRef?.current?.setNativeProps({ height });
+          }}
+          style={props.containerStyle ?? styles.parentView}>
+          <TouchableOpacity
+            activeOpacity={1}
+            delayLongPress={200}
+            onPress={(e: { nativeEvent: any }) => changeStory(e.nativeEvent)}
+            onLongPress={onStoryPressHold}
+            onPressOut={onStoryPressRelease}>
+            <StoryView
+              viewRef={viewRef}
               stories={props.stories}
-              currentIndex={progressIndex}
-              barStyle={props.barStyle}
-              currentStory={props.stories[progressIndex]}
-              length={props.stories.map((_, i) => i)}
-              progress={{ id: progressIndex }}
+              duration={duration}
+              onVideoLoaded={onVideoLoaded}
+              onImageLoaded={onImageLoaded}
+              progressIndex={progressIndex}
+              imageStyle={props.imageStyle}
+              pause={isPause}
             />
+          </TouchableOpacity>
+          {(props?.enableProgress || true) && (
+            <View style={[styles.progressView, { opacity }]}>
+              <ProgressView
+                next={() => onArrowClick(ClickPosition.Right)}
+                isLoaded={isLoaded}
+                duration={duration}
+                pause={!props.enableProgress && isPause}
+                stories={props.stories}
+                currentIndex={progressIndex}
+                barStyle={props.barStyle}
+                currentStory={props.stories[progressIndex]}
+                length={props.stories.map((_, i) => i)}
+                progress={{ id: progressIndex }}
+              />
+            </View>
+          )}
+          {props?.headerComponent && (
+            <View style={[styles.topView, { opacity }]}>
+              {props.headerComponent}
+            </View>
+          )}
+          {props?.customView && (
+            <View style={[styles.customView, { opacity }]}>
+              {props.customView}
+            </View>
+          )}
+        </View>
+        {props?.footerComponent && (
+          <View style={[styles.bottomView, { opacity }]}>
+            {props.footerComponent}
           </View>
         )}
-        <View style={styles.topView}>
-          {props?.headerComponent && props.headerComponent}
-        </View>
-        <View style={styles.bottomView}>
-          {props?.footerComponent && props.footerComponent}
-        </View>
-        <View style={styles.customView}>{props.customView}</View>
-      </View>
+      </>
     );
   };
 
   return (
-    <SafeAreaView>
-      <KeyboardAvoidingView behavior={Metrics.isIOS ? 'padding' : 'height'}>
-        <View>{props.visible ? storyViewContent() : <View />}</View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Metrics.isIOS ? 'padding' : undefined}>
+        {props.visible && storyViewContent()}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
