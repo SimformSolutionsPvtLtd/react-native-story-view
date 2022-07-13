@@ -1,8 +1,11 @@
 import type { FunctionComponentElement, RefObject } from 'react';
 import type {
+  ImageProps,
   ImageSourcePropType,
   ImageStyle,
+  TextProps,
   View,
+  ViewProps,
   ViewStyle,
 } from 'react-native';
 import type { OnLoadData } from 'react-native-video';
@@ -49,6 +52,7 @@ export interface ProgressBarCommonProps {
   duration: number;
   currentIndex: number;
   barStyle?: BarStyleProps;
+  progressBarStyle?: ViewStyle | undefined;
 }
 
 export interface ProgressBarProps extends ProgressBarCommonProps {
@@ -98,15 +102,30 @@ export interface StoryContainerProps extends CommonProps {
   footerComponent?: FooterComponentProps;
   onComplete?: Function;
   customView?: FunctionComponentElement<CommonProps> | undefined;
+  backgroundColor?: string;
+  style?: ViewStyle;
+  progressIndex: number | undefined;
+  headerViewProps?: ViewProps;
+  customViewProps?: ViewProps;
+  footerViewProps?: ViewProps;
+  progressViewProps?: ViewProps;
+  storyContainerViewProps?: ViewProps;
+  onChangePosition?: (position: number) => void | undefined;
 }
 
 export interface UserProps {
+  containerStyle?: ViewStyle | undefined;
   userImage?: ImageSourcePropType | undefined;
   userName?: string | undefined;
   userMessage?: string | undefined;
   imageArrow?: ImageSourcePropType | undefined;
   onImageClick?: Function | undefined;
   onClosePress?: Function | undefined;
+  userImageProps?: ImageProps | undefined;
+  closeIconProps?: ImageProps | undefined;
+  userNameProps?: TextProps | undefined;
+  userMessageProps?: TextProps | undefined;
+  customCloseButton?: any;
 }
 
 export interface FooterViewProps {

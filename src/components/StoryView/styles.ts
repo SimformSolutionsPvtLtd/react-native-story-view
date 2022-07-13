@@ -10,7 +10,6 @@ import {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.black,
   },
   scrollContainer: {
     alignItems: 'center',
@@ -118,9 +117,10 @@ const styles = StyleSheet.create({
     marginLeft: scale(5),
   },
   closeIcon: {
-    width: moderateScale(25),
-    height: moderateScale(25),
+    width: moderateScale(14),
+    height: moderateScale(14),
     marginRight: scale(8),
+    tintColor: Colors.activeColor,
   },
   userView: {
     flexDirection: 'row',

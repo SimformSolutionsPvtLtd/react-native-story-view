@@ -39,7 +39,7 @@ const ProgressView = (props: ProgressBarsProps) => {
   );
 
   return (
-    <Animated.View style={[styles.progressBarArray]}>
+    <Animated.View style={[styles.progressBarArray, props?.progressBarStyle]}>
       {props.length.map((i: number, index) => (
         <ProgressBar
           index={index}

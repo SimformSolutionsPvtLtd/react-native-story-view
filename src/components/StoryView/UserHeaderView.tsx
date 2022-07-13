@@ -1,31 +1,55 @@
 import React, { memo } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icons } from '../../assets';
 import styles from './styles';
 import type { UserProps } from './types';
 
-export default memo(function UserHeaderView(props: UserProps) {
+export default memo(function UserHeaderView({
+  userImage,
+  userName,
+  userMessage,
+  customCloseButton,
+  onImageClick,
+  onClosePress,
+  containerStyle,
+  userMessageProps,
+  userNameProps,
+  userImageProps,
+  closeIconProps,
+  ...rest
+}: UserProps) {
+  const _containerStyle = StyleSheet.flatten([
+    styles.userContainer,
+    containerStyle,
+  ]);
   return (
-    <View style={styles.userView}>
-      {props?.userImage && (
-        <TouchableOpacity
-          onPress={() => props?.onImageClick && props?.onImageClick()}>
-          <Image source={props?.userImage} style={styles.image} />
+    <View style={styles.userView} {...rest}>
+      {!!userImage && (
+        <TouchableOpacity onPress={() => onImageClick?.()}>
+          <Image source={userImage} style={styles.image} {...userImageProps} />
         </TouchableOpacity>
       )}
-      <View style={styles.userContainer}>
+      <View style={_containerStyle}>
         <View style={styles.barUsername}>
-          <Text style={styles.name}>{props?.userName}</Text>
-          <Image source={Icons.verifyIcon} style={styles.verifyIcon} />
+          <Text style={styles.name} {...userNameProps}>
+            {userName}
+          </Text>
         </View>
-        {!!props?.userMessage && (
-          <Text style={styles.time}>{props?.userMessage}</Text>
+        {!!userMessage && (
+          <Text style={styles.time} {...userMessageProps}>
+            {userMessage}
+          </Text>
         )}
       </View>
-      <TouchableOpacity
-        onPress={() => props?.onClosePress && props?.onClosePress()}>
-        <Image source={Icons.closeIcon} style={styles.closeIcon} />
-      </TouchableOpacity>
+      {customCloseButton ?? (
+        <TouchableOpacity onPress={() => onClosePress?.()}>
+          <Image
+            source={Icons.closeIcon}
+            style={styles.closeIcon}
+            {...closeIconProps}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 });

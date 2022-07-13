@@ -12,7 +12,18 @@ import StoryView from './StoryView';
 import styles from './styles';
 import { ClickPosition, StoryContainerProps } from './types';
 
-const StoryContainer = (props: StoryContainerProps) => {
+const StoryContainer = ({
+  headerComponent,
+  customView,
+  footerComponent,
+  enableProgress = true,
+  headerViewProps,
+  customViewProps,
+  footerViewProps,
+  progressViewProps,
+  storyContainerViewProps,
+  ...props
+}: StoryContainerProps) => {
   const {
     progressIndex,
     isPause,
@@ -28,6 +39,8 @@ const StoryContainer = (props: StoryContainerProps) => {
     onStoryPressHold,
     isKeyboardVisible,
     onStoryPressRelease,
+    rootStyle,
+    containerStyle,
   } = useStoryContainer(props);
 
   const viewRef = useRef<View>(null);
@@ -48,7 +61,8 @@ const StoryContainer = (props: StoryContainerProps) => {
             const { height } = nativeEvent.layout;
             viewRef?.current?.setNativeProps({ height });
           }}
-          style={props.containerStyle ?? styles.parentView}>
+          style={props.containerStyle ?? styles.parentView}
+          {...storyContainerViewProps}>
           <TouchableOpacity
             activeOpacity={1}
             delayLongPress={200}
@@ -66,13 +80,15 @@ const StoryContainer = (props: StoryContainerProps) => {
               pause={isPause}
             />
           </TouchableOpacity>
-          {(props?.enableProgress || true) && (
-            <View style={[styles.progressView, { opacity }]}>
+          {enableProgress && (
+            <View
+              style={[styles.progressView, { opacity }]}
+              {...progressViewProps}>
               <ProgressView
                 next={() => onArrowClick(ClickPosition.Right)}
                 isLoaded={isLoaded}
                 duration={duration}
-                pause={!props.enableProgress && isPause}
+                pause={!enableProgress && isPause}
                 stories={props.stories}
                 currentIndex={progressIndex}
                 barStyle={props.barStyle}
@@ -82,20 +98,20 @@ const StoryContainer = (props: StoryContainerProps) => {
               />
             </View>
           )}
-          {props?.headerComponent && (
-            <View style={[styles.topView, { opacity }]}>
-              {props.headerComponent}
+          {headerComponent && (
+            <View style={[styles.topView, { opacity }]} {...headerViewProps}>
+              {headerComponent}
             </View>
           )}
-          {props?.customView && (
-            <View style={[styles.customView, { opacity }]}>
-              {props.customView}
+          {customView && (
+            <View style={[styles.customView, { opacity }]} {...customViewProps}>
+              {customView}
             </View>
           )}
         </View>
-        {props?.footerComponent && (
-          <View style={[styles.bottomView, { opacity }]}>
-            {props.footerComponent}
+        {footerComponent && (
+          <View style={[styles.bottomView, { opacity }]} {...footerViewProps}>
+            {footerComponent}
           </View>
         )}
       </>
@@ -103,9 +119,9 @@ const StoryContainer = (props: StoryContainerProps) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={rootStyle}>
       <KeyboardAvoidingView
-        style={styles.container}
+        style={containerStyle}
         behavior={Metrics.isIOS ? 'padding' : undefined}>
         {props.visible && storyViewContent()}
       </KeyboardAvoidingView>
