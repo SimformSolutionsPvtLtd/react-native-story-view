@@ -78,7 +78,7 @@ exports[`StoryContainer component Match Snapshot 1`] = `
           <ActivityIndicator
             animating={true}
             color="#575899"
-            size="large"
+            size="small"
             style={
               Object {
                 "flex": 1,
@@ -100,14 +100,12 @@ exports[`StoryContainer component Match Snapshot 1`] = `
               }
             }
             style={
-              Array [
-                Object {
-                  "backgroundColor": "transparent",
-                  "borderRadius": 4,
-                  "flex": 1,
-                  "overflow": "hidden",
-                },
-              ]
+              Object {
+                "backgroundColor": "transparent",
+                "borderRadius": 4,
+                "flex": 1,
+                "overflow": "hidden",
+              }
             }
           />
         </View>
@@ -158,19 +156,6 @@ exports[`StoryView component Match Snapshot 1`] = `
     }
   }
 >
-  <ActivityIndicator
-    animating={true}
-    color="#575899"
-    size="large"
-    style={
-      Object {
-        "flex": 1,
-        "left": "45%",
-        "position": "absolute",
-        "top": "50%",
-      }
-    }
-  />
   <Video
     onError={[Function]}
     onLoad={[Function]}
@@ -182,14 +167,12 @@ exports[`StoryView component Match Snapshot 1`] = `
       }
     }
     style={
-      Array [
-        Object {
-          "backgroundColor": "transparent",
-          "borderRadius": 4,
-          "flex": 1,
-          "overflow": "hidden",
-        },
-      ]
+      Object {
+        "backgroundColor": "transparent",
+        "borderRadius": 4,
+        "flex": 1,
+        "overflow": "hidden",
+      }
     }
   />
 </View>

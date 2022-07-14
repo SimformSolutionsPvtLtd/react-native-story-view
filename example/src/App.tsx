@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Footer, StoryContainer, UserHeaderView } from 'react-native-story-view';
 import { stories } from './constants';
+import { Colors } from './theme';
 import { getDateWithNow } from './utils/commonHelper';
 
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       {!isStoryViewShow && <View style={styles.mainContainer}>
         <Pressable onPress={openStories}>
           <Text style={styles.storyText}>
@@ -56,7 +57,7 @@ const App = () => {
           onComplete={() => setIsStoryViewShow(false)}
         />
       }
-    </>
+    </View>
   );
 };
 
@@ -66,9 +67,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  container:{
+    flex:1
+  },
   storyText: {
-    color: 'white'
-  }
+    color: Colors.red
+    }
 });
 
 export default App;

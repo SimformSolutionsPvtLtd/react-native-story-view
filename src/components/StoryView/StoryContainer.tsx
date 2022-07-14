@@ -71,13 +71,16 @@ const StoryContainer = ({
             onPressOut={onStoryPressRelease}>
             <StoryView
               viewRef={viewRef}
-              stories={props.stories}
               duration={duration}
               onVideoLoaded={onVideoLoaded}
               onImageLoaded={onImageLoaded}
               progressIndex={progressIndex}
-              imageStyle={props.imageStyle}
               pause={isPause}
+              stories={props.stories}
+              imageStyle={props.imageStyle}
+              videoProps={props?.videoProps}
+              sourceIndicatorProps={props?.sourceIndicatorProps}
+              showSourceIndicator={props?.showSourceIndicator ?? true}
             />
           </TouchableOpacity>
           {enableProgress && (
@@ -88,7 +91,7 @@ const StoryContainer = ({
                 next={() => onArrowClick(ClickPosition.Right)}
                 isLoaded={isLoaded}
                 duration={duration}
-                pause={!enableProgress && isPause}
+                pause={enableProgress && isPause}
                 stories={props.stories}
                 currentIndex={progressIndex}
                 barStyle={props.barStyle}

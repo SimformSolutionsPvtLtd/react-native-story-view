@@ -1,5 +1,6 @@
 import type { FunctionComponentElement, RefObject } from 'react';
 import type {
+  ActivityIndicatorProps,
   ImageProps,
   ImageSourcePropType,
   ImageStyle,
@@ -8,7 +9,7 @@ import type {
   ViewProps,
   ViewStyle,
 } from 'react-native';
-import type { OnLoadData } from 'react-native-video';
+import type { OnLoadData, VideoProperties } from 'react-native-video';
 import type { FooterComponentProps } from '../Footer/types';
 
 export enum StroyTypes {
@@ -73,6 +74,9 @@ export interface StoryViewProps {
   onVideoLoaded?: (arg0: OnLoadData) => void;
   onImageLoaded?: () => void;
   stories: StoryType[];
+  showSourceIndicator?: boolean;
+  sourceIndicatorProps?: ActivityIndicatorProps;
+  videoProps?: VideoProperties;
 }
 
 export interface StoryViewProps extends CommonProps {
@@ -104,12 +108,15 @@ export interface StoryContainerProps extends CommonProps {
   customView?: FunctionComponentElement<CommonProps> | undefined;
   backgroundColor?: string;
   style?: ViewStyle;
-  progressIndex: number | undefined;
+  progressIndex?: number | undefined;
   headerViewProps?: ViewProps;
   customViewProps?: ViewProps;
   footerViewProps?: ViewProps;
   progressViewProps?: ViewProps;
   storyContainerViewProps?: ViewProps;
+  showSourceIndicator?: boolean;
+  sourceIndicatorProps?: ActivityIndicatorProps;
+  videoProps?: VideoProperties;
   onChangePosition?: (position: number) => void | undefined;
 }
 

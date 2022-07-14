@@ -1,5 +1,11 @@
-import { useEffect, useState } from 'react';
-import { Keyboard, NativeTouchEvent, StyleSheet } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import {
+  AppState,
+  AppStateStatus,
+  Keyboard,
+  NativeTouchEvent,
+  StyleSheet,
+} from 'react-native';
 import type { OnLoadData } from 'react-native-video';
 import { useKeyboardListener } from '../../../hooks';
 import { Colors, Metrics } from '../../../theme';
@@ -12,6 +18,7 @@ const useStoryContainer = (props: StoryContainerProps) => {
   const [duration, setDuration] = useState(0);
   const [isPause, setPause] = useState(false);
   const [visibleElements, setVisibleElements] = useState(true);
+  const appState = useRef(AppState.currentState);
 
   const isKeyboardVisible = useKeyboardListener();
 
@@ -22,6 +29,22 @@ const useStoryContainer = (props: StoryContainerProps) => {
   const onImageLoaded = () => {
     setLoaded(true);
   };
+
+  const handleAppStateChange = (nextAppState: AppStateStatus) => {
+    const isBackgroundState =
+      appState.current.match(/inactive|background/) &&
+      nextAppState === 'active';
+    setPause(!isBackgroundState ?? false);
+    appState.current = nextAppState;
+  };
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange
+    );
+    return () => subscription.remove();
+  }, []);
 
   const onVideoLoaded = (length: OnLoadData) => {
     setLoaded(true);
