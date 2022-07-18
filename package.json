@@ -26,7 +26,8 @@
     "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' -c .eslintrc --fix ",
     "build_local": "yarn build && yarn pack",
     "test": "jest",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "example": "yarn --cwd example"
   },
   "peerDependencies": {
     "react": "*",
