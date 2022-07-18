@@ -7,7 +7,7 @@ const ProgressiveImage = (props: ProgressiveImageProps) => {
   const thumbnailAnimated = new Animated.Value(0.2);
   const { thumbnailSource, imgSource, viewStyle, ...reset } = props;
 
-  const imageAnimated = new Animated.Value(0);
+  const imageAnimated = new Animated.Value(1);
 
   const handleThumbnailLoad = () => {
     Animated.timing(thumbnailAnimated, {
@@ -28,14 +28,13 @@ const ProgressiveImage = (props: ProgressiveImageProps) => {
       <Animated.Image
         {...reset}
         source={thumbnailSource}
-        style={[viewStyle, { opacity: thumbnailAnimated }]}
+        style={[styles.imageOverlay, viewStyle, { opacity: thumbnailAnimated }]}
         onLoad={handleThumbnailLoad}
-        blurRadius={2}
       />
       <Animated.Image
         {...reset}
         source={imgSource}
-        style={[styles.imageOverlay, { opacity: imageAnimated }, viewStyle]}
+        style={[{ opacity: imageAnimated }, viewStyle]}
         onLoad={onImageLoad}
         onLoadEnd={() => props.onImageLoaded && props.onImageLoaded()}
       />

@@ -11,9 +11,8 @@ const StoryView = (props: StoryViewProps) => {
   const image = props?.stories?.[props?.progressIndex];
 
   const onLoadStart = () => {
-    setLoading(false);
+    setLoading(true);
   };
-
   return (
     <View style={styles.divStory} ref={props?.viewRef}>
       {image?.type === StroyTypes.Image ? (
@@ -25,12 +24,13 @@ const StoryView = (props: StoryViewProps) => {
         />
       ) : (
         <>
-          {loading && (
+          {loading && props?.showSourceIndicator && (
             <ActivityIndicator
               animating
               color={Colors.loaderColor}
-              size="large"
+              size="small"
               style={styles.loaderView}
+              {...props?.sourceIndicatorProps}
             />
           )}
           <Video
@@ -38,13 +38,15 @@ const StoryView = (props: StoryViewProps) => {
             paused={props.pause}
             source={{ uri: image?.url }}
             onError={(_error: any) => {
-              setLoading(true);
+              setLoading(false);
             }}
             onLoadStart={onLoadStart}
             onLoad={(item: OnLoadData) => {
+              setLoading(false);
               props.onVideoLoaded && props.onVideoLoaded(item);
             }}
-            style={[styles.contentVideoView]}
+            style={styles.contentVideoView}
+            {...props?.videoProps}
           />
         </>
       )}
