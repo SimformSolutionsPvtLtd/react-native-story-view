@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, StyleSheet, View, LogBox, Image} from 'react-native';
 import { Footer, StoryContainer, UserHeaderView } from 'react-native-story-view';
 import { stories } from './constants';
 import { Colors } from './theme';
 import { getDateWithNow } from './utils/commonHelper';
+
+LogBox.ignoreLogs([
+  'ViewPropTypes will be removed from React Native. Migrate to ViewPropTypes exported from \'deprecated-react-native-prop-types\'.',
+])
 
 const App = () => {
   const [isStoryViewShow, setIsStoryViewShow] = useState<boolean>(false);
@@ -26,9 +30,11 @@ const App = () => {
     <View style={styles.container}>
       {!isStoryViewShow && <View style={styles.mainContainer}>
         <Pressable onPress={openStories}>
-          <Text style={styles.storyText}>
-            Open Stories
-          </Text>
+          <View style={styles.imageContainer}>
+            <Image 
+            style={styles.image}
+            source={{uri:stories[1].profile}}/>
+          </View>
         </Pressable>
       </View>
       }
@@ -67,12 +73,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  container:{
-    flex:1
+  container: {
+    flex: 1
   },
-  storyText: {
-    color: Colors.red
-    }
+  image: {
+    height: 70,
+    width: 70,
+    borderRadius: 25
+  },
+  imageContainer: {
+    padding: 1,
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: Colors.red
+  }
 });
 
 export default App;

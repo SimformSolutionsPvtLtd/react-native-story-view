@@ -1,17 +1,25 @@
 const stories = [
   {
     id: 1,
-    username: 'Patel',
+    username: 'John',
     title: 'New Story',
-    profile: '',
+    profile: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png',
     stories: [
       {
         id: 1,
-        url: 'http://files.simformsolutions.com.s3.amazonaws.com/simformscreen/AddAddressInputs.tsx__GavelApp_2022-05-31_20-36-14.png',
+        url: 'https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
         type: 'image',
         duration: 2,
         isReadMore: true,
         storyId: 1,
+      },
+      {
+        id: 2,
+        url: 'https://images.pexels.com/photos/3225517/pexels-photo-3225517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+        type: 'image',
+        duration: 2,
+        isReadMore: true,
+        storyId: 2
       },
     ],
   },
@@ -19,8 +27,8 @@ const stories = [
     id: 2,
     username: 'Viraj',
     profile:
-      "https://i.postimg.cc/G2wsmMPg/IMG20190211143503.jpg",
-    title: "2021-01-07T03:24:00",
+      "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_960_720.png",
+    title: "2022-07-19T03:24:00",
     stories: [
       {
         id: 0,
