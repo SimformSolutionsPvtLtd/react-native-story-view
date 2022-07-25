@@ -91,6 +91,8 @@ const StoryContainer = ({
                 next={() => onArrowClick(ClickPosition.Right)}
                 isLoaded={isLoaded}
                 duration={duration}
+                storyIndex={props?.storyIndex ?? 0}
+                index={props?.index ?? 0}
                 pause={enableProgress && isPause}
                 stories={props.stories}
                 currentIndex={progressIndex}
@@ -125,7 +127,8 @@ const StoryContainer = ({
     <SafeAreaView style={rootStyle}>
       <KeyboardAvoidingView
         style={containerStyle}
-        behavior={Metrics.isIOS ? 'padding' : undefined}>
+        keyboardVerticalOffset={50}
+        behavior={'padding'}>
         {props.visible && storyViewContent()}
       </KeyboardAvoidingView>
     </SafeAreaView>

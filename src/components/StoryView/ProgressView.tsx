@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { Animated } from 'react-native';
 import ProgressBar from './ProgressBar';
 import styles from './styles';
@@ -6,24 +6,6 @@ import { ProgressState } from './types';
 import type { ProgressBarsProps } from './types';
 
 const ProgressView = (props: ProgressBarsProps) => {
-  const opacity = useRef(new Animated.Value(1)).current;
-
-  useEffect(() => {
-    if (props.pause) {
-      Animated.timing(opacity, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(opacity, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [opacity, props.pause]);
-
   const getProgressState = useCallback(
     (i: number) => {
       if (props?.pause) {
@@ -44,6 +26,7 @@ const ProgressView = (props: ProgressBarsProps) => {
         <ProgressBar
           index={index}
           key={i}
+          storyIndex={props?.storyIndex}
           barStyle={props.barStyle}
           duration={props.duration || 3}
           currentIndex={props.currentIndex}

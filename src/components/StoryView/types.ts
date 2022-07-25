@@ -60,6 +60,7 @@ export interface ProgressBarProps extends ProgressBarCommonProps {
   active: number;
   index: number;
   length: number;
+  storyIndex: number;
 }
 
 export interface ProgressBarsProps extends ProgressBarCommonProps {
@@ -67,6 +68,8 @@ export interface ProgressBarsProps extends ProgressBarCommonProps {
   currentStory: Object;
   length: Array<number>;
   progress: Object;
+  storyIndex: number;
+  index?: number;
 }
 
 export interface StoryViewProps {
@@ -99,6 +102,8 @@ export interface ProgressiveImageProps {
 export interface StoryContainerProps extends CommonProps {
   stories: StoryType[];
   visible?: boolean | undefined;
+  index?: number | undefined;
+  storyIndex?: number | undefined;
   isShowReply?: boolean | undefined;
   headerComponent?: FunctionComponentElement<CommonProps> | undefined;
   userProfile?: UserProps | undefined;
@@ -117,7 +122,12 @@ export interface StoryContainerProps extends CommonProps {
   showSourceIndicator?: boolean;
   sourceIndicatorProps?: ActivityIndicatorProps;
   videoProps?: VideoProperties;
-  onChangePosition?: (position: number) => void | undefined;
+  onChangePosition?: (
+    storyIndex: number,
+    userIndex?: number
+  ) => void | undefined;
+  previousStory?: () => void | undefined;
+  nextStory?: () => void;
 }
 
 export interface UserProps {
@@ -144,6 +154,7 @@ export interface FooterViewProps {
 export type StoryType = {
   id?: number;
   url?: string;
+  thumbnail?: string;
   type?: string | 'image' | 'video' | 'text';
   duration?: number;
   isReadMore?: boolean;
@@ -159,5 +170,5 @@ export type StoriesType = {
   profile?: string;
   title?: string;
   id?: number;
-  stories?: StoryType[];
+  stories: StoryType[];
 };
