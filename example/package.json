@@ -7,9 +7,11 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "postinstall": "patch-package --patch-dir '../patches'"
   },
   "dependencies": {
+    "patch-package": "^6.4.7",
     "react": "17.0.2",
     "react-native": "0.68.2",
     "react-native-reanimated": "^2.9.1",
