@@ -25,7 +25,7 @@ const ProgressBar = (props: ProgressBarProps) => {
   useEffect(() => {
     setPauseTime(0);
     setStartTime(0);
-  }, [currentIndex, setStartTime, setPauseTime]);
+  }, [currentIndex, setStartTime, setPauseTime, props?.storyIndex]);
 
   useEffect(() => {
     if (index === currentIndex) {

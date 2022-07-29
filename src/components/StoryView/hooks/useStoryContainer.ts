@@ -30,6 +30,11 @@ const useStoryContainer = (props: StoryContainerProps) => {
     setLoaded(true);
   };
 
+  useEffect(() => {
+    const isStoryNotFocused = props?.index !== props?.storyIndex;
+    setPause(isStoryNotFocused);
+  }, [props?.storyIndex, props?.index]);
+
   const handleAppStateChange = (nextAppState: AppStateStatus) => {
     const isBackgroundState =
       appState.current.match(/inactive|background/) &&
@@ -66,7 +71,7 @@ const useStoryContainer = (props: StoryContainerProps) => {
   const onArrowClick = (type: string) => {
     switch (type) {
       case ClickPosition.Left:
-        onChange(progressIndex === 0 ? progressIndex : progressIndex - 1);
+        onChange(progressIndex - 1);
         break;
       case ClickPosition.Right:
         onChange(
@@ -79,15 +84,17 @@ const useStoryContainer = (props: StoryContainerProps) => {
   };
 
   const onChange = (position: number) => {
-    if (!isPause) {
-      if (position < props.stories.length) {
-        props?.onChangePosition?.(position);
-        setProgressIndex(position);
-      } else {
-        if (typeof props.onComplete === 'function') {
-          props?.onComplete();
-        }
-      }
+    if (isPause) return;
+
+    if (position >= props.stories.length) {
+      props?.nextStory?.();
+    } else if (position < 0) {
+      props?.previousStory?.();
+    } else if (position < props.stories.length) {
+      props?.onChangePosition?.(position, props?.storyIndex);
+      setProgressIndex(position);
+    } else {
+      props?.onComplete?.();
     }
   };
 

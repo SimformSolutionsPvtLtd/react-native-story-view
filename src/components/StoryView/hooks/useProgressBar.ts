@@ -4,13 +4,26 @@ import { Colors } from '../../../theme';
 import type { ProgressBarProps } from '../types';
 import { ProgressState } from '../types';
 
-const useProgressBar = (props: ProgressBarProps) => {
+const useProgressBar = ({
+  active,
+  index,
+  storyIndex,
+  currentIndex,
+  duration,
+  ...props
+}: ProgressBarProps) => {
   const scaleRef = useRef(new Animated.Value(0));
   const scale = scaleRef?.current;
   const [width, setWidth] = useState<number>(0);
-  const { duration, active } = props;
   const [pauseTime, setPauseTime] = useState<number>(0);
   const [startTime, setStartTime] = useState<number>(0);
+
+  // Restart ProgressBar when story changes
+  useEffect(() => {
+    if (index === currentIndex) {
+      scale.setValue(0);
+    }
+  }, [storyIndex, currentIndex, index, scale]);
 
   const barActiveColor = props?.barStyle?.barActiveColor ?? Colors.activeColor;
   const barInActiveColor =
@@ -56,7 +69,7 @@ const useProgressBar = (props: ProgressBarProps) => {
       default:
         return scale.setValue(0);
     }
-  }, [active, getDuration, props, scale, width]);
+  }, [storyIndex, active, getDuration, props, scale, width]);
 
   return {
     barActiveColor,
