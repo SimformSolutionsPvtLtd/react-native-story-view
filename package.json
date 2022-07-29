@@ -17,22 +17,24 @@
   "license": "MIT",
   "files": [
     "/lib",
-    "README.md"
+    "README.md",
+    "/patches"
   ],
   "scripts": {
+    "prepare": "husky install",
     "clean": "rm -rf node_modules",
     "build": "rm -rf lib && tsc -p . && cp -R ./src/assets ./lib/ ",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' -c .eslintrc --fix ",
     "build_local": "yarn build && yarn pack",
     "test": "jest",
-    "postinstall": "husky install",
+    "postinstall": "patch-package",
     "example": "yarn --cwd example"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-reanimated": "*",
+    "react-native-reanimated": ">=2.9.1",
     "react-native-video": "*"
   },
   "devDependencies": {
@@ -53,6 +55,8 @@
     "jest": "^27.4.7",
     "lint-staged": "^11.1.2",
     "metro-react-native-babel-preset": "^0.67.0",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.7.1",
     "react": "17.0.2",
     "react-native": "0.68.2",
