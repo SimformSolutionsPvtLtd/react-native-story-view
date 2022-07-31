@@ -1,10 +1,11 @@
 import type { ViewToken } from 'react-native';
-import type { StoriesType } from '../StoryView/types';
+import type { StoriesType, StoryContainerProps } from '../StoryView/types';
 
-export interface MultiStoryContainerProps {
+export interface MultiStoryContainerProps
+  extends Omit<StoryContainerProps, 'stories'> {
   stories: StoriesType[];
   onComplete?: () => void;
-  storyIndex?: number;
+  userStoryIndex?: number;
   visible?: boolean;
   onChangePosition?: (
     storyIndex: number,
@@ -12,7 +13,8 @@ export interface MultiStoryContainerProps {
   ) => void | undefined;
 }
 
-export interface MultiStoryListItemProps {
+export interface MultiStoryListItemProps
+  extends Omit<StoryContainerProps, 'stories'> {
   item: StoriesType;
   index: number;
   storyIndex: number;

@@ -1,4 +1,4 @@
-import type { FunctionComponentElement, RefObject } from 'react';
+import type { RefObject } from 'react';
 import type {
   ActivityIndicatorProps,
   ImageProps,
@@ -10,7 +10,6 @@ import type {
   ViewStyle,
 } from 'react-native';
 import type { OnLoadData, VideoProperties } from 'react-native-video';
-import type { FooterComponentProps } from '../Footer/types';
 
 export enum StroyTypes {
   Image = 'image',
@@ -61,6 +60,7 @@ export interface ProgressBarProps extends ProgressBarCommonProps {
   index: number;
   length: number;
   storyIndex: number;
+  currentUserIndex?: number;
 }
 
 export interface ProgressBarsProps extends ProgressBarCommonProps {
@@ -101,16 +101,30 @@ export interface ProgressiveImageProps {
 
 export interface StoryContainerProps extends CommonProps {
   stories: StoryType[];
+  userStories?: StoriesType;
   visible?: boolean | undefined;
   index?: number | undefined;
+  userStoryIndex?: number | undefined;
   storyIndex?: number | undefined;
   isShowReply?: boolean | undefined;
-  headerComponent?: FunctionComponentElement<CommonProps> | undefined;
+  renderHeaderComponent?: (
+    userStories?: StoriesType,
+    progressIndex?: number,
+    userStoryIndex?: number
+  ) => {} | undefined;
+  renderFooterComponent?: (
+    userStories?: StoriesType,
+    progressIndex?: number,
+    userStoryIndex?: number
+  ) => {} | undefined;
   userProfile?: UserProps | undefined;
   footerView?: FooterViewProps | undefined;
-  footerComponent?: FooterComponentProps;
-  onComplete?: Function;
-  customView?: FunctionComponentElement<CommonProps> | undefined;
+  onComplete?: () => void;
+  renderCustomView?: (
+    userStories?: StoriesType,
+    progressIndex?: number,
+    userStoryIndex?: number
+  ) => {} | undefined;
   backgroundColor?: string;
   style?: ViewStyle;
   progressIndex?: number | undefined;
@@ -123,8 +137,8 @@ export interface StoryContainerProps extends CommonProps {
   sourceIndicatorProps?: ActivityIndicatorProps;
   videoProps?: VideoProperties;
   onChangePosition?: (
-    storyIndex: number,
-    userIndex?: number
+    progressIndex: number,
+    userStoryIndex?: number
   ) => void | undefined;
   previousStory?: () => void | undefined;
   nextStory?: () => void;

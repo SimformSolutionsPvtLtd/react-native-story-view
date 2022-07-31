@@ -15,15 +15,21 @@ const useProgressBar = ({
   const scaleRef = useRef(new Animated.Value(0));
   const scale = scaleRef?.current;
   const [width, setWidth] = useState<number>(0);
-  const [pauseTime, setPauseTime] = useState<number>(0);
-  const [startTime, setStartTime] = useState<number>(0);
+  const [remainingTime, setRemainingTime] = useState<number>(duration);
 
   // Restart ProgressBar when story changes
   useEffect(() => {
     if (index === currentIndex) {
       scale.setValue(0);
+      setRemainingTime(duration);
     }
-  }, [storyIndex, currentIndex, index, scale]);
+  }, [storyIndex, currentIndex, index, scale, duration, setRemainingTime]);
+
+  useEffect(() => {
+    const progressBarWidth =
+      Number.parseInt(JSON.stringify(scaleRef.current), 10) ?? 0;
+    setRemainingTime(duration - (progressBarWidth * duration) / width);
+  }, [props?.pause, width, duration]);
 
   const barActiveColor = props?.barStyle?.barActiveColor ?? Colors.activeColor;
   const barInActiveColor =
@@ -31,17 +37,15 @@ const useProgressBar = ({
   const barHeight = props?.barStyle?.barHeight ?? 2;
 
   const getDuration = useCallback(() => {
-    const totalPlaytime = duration * 1000;
     if (props.pause) {
       scale.stopAnimation();
       return 0;
     }
-    if (pauseTime === 0) {
-      return totalPlaytime;
+    if (remainingTime === 0) {
+      return duration * 1000;
     }
-    const lastTime = pauseTime - startTime;
-    return totalPlaytime - lastTime;
-  }, [duration, pauseTime, props.pause, scale, startTime]);
+    return remainingTime * 1000;
+  }, [remainingTime, scale, props?.pause, duration]);
 
   useEffect(() => {
     switch (active) {
@@ -69,7 +73,7 @@ const useProgressBar = ({
       default:
         return scale.setValue(0);
     }
-  }, [storyIndex, active, getDuration, props, scale, width]);
+  }, [active, getDuration, props, scale, width]);
 
   return {
     barActiveColor,
@@ -78,9 +82,6 @@ const useProgressBar = ({
     scale,
     width,
     setWidth,
-    startTime,
-    setPauseTime,
-    setStartTime,
   };
 };
 

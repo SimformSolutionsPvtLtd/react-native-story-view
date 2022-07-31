@@ -9,7 +9,7 @@ import { Metrics } from '../../../theme';
 import type { ViewConfig } from '../types';
 
 const useMultiStoryContainer = ({ ...props }) => {
-  const [storyIndex, setStoryIndex] = useState(props.storyIndex ?? 0);
+  const [storyIndex, setStoryIndex] = useState(props.userStoryIndex ?? 0);
   const scrollX = useValue(0);
   const previousIndex = useRef(0);
   const viewabilityConfig = useRef({

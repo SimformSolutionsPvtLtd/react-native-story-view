@@ -19,33 +19,38 @@ const MultiStoryListItem = ({
   previousStory,
   storyIndex,
   onComplete,
-}: MultiStoryListItemProps) => (
-  <Animated.View key={item.id} style={styles.itemContainer}>
-    <Animated.View style={animatedTransitionStyle(index)}>
-      <StoryContainer
-        visible={true}
-        nextStory={nextStory}
-        previousStory={previousStory}
-        index={index}
-        storyIndex={storyIndex}
-        stories={item.stories}
-        progressIndex={0}
-        maxVideoDuration={10}
-        headerComponent={
-          <UserHeaderView
-            userImage={{ uri: item.profile ?? '' }}
-            userName={item.username}
-            userMessage={item.title}
-            onClosePress={() => {
-              onComplete?.();
-            }}
-          />
-        }
-        footerComponent={<Footer />}
-      />
+  ...props
+}: MultiStoryListItemProps) => {
+  return (
+    <Animated.View key={item.id} style={styles.itemContainer}>
+      <Animated.View style={animatedTransitionStyle(index)}>
+        <StoryContainer
+          visible={true}
+          userStories={item}
+          nextStory={nextStory}
+          previousStory={previousStory}
+          stories={item.stories}
+          progressIndex={0}
+          maxVideoDuration={15}
+          renderHeaderComponent={() => (
+            <UserHeaderView
+              userImage={{ uri: item.profile ?? '' }}
+              userName={item.username}
+              userMessage={item.title}
+              onClosePress={() => {
+                onComplete?.();
+              }}
+            />
+          )}
+          renderFooterComponent={() => <Footer />}
+          {...props}
+          index={index}
+          userStoryIndex={storyIndex}
+        />
+      </Animated.View>
     </Animated.View>
-  </Animated.View>
-);
+  );
+};
 
 const MultiStoryContainer = ({
   stories,
@@ -108,10 +113,11 @@ const MultiStoryContainer = ({
           onViewableItemsChanged={onViewRef.current}
           viewabilityConfig={viewabilityConfig.current}
           decelerationRate={Metrics.isIOS ? 0.99 : 0.92}
-          keyExtractor={item => item.id!.toString()}
+          keyExtractor={item => item.title + item.id!.toString()}
           contentContainerStyle={{
             width: Metrics.screenWidth * stories.length,
           }}
+          extraData={storyIndex}
           renderItem={({ item, index }) => (
             <MultiStoryListItem
               {...{
@@ -123,6 +129,7 @@ const MultiStoryContainer = ({
                 storyIndex,
                 onComplete,
               }}
+              {...props}
             />
           )}
         />

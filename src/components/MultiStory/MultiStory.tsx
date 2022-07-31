@@ -1,42 +1,50 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { MultiStoryContainer } from '../MultiStoryContainer';
 import { StoryAvatar } from '../StoryAvatar';
 import styles from './styles';
-import type { MultiStoryProps } from './types';
+import type { MultiStoryProps, MultiStoryRef } from './types';
 
-const MultiStory = ({ stories, ...props }: MultiStoryProps) => {
-  const [isStoryViewShow, setIsStoryViewShow] = useState<boolean>(false);
-  const [pressedIndex, setPressedIndex] = useState<number>(0);
+const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
+  ({ stories, ...props }, ref) => {
+    const [isStoryViewShow, setIsStoryViewShow] = useState<boolean>(false);
+    const [pressedIndex, setPressedIndex] = useState<number>(0);
 
-  const openStories = (index: number) => {
-    setIsStoryViewShow(true);
-    setPressedIndex(index);
-  };
+    const openStories = (index: number) => {
+      setIsStoryViewShow(true);
+      setPressedIndex(index);
+    };
 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        horizontal
-        data={stories}
-        keyExtractor={item => item.id!.toString()}
-        renderItem={({ item, index }) => {
-          return <StoryAvatar {...{ item, index, openStories }} />;
-        }}
-        {...props}
-      />
-      {isStoryViewShow && (
-        <MultiStoryContainer
-          visible={isStoryViewShow}
-          onComplete={() => {
-            setIsStoryViewShow(false);
+    useImperativeHandle(ref, () => ({
+      close: () => setIsStoryViewShow(false),
+    }));
+
+    return (
+      <View style={styles.container}>
+        <FlatList
+          horizontal
+          data={stories}
+          keyExtractor={item => item.id!.toString()}
+          renderItem={({ item, index }) => {
+            return <StoryAvatar {...{ item, index, openStories }} />;
           }}
-          storyIndex={pressedIndex}
-          stories={stories}
+          {...props}
         />
-      )}
-    </View>
-  );
-};
+        {isStoryViewShow && (
+          <MultiStoryContainer
+            visible={isStoryViewShow}
+            onComplete={() => {
+              props?.onComplete?.();
+              setIsStoryViewShow(false);
+            }}
+            {...props?.storyContainerProps}
+            stories={stories}
+            userStoryIndex={pressedIndex}
+          />
+        )}
+      </View>
+    );
+  }
+);
 
 export default MultiStory;
