@@ -87,8 +87,10 @@ const useStoryContainer = (props: StoryContainerProps) => {
 
   const onChange = (position: number) => {
     if (isPause) return;
-
-    if (position >= props.stories.length) {
+    if (
+      position >= props.stories.length &&
+      props.userStoryIndex !== undefined
+    ) {
       props?.nextStory?.();
     } else if (position < 0) {
       props?.previousStory?.();

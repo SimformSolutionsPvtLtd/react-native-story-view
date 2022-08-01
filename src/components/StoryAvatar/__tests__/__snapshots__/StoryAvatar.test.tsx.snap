@@ -25,13 +25,13 @@ exports[`StoryAvatar Component Match Snapshot 1`] = `
         "height": 105,
         "justifyContent": "center",
         "marginRight": 10,
-        "padding": 1,
+        "overflow": "hidden",
         "width": 105,
       }
     }
   >
     <Image
-      resizeMode="contain"
+      resizeMode="cover"
       source={
         Object {
           "uri": undefined,
@@ -39,8 +39,9 @@ exports[`StoryAvatar Component Match Snapshot 1`] = `
       }
       style={
         Object {
-          "height": "100%",
-          "width": "100%",
+          "borderRadius": 52.5,
+          "height": "95%",
+          "width": "95%",
         }
       }
     />
