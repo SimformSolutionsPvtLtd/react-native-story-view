@@ -80,6 +80,8 @@ export interface StoryViewProps {
   showSourceIndicator?: boolean;
   sourceIndicatorProps?: ActivityIndicatorProps;
   videoProps?: VideoProperties;
+  index?: number;
+  storyIndex?: number;
 }
 
 export interface StoryViewProps extends CommonProps {
@@ -111,12 +113,12 @@ export interface StoryContainerProps extends CommonProps {
     userStories?: StoriesType,
     progressIndex?: number,
     userStoryIndex?: number
-  ) => {} | undefined;
+  ) => JSX.Element;
   renderFooterComponent?: (
     userStories?: StoriesType,
     progressIndex?: number,
     userStoryIndex?: number
-  ) => {} | undefined;
+  ) => JSX.Element;
   userProfile?: UserProps | undefined;
   footerView?: FooterViewProps | undefined;
   onComplete?: () => void;
@@ -124,7 +126,7 @@ export interface StoryContainerProps extends CommonProps {
     userStories?: StoriesType,
     progressIndex?: number,
     userStoryIndex?: number
-  ) => {} | undefined;
+  ) => JSX.Element;
   backgroundColor?: string;
   style?: ViewStyle;
   progressIndex?: number | undefined;
