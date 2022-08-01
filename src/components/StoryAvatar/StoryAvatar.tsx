@@ -7,7 +7,7 @@ const StoryAvatar = ({ item, index, openStories }: StoryAvatarProps) => (
   <Pressable onPress={() => openStories?.(index!)}>
     <View style={styles.imageContainer}>
       <Image
-        resizeMode="contain"
+        resizeMode="cover"
         source={{ uri: item?.profile }}
         style={styles.image}
       />
