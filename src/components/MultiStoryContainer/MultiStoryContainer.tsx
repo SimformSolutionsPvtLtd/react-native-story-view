@@ -93,7 +93,6 @@ const MultiStoryContainer = ({
   return (
     <Modal
       visible={visible}
-      animationType="fade"
       statusBarTranslucent={true}
       onRequestClose={() => onComplete?.()}>
       <SafeAreaView style={styles.container}>

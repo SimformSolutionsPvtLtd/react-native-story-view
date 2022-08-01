@@ -25,9 +25,9 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
           horizontal
           data={stories}
           keyExtractor={item => item.id!.toString()}
-          renderItem={({ item, index }) => {
-            return <StoryAvatar {...{ item, index, openStories }} />;
-          }}
+          renderItem={({ item, index }) => (
+            <StoryAvatar {...{ item, index, openStories }} />
+          )}
           {...props}
         />
         {isStoryViewShow && (
