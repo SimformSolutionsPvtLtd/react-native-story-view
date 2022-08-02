@@ -1,20 +1,26 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Animated, {
   Extrapolate,
   interpolateNode,
   useValue,
 } from 'react-native-reanimated';
+import { useKeyboardListener } from '../../../hooks';
 import { Metrics } from '../../../theme';
 import type { ViewConfig } from '../types';
 
-const useMultiStoryContainer = ({ ...props }) => {
+const useMultiStoryContainer = (flatListRef: any, { ...props }) => {
   const [storyIndex, setStoryIndex] = useState(props.userStoryIndex ?? 0);
   const scrollX = useValue(0);
   const previousIndex = useRef(0);
   const viewabilityConfig = useRef({
     itemVisiblePercentThreshold: 100,
   });
+  const isKeyboardVisible = useKeyboardListener();
+
+  useEffect(() => {
+    flatListRef?.current?.setNativeProps({ scrollEnabled: !isKeyboardVisible });
+  }, [flatListRef, isKeyboardVisible]);
 
   const onViewRef = useRef(({ viewableItems }: ViewConfig) => {
     const index = viewableItems?.[0]?.index;
