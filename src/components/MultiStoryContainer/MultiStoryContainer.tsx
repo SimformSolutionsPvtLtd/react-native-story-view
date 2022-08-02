@@ -1,4 +1,9 @@
-import React, { useRef } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { Modal, SafeAreaView } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useMultiStoryContainer } from './hooks';
@@ -7,50 +12,66 @@ import { Footer } from '../Footer';
 import { Metrics } from '../../theme';
 import styles from './styles';
 import type {
+  ListItemProps,
+  ListItemRef,
   MultiStoryContainerProps,
   MultiStoryListItemProps,
 } from './types';
+import type { StoryRef } from '../StoryView/types';
 
-const MultiStoryListItem = ({
-  item,
-  index,
-  animatedTransitionStyle,
-  nextStory,
-  previousStory,
-  storyIndex,
-  onComplete,
-  ...props
-}: MultiStoryListItemProps) => {
-  return (
-    <Animated.View key={item.id} style={styles.itemContainer}>
-      <Animated.View style={animatedTransitionStyle(index)}>
-        <StoryContainer
-          visible={true}
-          userStories={item}
-          nextStory={nextStory}
-          previousStory={previousStory}
-          stories={item.stories}
-          progressIndex={0}
-          maxVideoDuration={15}
-          renderHeaderComponent={() => (
-            <UserHeaderView
-              userImage={{ uri: item.profile ?? '' }}
-              userName={item.username}
-              userMessage={item.title}
-              onClosePress={() => {
-                onComplete?.();
-              }}
-            />
-          )}
-          renderFooterComponent={() => <Footer />}
-          {...props}
-          index={index}
-          userStoryIndex={storyIndex}
-        />
+const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
+  (
+    {
+      item,
+      index,
+      animatedTransitionStyle,
+      nextStory,
+      previousStory,
+      storyIndex,
+      onComplete,
+      ...props
+    }: MultiStoryListItemProps,
+    ref
+  ) => {
+    const storyRef = useRef<StoryRef>(null);
+
+    useImperativeHandle(ref, () => ({
+      onScrollBegin: () => storyRef?.current?.pause(true),
+      onScrollEnd: () => storyRef?.current?.pause(false),
+    }));
+
+    return (
+      <Animated.View key={item.id} style={styles.itemContainer}>
+        <Animated.View style={animatedTransitionStyle(index)}>
+          <StoryContainer
+            visible={true}
+            ref={storyRef}
+            userStories={item}
+            nextStory={nextStory}
+            previousStory={previousStory}
+            stories={item.stories}
+            progressIndex={0}
+            maxVideoDuration={15}
+            renderHeaderComponent={() => (
+              <UserHeaderView
+                userImage={{ uri: item.profile ?? '' }}
+                userName={item.username}
+                userMessage={item.title}
+                onClosePress={() => {
+                  onComplete?.();
+                }}
+              />
+            )}
+            renderFooterComponent={() => <Footer />}
+            {...props}
+            index={index}
+            userStoryIndex={storyIndex}
+          />
+        </Animated.View>
       </Animated.View>
-    </Animated.View>
-  );
-};
+    );
+  }
+);
 
 const MultiStoryContainer = ({
   stories,
@@ -66,7 +87,13 @@ const MultiStoryContainer = ({
     viewabilityConfig,
     animatedTransitionStyle,
     onScroll,
-  } = useMultiStoryContainer(props);
+  } = useMultiStoryContainer(flatListRef, props);
+
+  const itemsRef = useRef<ListItemRef[]>([]);
+
+  useEffect(() => {
+    itemsRef.current = itemsRef.current.slice(0, stories.length);
+  }, [itemsRef, stories]);
 
   if (!visible) return null;
 
@@ -102,6 +129,10 @@ const MultiStoryContainer = ({
           data={stories}
           ref={flatListRef}
           onScroll={onScroll}
+          onScrollBeginDrag={() =>
+            itemsRef.current[storyIndex]?.onScrollBegin()
+          }
+          onScrollEndDrag={() => itemsRef.current[storyIndex]?.onScrollEnd()}
           scrollEventThrottle={16}
           initialScrollIndex={storyIndex}
           keyboardShouldPersistTaps="handled"
@@ -118,8 +149,9 @@ const MultiStoryContainer = ({
             width: Metrics.screenWidth * stories.length,
           }}
           extraData={storyIndex}
-          renderItem={({ item, index }) => (
+          renderItem={({ item, index }: ListItemProps) => (
             <MultiStoryListItem
+              ref={(elements: any) => (itemsRef.current[index] = elements)}
               {...{
                 item,
                 index,

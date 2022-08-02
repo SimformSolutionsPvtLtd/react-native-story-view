@@ -188,3 +188,7 @@ export type StoriesType = {
   id?: number;
   stories: StoryType[];
 };
+
+export type StoryRef = {
+  pause: (pause: boolean) => void;
+};
