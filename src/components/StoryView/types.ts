@@ -168,7 +168,7 @@ export interface FooterViewProps {
 }
 
 export type StoryType = {
-  id?: number;
+  id: number;
   url?: string;
   thumbnail?: string;
   type?: string | 'image' | 'video' | 'text';
@@ -185,7 +185,7 @@ export type StoriesType = {
   username?: string;
   profile?: string;
   title?: string;
-  id?: number;
+  id: number;
   stories: StoryType[];
 };
 

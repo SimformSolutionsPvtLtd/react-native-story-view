@@ -144,7 +144,7 @@ const MultiStoryContainer = ({
           onViewableItemsChanged={onViewRef.current}
           viewabilityConfig={viewabilityConfig.current}
           decelerationRate={Metrics.isIOS ? 0.99 : 0.92}
-          keyExtractor={item => item.title + item.id!.toString()}
+          keyExtractor={item => item?.title + item?.id?.toString()}
           contentContainerStyle={{
             width: Metrics.screenWidth * stories.length,
           }}

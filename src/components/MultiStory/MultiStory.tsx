@@ -24,7 +24,7 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
         <FlatList
           horizontal
           data={stories}
-          keyExtractor={item => item.id!.toString()}
+          keyExtractor={item => item?.id?.toString()}
           renderItem={({ item, index }) => (
             <StoryAvatar {...{ item, index, openStories }} />
           )}

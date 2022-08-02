@@ -195,7 +195,7 @@ const openStories = (index: number) => {
     <FlatList
       horizontal
       data={userStories}
-      keyExtractor={item => item.id!.toString()}
+      keyExtractor={item => item?.id?.toString()}
       renderItem={({ item, index }) => (
         <Pressable onPress={() => openStories(index)}>
           <CustomStoryAvatar {...{ item, index }} />
