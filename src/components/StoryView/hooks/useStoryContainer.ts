@@ -16,24 +16,26 @@ const useStoryContainer = (props: StoryContainerProps) => {
   const [progressIndex, setProgressIndex] = useState(props?.progressIndex ?? 0);
   const [isLoaded, setLoaded] = useState(false);
   const [duration, setDuration] = useState(0);
-  const [isPause, setPause] = useState(false);
+  const [isPause, setPause] = useState(true);
   const [visibleElements, setVisibleElements] = useState(true);
   const appState = useRef(AppState.currentState);
 
   const isKeyboardVisible = useKeyboardListener();
 
   useEffect(() => {
-    setPause(isKeyboardVisible);
-  }, [isKeyboardVisible]);
+    if (props?.index === props?.userStoryIndex) {
+      setPause(isKeyboardVisible);
+    }
+  }, [isKeyboardVisible, props?.index, props?.userStoryIndex]);
 
   const onImageLoaded = () => {
     setLoaded(true);
   };
 
   useEffect(() => {
-    const isStoryNotFocused = props?.index !== props?.storyIndex;
+    const isStoryNotFocused = props?.index !== props?.userStoryIndex;
     setPause(isStoryNotFocused);
-  }, [props?.storyIndex, props?.index]);
+  }, [props?.userStoryIndex, props?.index]);
 
   const handleAppStateChange = (nextAppState: AppStateStatus) => {
     const isBackgroundState =
@@ -91,7 +93,7 @@ const useStoryContainer = (props: StoryContainerProps) => {
     } else if (position < 0) {
       props?.previousStory?.();
     } else if (position < props.stories.length) {
-      props?.onChangePosition?.(position, props?.storyIndex);
+      props?.onChangePosition?.(position, props?.userStoryIndex);
       setProgressIndex(position);
     } else {
       props?.onComplete?.();
@@ -104,8 +106,10 @@ const useStoryContainer = (props: StoryContainerProps) => {
   };
 
   const onStoryPressRelease = () => {
-    setVisibleElements(true);
-    setPause(false);
+    if (isPause && !visibleElements) {
+      setVisibleElements(true);
+      setPause(false);
+    }
   };
 
   const rootStyle = StyleSheet.flatten([styles.container, props?.style]);

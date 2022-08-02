@@ -13,9 +13,10 @@ import styles from './styles';
 import { ClickPosition, StoryContainerProps } from './types';
 
 const StoryContainer = ({
-  headerComponent,
-  customView,
-  footerComponent,
+  renderHeaderComponent,
+  renderFooterComponent,
+  renderCustomView,
+  userStories,
   enableProgress = true,
   headerViewProps,
   customViewProps,
@@ -91,7 +92,7 @@ const StoryContainer = ({
                 next={() => onArrowClick(ClickPosition.Right)}
                 isLoaded={isLoaded}
                 duration={duration}
-                storyIndex={props?.storyIndex ?? 0}
+                storyIndex={props?.userStoryIndex ?? 0}
                 index={props?.index ?? 0}
                 pause={enableProgress && isPause}
                 stories={props.stories}
@@ -103,20 +104,38 @@ const StoryContainer = ({
               />
             </View>
           )}
-          {headerComponent && (
+          {renderHeaderComponent && (
             <View style={[styles.topView, { opacity }]} {...headerViewProps}>
-              {headerComponent}
+              <>
+                {renderHeaderComponent?.(
+                  userStories,
+                  progressIndex,
+                  props?.userStoryIndex
+                )}
+              </>
             </View>
           )}
-          {customView && (
+          {renderCustomView && (
             <View style={[styles.customView, { opacity }]} {...customViewProps}>
-              {customView}
+              <>
+                {renderCustomView?.(
+                  userStories,
+                  progressIndex,
+                  props?.userStoryIndex
+                )}
+              </>
             </View>
           )}
         </View>
-        {footerComponent && (
+        {renderFooterComponent && (
           <View style={[styles.bottomView, { opacity }]} {...footerViewProps}>
-            {footerComponent}
+            <>
+              {renderFooterComponent?.(
+                userStories,
+                progressIndex,
+                props?.userStoryIndex
+              )}
+            </>
           </View>
         )}
       </>
