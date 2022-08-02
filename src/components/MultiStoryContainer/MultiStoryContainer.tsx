@@ -105,6 +105,7 @@ const MultiStoryContainer = ({
           onScroll={onScroll}
           scrollEventThrottle={16}
           initialScrollIndex={storyIndex}
+          keyboardShouldPersistTaps="handled"
           getItemLayout={(_, index) => ({
             length: Metrics.screenWidth,
             offset: Metrics.screenWidth * index,

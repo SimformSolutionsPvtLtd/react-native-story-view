@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import Video, { OnLoadData } from 'react-native-video';
 import { Colors } from '../../theme';
@@ -9,6 +9,13 @@ import { StoryViewProps, StroyTypes } from './types';
 const StoryView = (props: StoryViewProps) => {
   const [loading, setLoading] = useState(true);
   const image = props?.stories?.[props?.progressIndex];
+  const videoRef = useRef<Video>(null);
+
+  useEffect(() => {
+    if (props?.index === props?.storyIndex) {
+      videoRef?.current?.seek(0);
+    }
+  }, [props?.storyIndex, props?.index]);
 
   const onLoadStart = () => {
     setLoading(true);
@@ -34,6 +41,7 @@ const StoryView = (props: StoryViewProps) => {
             />
           )}
           <Video
+            ref={videoRef}
             resizeMode="contain"
             paused={props.pause}
             source={{ uri: image?.url }}
