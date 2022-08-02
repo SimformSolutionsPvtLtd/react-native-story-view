@@ -3,6 +3,7 @@ import { Modal, SafeAreaView, View } from 'react-native';
 import { Footer, Header } from '../../components';
 import { StoryAvatar, StoryContainer } from '../../../../src';
 import { stories } from '../../constants';
+import { Colors } from '../../theme';
 import styles from './styles';
 
 const StoryScreen = () => {

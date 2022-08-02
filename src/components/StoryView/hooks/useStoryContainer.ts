@@ -114,7 +114,13 @@ const useStoryContainer = (props: StoryContainerProps) => {
     }
   };
 
-  const rootStyle = StyleSheet.flatten([styles.container, props?.style]);
+  const rootStyle = StyleSheet.flatten([
+    styles.container,
+    {
+      backgroundColor: props?.backgroundColor ?? Colors.black,
+    },
+    props?.style,
+  ]);
   const containerStyle = StyleSheet.flatten([
     styles.container,
     {
