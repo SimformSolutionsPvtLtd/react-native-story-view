@@ -24,7 +24,7 @@ exports[`StoryAvatar Component Match Snapshot 1`] = `
         "borderWidth": 2,
         "height": 105,
         "justifyContent": "center",
-        "marginRight": 10,
+        "marginRight": 24,
         "overflow": "hidden",
         "width": 105,
       }
@@ -46,5 +46,16 @@ exports[`StoryAvatar Component Match Snapshot 1`] = `
       }
     />
   </View>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "color": "#ffffff",
+        "fontWeight": "500",
+        "marginRight": 24,
+        "marginTop": 9,
+      }
+    }
+  />
 </View>
 `;

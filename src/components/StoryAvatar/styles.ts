@@ -16,7 +16,14 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(35),
     borderColor: Colors.pink,
     borderWidth: 2,
-    marginRight: 10,
+    marginRight: moderateScale(16),
+  },
+  username: {
+    alignSelf: 'center',
+    marginRight: moderateScale(16),
+    marginTop: moderateScale(6),
+    color: Colors.white,
+    fontWeight: '500',
   },
 });
 
