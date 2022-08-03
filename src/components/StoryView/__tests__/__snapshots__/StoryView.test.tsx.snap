@@ -71,7 +71,7 @@ exports[`StoryContainer component Match Snapshot 1`] = `
             Object {
               "alignSelf": "center",
               "height": "100%",
-              "paddingBottom": 4,
+              "paddingBottom": 6,
               "width": 750,
             }
           }
@@ -152,7 +152,7 @@ exports[`StoryView component Match Snapshot 1`] = `
     Object {
       "alignSelf": "center",
       "height": "100%",
-      "paddingBottom": 4,
+      "paddingBottom": 6,
       "width": 750,
     }
   }
