@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: '100%',
     width: Metrics.screenWidth,
-    paddingBottom: 4,
+    paddingBottom: moderateScale(4),
   },
   imgStyle: {
     width: Metrics.screenWidth,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: moderateScale(18),
     fontWeight: '500',
-    marginLeft: 12,
+    marginLeft: scale(12),
     color: 'white',
   },
   time: {

@@ -7,5 +7,6 @@ export type {
   StoriesType,
   StoryType,
   UserProps,
+  StoryRef,
 } from './types';
 export { UserHeaderView, StoryContainer };

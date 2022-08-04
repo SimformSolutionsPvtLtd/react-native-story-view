@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
+import { moderateScale } from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   itemSpacing: {
-    paddingHorizontal: 3,
+    paddingHorizontal: moderateScale(3),
   },
 });
 

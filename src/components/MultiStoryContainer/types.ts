@@ -28,3 +28,13 @@ export interface ViewConfig {
   viewableItems: Array<ViewToken>;
   changed: Array<ViewToken>;
 }
+
+export interface ListItemProps {
+  item: StoriesType;
+  index: number;
+}
+
+export interface ListItemRef {
+  onScrollBegin: () => void;
+  onScrollEnd: () => void;
+}
