@@ -1,6 +1,6 @@
 const Strings = {
-  'send': 'Send',
-  'sendMessage': 'Send Message',
+  send: 'Send',
+  sendMessage: 'Send Message',
 };
 
 export default Strings;

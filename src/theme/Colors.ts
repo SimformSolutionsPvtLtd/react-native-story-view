@@ -3,7 +3,7 @@ const colors = {
   white: '#ffffff',
   black: '#000000',
   activeColor: '#ffffff',
-  inActiveColor: 'rgba(255, 255, 255, 0.5)',
+  inActiveColor: '#FFFFFF7F',
   loaderColor: '#575899',
   pink: '#CA1D7E',
 };

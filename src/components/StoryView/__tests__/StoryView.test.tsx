@@ -28,6 +28,7 @@ describe('ProgressView component', () => {
   it('Match Snapshot', () => {
     const { toJSON } = render(
       <ProgressView
+        storyIndex={0}
         isLoaded={true}
         duration={10}
         pause={false}
@@ -45,7 +46,7 @@ describe('ProgressView component', () => {
 describe('StoryView should render Footer component', () => {
   it('Match Snapshot', () => {
     const { toJSON } = render(
-      <StoryContainer stories={[]} footerComponent={<Footer />} />
+      <StoryContainer stories={[]} renderFooterComponent={() => <Footer />} />
     );
     expect(toJSON()).toMatchSnapshot();
   });

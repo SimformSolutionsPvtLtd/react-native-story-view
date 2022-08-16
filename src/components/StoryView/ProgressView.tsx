@@ -31,11 +31,11 @@ const ProgressView = (props: ProgressBarsProps) => {
           barStyle={props.barStyle}
           duration={props.duration || 3}
           currentIndex={props.currentIndex}
-          next={props.next}
-          length={props.stories.length}
+          next={props?.next}
+          length={props?.stories?.length}
           active={getProgressState(i)}
-          isLoaded={props.isLoaded}
-          pause={props.pause}
+          isLoaded={props?.isLoaded}
+          pause={props?.pause}
         />
       ))}
     </Animated.View>
