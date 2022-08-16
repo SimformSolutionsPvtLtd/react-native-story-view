@@ -27,5 +27,9 @@ Where type can be one of the following:
 and an optional scope can be a component
 
 ```
-docs(CountryPicker): updated contributing guide
+docs(StoryContainer): update contributing guide
+```
+
+```
+fix(MultiStoryContainer): story progressbar is stuck
 ```

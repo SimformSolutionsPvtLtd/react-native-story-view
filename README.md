@@ -6,7 +6,7 @@
 
 ---
 
-This library for status/stories features like Instagram/WhatsApp or other social media, It is simple to use and fully customizable.
+This library provides status/stories features like Instagram/WhatsApp or other social media, It is simple to use and fully customizable.
 It works on both android and iOS platforms.
 
 ## Quick Access
@@ -97,11 +97,11 @@ StoryView is divided into several components, MultiStory, MultiStoryContainer an
 
 <br />
 Checkout Multi Story Example
-<a href='https://github.com/SimformSolutionsPvtLtd/react-native-story-view/blob/develop/example/src/modules/MultiStory/MultiStoryScreen.tsx'><b>here</b></a>.
+<a href='https://github.com/SimformSolutionsPvtLtd/react-native-story-view/blob/develop/example/src/modules/MultiStory/MultiStoryScreen.tsx'><b>here</b></a>
 <br />
-Checkout Stories Data Format <a href='https://github.com/SimformSolutionsPvtLtd/react-native-story-view/blob/develop/example/src/constants/stories.ts'><b> here</b></a>.
+Checkout Stories Data Format <a href='https://github.com/SimformSolutionsPvtLtd/react-native-story-view/blob/develop/example/src/constants/stories.ts'><b> here</b></a>
 <br />
-Checkout Single Story Example <a href='https://github.com/SimformSolutionsPvtLtd/react-native-story-view/blob/develop/example/src/modules/Story/StoryScreen.tsx'><b> here</b></a>.
+Checkout Single Story Example <a href='https://github.com/SimformSolutionsPvtLtd/react-native-story-view/blob/develop/example/src/modules/Story/StoryScreen.tsx'><b> here</b></a>
 
 <br />
 
@@ -110,35 +110,35 @@ Checkout Single Story Example <a href='https://github.com/SimformSolutionsPvtLtd
 Define the users' **stories** array in the below format. There will be multiple users and multiple stories inside.
 
 ```js
- const userStories = [
-  {
-    id: 1, //unique id (required)
-    username: 'Alan', //user name on header
-    title: 'Albums', //title below username
-    profile: 'https://sosugary.com/wp-content/uploads/2022/01/TheWeeknd_001.jpg', //user profile picture
-    stories: [
-      {
-        id: 0, //unique id (required)
-        url: 'https://i1.sndcdn.com/artworks-IrhmhgPltsdrwMu8-thZohQ-t500x500.jpg', // story url
-        type: 'image', //image or video type of story
-        duration: 5, //default duration
-        storyId: 1,
-      },
-      {
-        id: 1,
-        url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-        type: 'video',
-        duration: 15,
-        storyId: 1,
-      },
-    ],
-  },
-  {
-    id:2,
-    username: 'Weekend',
-    ...
-  }
-
+const userStories = [
+    {
+      id: 1, //unique id (required)
+      username: 'Alan', //user name on header
+      title: 'Albums', //title below username
+      profile: 'https://sosugary.com/wp-content/uploads/2022/01/TheWeeknd_001.jpg', //user profile picture
+      stories: [
+        {
+          id: 0, //unique id (required)
+          url: 'https://i1.sndcdn.com/artworks-IrhmhgPltsdrwMu8-thZohQ-t500x500.jpg', // story url
+          type: 'image', //image or video type of story
+          duration: 5, //default duration
+          storyId: 1,
+        },
+        {
+          id: 1,
+          url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          type: 'video',
+          duration: 15,
+          storyId: 1,
+        },
+      ],
+    },
+    {
+      id:2,
+      username: 'Weekend',
+      ...
+    }
+]
 ```
 
 ---
@@ -183,7 +183,7 @@ Checkout Multi Story Example
 #### Basic Usage
 
 ```js
-const [isStoryViewShow, setIsStoryViewShow] = useState(false);
+const [isStoryViewVisible, setIsStoryViewShow] = useState(false);
 const [pressedIndex, setPressedIndex] = useState<number>(0);
 
 const openStories = (index: number) => {
@@ -202,10 +202,10 @@ const openStories = (index: number) => {
         </Pressable>
       )}
     />
-    {isStoryViewShow && (
+    {isStoryViewVisible && (
       // add other StoryContainer Props
       <MultiStoryContainer
-        visible={isStoryViewShow}
+        visible={isStoryViewVisible}
         onComplete={() => setIsStoryViewShow(false)}
         stories={userStories}
         renderHeaderComponent={...}
@@ -223,9 +223,10 @@ This is the core component of StoryView, which provides all functionality of sto
 #### Basic Usage
 
 ```js
-const [isStoryViewShow, setIsStoryViewShow] = useState(false);
+const [isStoryViewVisible, setIsStoryViewShow] = useState(false);
+
 <Modal
-  visible={isStoryViewShow}
+  visible={isStoryViewVisible}
   statusBarTranslucent={true}
   onRequestClose={() => setIsStoryViewShow(false)}>
   <StoryContainer
@@ -274,25 +275,25 @@ This is an individual component, To display user details on header like instagra
 
 ```js
 <StoryContainer
-renderHeaderComponent={() => (
-  <UserHeaderView
-    userImage={{ uri: userStories[0].profile ?? '' }}
-    userName={userStories[0].username}
-    userMessage={userStories.[0].title}
-    onImageClick={() => {
-      console.log('User profile image tapped')
-    }}
-    onClosePress={() => {
-      setIsStoryViewShow(false);
-    }}
-  />
-)}
+  renderHeaderComponent={(userStories: UserProps) => (
+    <UserHeaderView
+      userImage={{ uri: userStories?.[0].profile ?? '' }}
+      userName={userStories?.[0].username}
+      userMessage={userStories?.[0].title}
+      onImageClick={() => {
+        console.log('User profile image tapped');
+      }}
+      onClosePress={() => {
+        setIsStoryViewShow(false);
+      }}
+    />
+  )}
 />
 ```
 
 ### Footer
 
-This is an individual component, To display footer like instagram. Any textinput props can be directly passed to `Footer`. In `renderFooterComponent` of StoryContainer, Custom component can be assigned.
+This is an individual component, To display footer like instagram. Any TextInput props can be directly passed to `Footer`. In `renderFooterComponent` of StoryContainer, Custom component can be assigned.
 
 ```js
 <StoryContainer
@@ -314,7 +315,7 @@ This is an individual component, To display footer like instagram. Any textinput
 
 ### Custom View
 
-Pass any custom view in story view. It will be rendered in top of story view as it have an absolute position. In `renderCustomView` of StoryContainer, Any custom component can be assigned.
+Pass any custom view in story view. It will be rendered on top of story view as it have an absolute position. In `renderCustomView` of StoryContainer, Any custom component can be assigned.
 
 ```js
 <StoryContainer
@@ -394,14 +395,14 @@ Pass any custom view in story view. It will be rendered in top of story view as 
 > | :---------------------- | :-----: | :------------------------------------------------------ | ---------------------------------------------------------------------- |
 > | **visible\***           |  false  | boolean                                                 | Hide / show story view                                                 |
 > | **stories\***           |   []    | StoryType[]                                             | Array of stories                                                       |
-> | backgroundColor         | #000000 | string                                                  | Background color of Stroyview                                          |
+> | backgroundColor         | #000000 | string                                                  | Background color of story view                                         |
 > | maxVideoDuration        |  null   | number                                                  | Override video progress duration (default is actual duration of video) |
-> | style                   |   {}    | boolean                                                 | Style of story view                                                    |
+> | style                   |   {}    | ViewStyle                                               | Style of story view                                                    |
 > | showSourceIndicator     |  true   | boolean                                                 | Display indicator while video loading                                  |
 > | sourceIndicatorProps    |   {}    | ActivityIndicatorProps                                  | To override indicator props                                            |
 > | onComplete              |  null   | () => {}                                                | Callback when all stories completes                                    |
 > | renderHeaderComponent   |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render Header component (`UserHeaderView`) or custom component         |
-> | renderHeaderComponent   |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render Footer component (`Footer`) or custom component                 |
+> | renderFooterComponent   |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render Footer component (`Footer`) or custom component                 |
 > | renderCustomView        |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render any custom view on Story                                        |
 > | storyContainerViewProps |   {}    | ViewProps                                               | Root story view props                                                  |
 > | headerViewProps         |   {}    | ViewProps                                               | Header view wrapper props                                              |
@@ -417,13 +418,13 @@ Pass any custom view in story view. It will be rendered in top of story view as 
 
 <br />
 
-> | Name              |                                                       Default                                                       | Type             | <div style="width:290px">Description</div>                             |
-> | :---------------- | :-----------------------------------------------------------------------------------------------------------------: | :--------------- | ---------------------------------------------------------------------- |
-> | progressIndex     |                                                          0                                                          | boolean          | To start story with any index                                          |
-> | barStyle          | {<br />`barActiveColor`: #ffffff' <br /> `barInActiveColor`: rgba(255, 255, 255, 0.5) <br /> `barHeight` : 2<br />} | BarStyleProps    | Progressbar Style: (`barActiveColor`, `barInActiveColor`, `barHeight`) |
-> | enableProgress    |                                                        true                                                         | boolean          | To display progressbar                                                 |
-> | progressViewProps |                                                         {}                                                          | ViewProps        | ProgressBar view wrapper props                                         |
-> | onChangePosition  |                                                        null                                                         | (position) => {} | Callback when progress index changes                                   |
+> | Name              |                                               Default                                                | Type             | <div style="width:290px">Description</div>                             |
+> | :---------------- | :--------------------------------------------------------------------------------------------------: | :--------------- | ---------------------------------------------------------------------- |
+> | progressIndex     |                                                  0                                                   | boolean          | To start story with any index                                          |
+> | barStyle          | {<br />`barActiveColor`: #ffffff' <br /> `barInActiveColor`: #FFFFFF7F <br /> `barHeight` : 2<br />} | BarStyleProps    | Progressbar Style: (`barActiveColor`, `barInActiveColor`, `barHeight`) |
+> | enableProgress    |                                                 true                                                 | boolean          | To display progressbar                                                 |
+> | progressViewProps |                                                  {}                                                  | ViewProps        | ProgressBar view wrapper props                                         |
+> | onChangePosition  |                                                 null                                                 | (position) => {} | Callback when progress index changes                                   |
 
 ---
 
@@ -433,18 +434,18 @@ Pass any custom view in story view. It will be rendered in top of story view as 
 
 <br />
 
-> | Name              | Default | Type                | <div style="width:290px">Description</div>             |
-> | :---------------- | :-----: | :------------------ | ------------------------------------------------------ |
-> | userImage         |   {}    | ImageSourcePropType | Circular view image                                    |
-> | userName          |   ''    | string              | To display username                                    |
-> | userMessage       |   ''    | string              | Display text below username                            |
-> | customCloseButton |  null   | any                 | To Render custom close button or to hide pass fragment |
-> | closeIconProps    |   {}    | ViewProps           | ProgressBar view wrapper props                         |
-> | onImageClick      |  null   | () => {}            | Callback on user image click                           |
-> | containerStyle    |   {}    | ViewStyle           | Root view style changes                                |
-> | userImageProps    |   {}    | ImageProps          | User Image props                                       |
-> | userMessageProps  |   {}    | TextProps           | User Message Props                                     |
-> | userNameProps     |   {}    | TextProps           | User Name Props                                        |
+> | Name              | Default | Type                | <div style="width:290px">Description</div> |
+> | :---------------- | :-----: | :------------------ | ------------------------------------------ |
+> | userImage         |   {}    | ImageSourcePropType | Circular view image                        |
+> | userName          |   ''    | string              | To display username                        |
+> | userMessage       |   ''    | string              | Display text below username                |
+> | customCloseButton |  null   | any                 | To render custom close button              |
+> | closeIconProps    |   {}    | ViewProps           | ProgressBar view wrapper props             |
+> | onImageClick      |  null   | () => {}            | Callback on user image click               |
+> | containerStyle    |   {}    | ViewStyle           | Root view style changes                    |
+> | userImageProps    |   {}    | ImageProps          | User Image props                           |
+> | userMessageProps  |   {}    | TextProps           | User Message Props                         |
+> | userNameProps     |   {}    | TextProps           | User Name Props                            |
 
 ---
 
@@ -459,11 +460,11 @@ Pass any custom view in story view. It will be rendered in top of story view as 
 > | customInput             |  null   | TextInput      | Render any custom text input                           |
 > | shouldShowSendImage     |  true   | bool           | Show/hide send icon image                              |
 > | onIconPress             |  null   | () => {}       | Callback on send icon press                            |
-> | iconProps               |   {}    | ImageProps     | Additional props to customize 'send' image view        |
+> | sendIconProps           |   {}    | ImageProps     | Additional props to customize 'send' image view        |
 > | shouldShowTextInputSend |  true   | bool           | Show/hide send text inside text input (like instagram) |
 > | onSendTextPress         |  null   | () => {}       | Callback on send text press                            |
-> | textProps               |   {}    | TextProps      | Additional props to customize 'send' text view         |
-> | viewProps               |   {}    | ViewProps      | Root view props                                        |
+> | sendTextProps           |   {}    | TextProps      | Additional props to customize 'send' text view         |
+> | containerViewProps      |   {}    | ViewProps      | Root view props                                        |
 > | `props`                 |    -    | TextInputProps | Pass any `TextInput` props on `Footer` component       |
 
 ---
@@ -504,4 +505,4 @@ Check out our [Contributing Guide](CONTRIBUTING.md) for ideas on contributing.
 
 ## License
 
-- [MIT License](LICENSE)
+- [MIT License](./LICENSE)
