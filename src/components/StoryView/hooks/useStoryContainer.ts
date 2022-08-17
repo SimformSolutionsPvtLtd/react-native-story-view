@@ -12,7 +12,10 @@ import { Colors, Metrics } from '../../../theme';
 import styles from '../styles';
 import { ClickPosition, StoryContainerProps } from '../types';
 
-const useStoryContainer = (props: StoryContainerProps) => {
+const useStoryContainer = ({
+  onChangePosition,
+  ...props
+}: StoryContainerProps) => {
   const [progressIndex, setProgressIndex] = useState(props?.progressIndex ?? 0);
   const [isLoaded, setLoaded] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -27,6 +30,13 @@ const useStoryContainer = (props: StoryContainerProps) => {
       setPause(isKeyboardVisible);
     }
   }, [isKeyboardVisible, props?.index, props?.userStoryIndex]);
+
+  // progress index change callback
+  useEffect(() => {
+    if (props?.index === props?.userStoryIndex) {
+      onChangePosition?.(progressIndex, props?.userStoryIndex);
+    }
+  }, [props?.index, props?.userStoryIndex, progressIndex, onChangePosition]);
 
   const onImageLoaded = () => {
     setLoaded(true);
@@ -95,7 +105,6 @@ const useStoryContainer = (props: StoryContainerProps) => {
     } else if (position < 0) {
       props?.previousStory?.();
     } else if (position < props?.stories.length) {
-      props?.onChangePosition?.(position, props?.userStoryIndex);
       setProgressIndex(position);
     } else {
       props?.onComplete?.();
