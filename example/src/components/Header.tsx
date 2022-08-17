@@ -1,9 +1,9 @@
 import React from 'react';
-import { UserHeaderView } from 'react-native-story-view';
+import { ProfileHeader } from 'react-native-story-view';
 import { HeaderProps } from './types';
 
 const Header = ({ userStories, multiStoryRef, ...props }: HeaderProps) => (
-  <UserHeaderView
+  <ProfileHeader
     userImage={{ uri: userStories?.profile ?? '' }}
     userName={userStories?.username}
     userMessage={userStories?.title}

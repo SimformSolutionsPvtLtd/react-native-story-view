@@ -93,7 +93,7 @@ Add this script in `package.json`. Now any-time node_modules is reinstalled patc
 
 ## Usage
 
-StoryView is divided into several components, MultiStory, MultiStoryContainer and StoryContainer all for rendering Story. UserHeaderView and Footer are individual components for header and footer. We'll look usage and customization of all these.
+StoryView is divided into several components, MultiStory, MultiStoryContainer and StoryContainer all for rendering Story. ProfileHeader and Footer are individual components for header and footer. We'll look usage and customization of all these.
 
 <br />
 Checkout Multi Story Example
@@ -245,7 +245,7 @@ const [isStoryViewVisible, setIsStoryViewShow] = useState(false);
       />
     )}
     renderHeaderComponent={({ story, progressIndex }) => (
-      <UserHeaderView
+      <ProfileHeader
         userImage={{ uri: userStories[0]?.profile ?? '' }}
         userName={userStories[0]?.username}
         userMessage={userStories[0]?.title}
@@ -279,7 +279,7 @@ ProgressBar customisation can be controlled through StoryContainer itself. `enab
 />
 ```
 
-### UserHeaderView
+### ProfileHeader
 
 This is an individual component, To display user details on header like instagram/whatsapp. In `renderHeaderComponent` of StoryContainer, Custom component can be assigned.
 For Multi Story, renderHeaderComponent receives `progressIndex`, `userStories` and `userStoryIndex` for getting current user data.
@@ -293,7 +293,7 @@ For Single Story, renderHeaderComponent receives `story` and `progressIndex` for
     progressIndex,
     userStoryIndex,
   }) => (
-    <UserHeaderView
+    <ProfileHeader
       /*
        * `userStories` only for Multi story
        * For single story use main story array: stories[0].username
@@ -427,7 +427,7 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 > | showSourceIndicator     |  true   | boolean                                                    | Display indicator while video loading                                  |
 > | sourceIndicatorProps    |   {}    | ActivityIndicatorProps                                     | To override indicator props                                            |
 > | onComplete              |  null   | () => {}                                                   | Callback when all stories completes                                    |
-> | renderHeaderComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`UserHeaderView`) or custom component         |
+> | renderHeaderComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component          |
 > | renderFooterComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                 |
 > | renderCustomView        |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                        |
 > | storyContainerViewProps |   {}    | ViewProps                                                  | Root story view props                                                  |
@@ -471,7 +471,7 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-### UserHeaderView
+### ProfileHeader
 
 <br />
 

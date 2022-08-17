@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     top: 0,
     margin: 0,
   },
-  //UserHeaderView
+  //ProfileHeader
   userContainer: {
     flex: 1,
     justifyContent: 'center',

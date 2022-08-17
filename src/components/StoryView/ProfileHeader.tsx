@@ -4,7 +4,7 @@ import { Icons } from '../../assets';
 import styles from './styles';
 import type { UserProps } from './types';
 
-export default memo(function UserHeaderView({
+export default memo(function ProfileHeader({
   userImage,
   userName,
   userMessage,

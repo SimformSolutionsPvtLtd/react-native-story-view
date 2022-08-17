@@ -7,7 +7,7 @@ import React, {
 import { Modal, SafeAreaView } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useMultiStoryContainer } from './hooks';
-import { StoryContainer, UserHeaderView } from '../StoryView';
+import { StoryContainer, ProfileHeader } from '../StoryView';
 import { Footer } from '../Footer';
 import { Metrics } from '../../theme';
 import styles from './styles';
@@ -53,7 +53,7 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
             progressIndex={0}
             maxVideoDuration={15}
             renderHeaderComponent={() => (
-              <UserHeaderView
+              <ProfileHeader
                 userImage={{ uri: item.profile ?? '' }}
                 userName={item.username}
                 userMessage={item.title}

@@ -1,5 +1,5 @@
 import StoryContainer from './StoryContainer';
-import UserHeaderView from './UserHeaderView';
+import ProfileHeader from './ProfileHeader';
 
 export type {
   StoryViewProps,
@@ -10,4 +10,4 @@ export type {
   StoryRef,
   CallbackProps,
 } from './types';
-export { UserHeaderView, StoryContainer };
+export { ProfileHeader, StoryContainer };
