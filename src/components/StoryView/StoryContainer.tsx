@@ -80,7 +80,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
               const { height } = nativeEvent.layout;
               viewRef?.current?.setNativeProps({ height });
             }}
-            style={props.containerStyle ?? styles.parentView}
+            style={props?.containerStyle ?? styles.parentView}
             {...storyContainerViewProps}>
             <TouchableOpacity
               activeOpacity={1}
@@ -115,11 +115,11 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
                   storyIndex={props?.userStoryIndex ?? 0}
                   index={props?.index ?? 0}
                   pause={enableProgress && isPause}
-                  stories={props.stories}
+                  stories={props?.stories}
                   currentIndex={progressIndex}
-                  barStyle={props.barStyle}
-                  currentStory={props.stories[progressIndex]}
-                  length={props.stories.map((_, i) => i)}
+                  barStyle={props?.barStyle}
+                  currentStory={props?.stories[progressIndex]}
+                  length={props?.stories?.map((_, i) => i)}
                   progress={{ id: progressIndex }}
                 />
               </View>

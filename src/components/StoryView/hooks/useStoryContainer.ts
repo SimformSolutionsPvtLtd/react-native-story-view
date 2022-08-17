@@ -77,7 +77,7 @@ const useStoryContainer = (props: StoryContainerProps) => {
         break;
       case ClickPosition.Right:
         onChange(
-          progressIndex < props.stories.length
+          progressIndex < props?.stories?.length
             ? progressIndex + 1
             : progressIndex
         );
@@ -88,13 +88,13 @@ const useStoryContainer = (props: StoryContainerProps) => {
   const onChange = (position: number) => {
     if (isPause) return;
     if (
-      position >= props.stories.length &&
-      props.userStoryIndex !== undefined
+      position >= props?.stories?.length &&
+      props?.userStoryIndex !== undefined
     ) {
       props?.nextStory?.();
     } else if (position < 0) {
       props?.previousStory?.();
-    } else if (position < props.stories.length) {
+    } else if (position < props?.stories.length) {
       props?.onChangePosition?.(position, props?.userStoryIndex);
       setProgressIndex(position);
     } else {

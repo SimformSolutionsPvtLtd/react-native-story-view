@@ -3,11 +3,10 @@ import { Modal, SafeAreaView, View } from 'react-native';
 import { Footer, Header } from '../../components';
 import { StoryAvatar, StoryContainer } from '../../../../src';
 import { stories } from '../../constants';
-import { Colors } from '../../theme';
 import styles from './styles';
 
 const StoryScreen = () => {
-  const [isStoryViewShow, setIsStoryViewShow] = useState<boolean>(false);
+  const [isStoryViewVisible, setIsStoryViewShow] = useState<boolean>(false);
   const index = 0;
   const openStories = () => {
     setIsStoryViewShow(true);
@@ -15,13 +14,14 @@ const StoryScreen = () => {
   const closeStory = () => {
     setIsStoryViewShow(false);
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.storyAvatarContainer}>
         <StoryAvatar {...{ openStories, index, item: stories[index] }} />
       </View>
       <Modal
-        visible={isStoryViewShow}
+        visible={isStoryViewVisible}
         statusBarTranslucent={true}
         onRequestClose={closeStory}>
         <SafeAreaView style={styles.storyContainer}>

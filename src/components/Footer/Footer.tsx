@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Icons } from '../../assets';
 import { Strings } from '../../constants';
@@ -12,20 +12,27 @@ const Footer = ({
   onSendTextPress,
   shouldShowSendImage = true,
   shouldShowTextInputSend = true,
-  iconProps,
-  textProps,
-  viewProps,
+  sendIconProps,
+  sendTextProps,
+  containerViewProps,
   customInput,
   ...rest
 }: FooterProps) => {
   const isKeyboardVisible = useKeyboardListener();
+  const ref = useRef<TextInput>(null);
+
+  const handleSendTextPress = () => {
+    ref?.current?.clear();
+    onSendTextPress?.();
+  };
 
   return (
-    <View style={styles.container} {...viewProps}>
+    <View style={styles.container} {...containerViewProps}>
       <View style={styles.sectionStyle}>
         <>
           {customInput ?? (
             <TextInput
+              ref={ref}
               style={styles.input}
               placeholder={Strings.sendMessage}
               placeholderTextColor={Colors.white}
@@ -34,8 +41,8 @@ const Footer = ({
           )}
         </>
         {isKeyboardVisible && shouldShowTextInputSend && (
-          <TouchableOpacity onPress={onSendTextPress}>
-            <Text style={styles.sendText} {...textProps}>
+          <TouchableOpacity onPress={handleSendTextPress}>
+            <Text style={styles.sendText} {...sendTextProps}>
               {Strings.send}
             </Text>
           </TouchableOpacity>
@@ -43,7 +50,11 @@ const Footer = ({
       </View>
       {!isKeyboardVisible && shouldShowSendImage && (
         <TouchableOpacity onPress={onIconPress} testID="footerIcon">
-          <Image source={Icons.send} style={styles.sendIcon} {...iconProps} />
+          <Image
+            source={Icons.send}
+            style={styles.sendIcon}
+            {...sendIconProps}
+          />
         </TouchableOpacity>
       )}
     </View>

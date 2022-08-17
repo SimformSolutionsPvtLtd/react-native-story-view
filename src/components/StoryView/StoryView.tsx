@@ -51,7 +51,7 @@ const StoryView = (props: StoryViewProps) => {
             onLoadStart={onLoadStart}
             onLoad={(item: OnLoadData) => {
               setLoading(false);
-              props.onVideoLoaded && props.onVideoLoaded(item);
+              props?.onVideoLoaded && props?.onVideoLoaded(item);
             }}
             style={styles.contentVideoView}
             {...props?.videoProps}

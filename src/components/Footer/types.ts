@@ -11,9 +11,9 @@ export type FooterComponentProps = React.ReactElement<FooterProps>;
 
 export type FooterProps = TextInputProps & {
   label?: string;
-  iconProps?: ImageProps;
-  textProps?: TextProps;
-  viewProps?: ViewProps;
+  sendIconProps?: ImageProps;
+  sendTextProps?: TextProps;
+  containerViewProps?: ViewProps;
   shouldShowTextInputSend?: boolean;
   customInput?: TextInput | null;
   shouldShowSendImage?: boolean;

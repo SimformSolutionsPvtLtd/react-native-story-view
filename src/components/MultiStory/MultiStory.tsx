@@ -7,7 +7,7 @@ import type { MultiStoryProps, MultiStoryRef } from './types';
 
 const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
   ({ stories, ...props }, ref) => {
-    const [isStoryViewShow, setIsStoryViewShow] = useState<boolean>(false);
+    const [isStoryViewVisible, setIsStoryViewShow] = useState<boolean>(false);
     const [pressedIndex, setPressedIndex] = useState<number>(0);
 
     const openStories = (index: number) => {
@@ -30,9 +30,9 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
           )}
           {...props}
         />
-        {isStoryViewShow && (
+        {isStoryViewVisible && (
           <MultiStoryContainer
-            visible={isStoryViewShow}
+            visible={isStoryViewVisible}
             onComplete={() => {
               props?.onComplete?.();
               setIsStoryViewShow(false);
