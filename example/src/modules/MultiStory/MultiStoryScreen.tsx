@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { SafeAreaView, ImageBackground, View, Text } from 'react-native';
+import { ImageBackground, View, Text } from 'react-native';
 import { MultiStory } from '../../../../src';
 import type { MultiStoryRef } from 'react-native-story-view';
 import { stories, Strings } from '../../constants';
@@ -22,15 +22,15 @@ const MultiStoryScreen = () => {
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           ref={multiStoryRef}
           storyContainerProps={{
-            renderHeaderComponent: userStories => (
+            renderHeaderComponent: ({ userStories }) => (
               <Header {...{ userStories, multiStoryRef }} />
             ),
-            renderFooterComponent: userStories => (
-              <Footer {...{ userStories }} />
+            renderFooterComponent: ({ userStories, story, progressIndex }) => (
+              <Footer {...{ userStories, story, progressIndex }} />
             ),
             barStyle: {
-              barActiveColor: Colors.red,
-            },
+              barActiveColor: Colors.red
+            }
           }}
         />
       </View>

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     top: 0,
     margin: 0,
   },
-  //UserHeaderView
+  //ProfileHeader
   userContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     marginLeft: scale(12),
     color: 'white',
   },
-  time: {
+  message: {
     fontSize: moderateScale(12),
     fontWeight: '400',
     marginTop: verticalScale(3),

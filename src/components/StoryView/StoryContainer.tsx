@@ -127,11 +127,12 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
             {renderHeaderComponent && (
               <View style={[styles.topView, { opacity }]} {...headerViewProps}>
                 <>
-                  {renderHeaderComponent?.(
+                  {renderHeaderComponent?.({
                     userStories,
+                    story: props?.stories,
                     progressIndex,
-                    props?.userStoryIndex
-                  )}
+                    userStoryIndex: props?.userStoryIndex,
+                  })}
                 </>
               </View>
             )}
@@ -140,11 +141,12 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
                 style={[styles.customView, { opacity }]}
                 {...customViewProps}>
                 <>
-                  {renderCustomView?.(
+                  {renderCustomView?.({
                     userStories,
+                    story: props?.stories,
                     progressIndex,
-                    props?.userStoryIndex
-                  )}
+                    userStoryIndex: props?.userStoryIndex,
+                  })}
                 </>
               </View>
             )}
@@ -152,11 +154,12 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
           {renderFooterComponent && (
             <View style={[styles.bottomView, { opacity }]} {...footerViewProps}>
               <>
-                {renderFooterComponent?.(
+                {renderFooterComponent?.({
                   userStories,
+                  story: props?.stories,
                   progressIndex,
-                  props?.userStoryIndex
-                )}
+                  userStoryIndex: props?.userStoryIndex,
+                })}
               </>
             </View>
           )}

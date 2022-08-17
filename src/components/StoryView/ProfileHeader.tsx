@@ -4,10 +4,15 @@ import { Icons } from '../../assets';
 import styles from './styles';
 import type { UserProps } from './types';
 
-export default memo(function UserHeaderView({
+export default memo(function ProfileHeader({
   userImage,
   userName,
   userMessage,
+  userImageStyle,
+  rootStyle,
+  userNameStyle,
+  userMessageStyle,
+  closeIconStyle,
   customCloseButton,
   onImageClick,
   onClosePress,
@@ -22,21 +27,37 @@ export default memo(function UserHeaderView({
     styles.userContainer,
     containerStyle,
   ]);
+  const _rootStyle = StyleSheet.flatten([styles.userView, rootStyle]);
+  const _userNameStyle = StyleSheet.flatten([styles.name, userNameStyle]);
+  const _userMessageStyle = StyleSheet.flatten([
+    styles.message,
+    userMessageStyle,
+  ]);
+  const _userImageStyle = StyleSheet.flatten([styles.image, userImageStyle]);
+  const _closeIconStyle = StyleSheet.flatten([
+    styles.closeIcon,
+    closeIconStyle,
+  ]);
+
   return (
-    <View style={styles.userView} {...rest}>
+    <View style={_rootStyle} {...rest}>
       {!!userImage && (
         <TouchableOpacity onPress={() => onImageClick?.()}>
-          <Image source={userImage} style={styles.image} {...userImageProps} />
+          <Image
+            source={userImage}
+            style={_userImageStyle}
+            {...userImageProps}
+          />
         </TouchableOpacity>
       )}
       <View style={_containerStyle}>
         <View style={styles.barUsername}>
-          <Text style={styles.name} {...userNameProps}>
+          <Text style={_userNameStyle} {...userNameProps}>
             {userName}
           </Text>
         </View>
         {!!userMessage && (
-          <Text style={styles.time} {...userMessageProps}>
+          <Text style={_userMessageStyle} {...userMessageProps}>
             {userMessage}
           </Text>
         )}
@@ -45,7 +66,7 @@ export default memo(function UserHeaderView({
         <TouchableOpacity onPress={() => onClosePress?.()}>
           <Image
             source={Icons.closeIcon}
-            style={styles.closeIcon}
+            style={_closeIconStyle}
             {...closeIconProps}
           />
         </TouchableOpacity>

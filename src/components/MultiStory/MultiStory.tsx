@@ -2,7 +2,6 @@ import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { MultiStoryContainer } from '../MultiStoryContainer';
 import { StoryAvatar } from '../StoryAvatar';
-import styles from './styles';
 import type { MultiStoryProps, MultiStoryRef } from './types';
 
 const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
@@ -20,7 +19,7 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
     }));
 
     return (
-      <View style={styles.container}>
+      <View>
         <FlatList
           horizontal
           data={stories}
@@ -37,6 +36,9 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
               props?.onComplete?.();
               setIsStoryViewShow(false);
             }}
+            onChangePosition={(progressIndex, storyIndex: any) =>
+              props?.onChangePosition?.(progressIndex, storyIndex)
+            }
             {...props?.storyContainerProps}
             stories={stories}
             userStoryIndex={pressedIndex}

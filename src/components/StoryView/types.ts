@@ -5,6 +5,7 @@ import type {
   ImageSourcePropType,
   ImageStyle,
   TextProps,
+  TextStyle,
   View,
   ViewProps,
   ViewStyle,
@@ -101,6 +102,13 @@ export interface ProgressiveImageProps {
   onImageLoaded?: () => void;
 }
 
+export interface CallbackProps {
+  userStories?: StoriesType | undefined;
+  story?: StoryType[] | undefined;
+  progressIndex: number;
+  userStoryIndex?: number | undefined;
+}
+
 export interface StoryContainerProps extends CommonProps {
   stories: StoryType[];
   userStories?: StoriesType;
@@ -109,24 +117,12 @@ export interface StoryContainerProps extends CommonProps {
   userStoryIndex?: number | undefined;
   storyIndex?: number | undefined;
   isShowReply?: boolean | undefined;
-  renderHeaderComponent?: (
-    userStories?: StoriesType,
-    progressIndex?: number,
-    userStoryIndex?: number
-  ) => JSX.Element;
-  renderFooterComponent?: (
-    userStories?: StoriesType,
-    progressIndex?: number,
-    userStoryIndex?: number
-  ) => JSX.Element;
+  renderHeaderComponent?: (callback: CallbackProps) => JSX.Element;
+  renderFooterComponent?: (callback: CallbackProps) => JSX.Element;
   userProfile?: UserProps | undefined;
   footerView?: FooterViewProps | undefined;
   onComplete?: () => void;
-  renderCustomView?: (
-    userStories?: StoriesType,
-    progressIndex?: number,
-    userStoryIndex?: number
-  ) => JSX.Element;
+  renderCustomView?: (callback: CallbackProps) => JSX.Element;
   backgroundColor?: string;
   style?: ViewStyle;
   progressIndex?: number | undefined;
@@ -158,6 +154,11 @@ export interface UserProps {
   closeIconProps?: ImageProps | undefined;
   userNameProps?: TextProps | undefined;
   userMessageProps?: TextProps | undefined;
+  userImageStyle?: ImageStyle;
+  rootStyle?: ViewStyle;
+  userNameStyle?: TextStyle;
+  userMessageStyle?: TextStyle;
+  closeIconStyle?: ImageStyle;
   customCloseButton?: any;
 }
 

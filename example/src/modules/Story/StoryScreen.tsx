@@ -29,10 +29,15 @@ const StoryScreen = () => {
             visible
             stories={stories[index].stories}
             maxVideoDuration={10}
-            renderHeaderComponent={() => (
+            renderHeaderComponent={({ progressIndex }) => (
               <Header userStories={stories[index]} onClosePress={closeStory} />
             )}
-            renderFooterComponent={() => <Footer />}
+            renderFooterComponent={({ progressIndex, story }) => (
+              <Footer
+                userStories={stories[index]}
+                {...{ story, progressIndex }}
+              />
+            )}
             //Callback when status view completes
             onComplete={closeStory}
           />

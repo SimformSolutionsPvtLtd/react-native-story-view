@@ -93,7 +93,7 @@ Add this script in `package.json`. Now any-time node_modules is reinstalled patc
 
 ## Usage
 
-StoryView is divided into several components, MultiStory, MultiStoryContainer and StoryContainer all for rendering Story. UserHeaderView and Footer are individual components for header and footer. We'll look usage and customization of all these.
+StoryView is divided into several components, MultiStory, MultiStoryContainer and StoryContainer all for rendering Story. ProfileHeader and Footer are individual components for header and footer. We'll look usage and customization of all these.
 
 <br />
 Checkout Multi Story Example
@@ -156,10 +156,10 @@ const multiStoryRef = useRef<MultiStoryRef>(null);
   stories={stories}
   ref={multiStoryRef}
   storyContainerProps={{
-    renderHeaderComponent: (userStories, progressIndex, userStoryIndex) => (
-      <Header {...{ userStories, multiStoryRef }} />
+    renderHeaderComponent: ({ userStories, progressIndex, userStoryIndex }) => (
+      <Header {...{ userStories, progressIndex, multiStoryRef }} />
     ),
-    renderFooterComponent: (userStories, progressIndex, userStoryIndex) => (
+    renderFooterComponent: ({ userStories, progressIndex, userStoryIndex }) => (
       <Footer {...{ userStories }} />
     ),
     barStyle: {
@@ -233,12 +233,22 @@ const [isStoryViewVisible, setIsStoryViewShow] = useState(false);
     visible={true}
     maxVideoDuration={10}
     stories={userStories[0].stories}
-    footerComponent={<Footer onIconPress={() => {}} />}
-    renderHeaderComponent={(userStories, progressIndex) => (
-      <UserHeaderView
-        userImage={{ uri: userStories?.profile ?? '' }}
-        userName={userStories?.username}
-        userMessage={userStories?.title}
+    renderFooterComponent={({ story, progressIndex }) => (
+      <Footer
+        onSendTextPress={() => {
+          Alert.alert(`Current Story id ${story?.[progressIndex].id} `);
+          Keyboard.dismiss();
+        }}
+        onIconPress={() => {
+          Alert.alert('Current Story progress index' + progressIndex);
+        }}
+      />
+    )}
+    renderHeaderComponent={({ story, progressIndex }) => (
+      <ProfileHeader
+        userImage={{ uri: userStories[0]?.profile ?? '' }}
+        userName={userStories[0]?.username}
+        userMessage={userStories[0]?.title}
         onImageClick={() => {}}
         onClosePress={() => setIsStoryViewShow(false)}
       />
@@ -269,14 +279,25 @@ ProgressBar customisation can be controlled through StoryContainer itself. `enab
 />
 ```
 
-### UserHeaderView
+### ProfileHeader
 
 This is an individual component, To display user details on header like instagram/whatsapp. In `renderHeaderComponent` of StoryContainer, Custom component can be assigned.
+For Multi Story, renderHeaderComponent receives `progressIndex`, `userStories` and `userStoryIndex` for getting current user data.
+For Single Story, renderHeaderComponent receives `story` and `progressIndex` for getting whole story array and current progress index, `userStories` is undefined for single story.
 
 ```js
 <StoryContainer
-  renderHeaderComponent={(userStories: UserProps) => (
-    <UserHeaderView
+  renderHeaderComponent={({
+    userStories,
+    story,
+    progressIndex,
+    userStoryIndex,
+  }) => (
+    <ProfileHeader
+      /*
+       * `userStories` only for Multi story
+       * For single story use main story array: stories[0].username
+       */
       userImage={{ uri: userStories?.[0].profile ?? '' }}
       userName={userStories?.[0].username}
       userMessage={userStories?.[0].title}
@@ -297,7 +318,12 @@ This is an individual component, To display footer like instagram. Any TextInput
 
 ```js
 <StoryContainer
-  renderFooterComponent={userStories => (
+  renderFooterComponent={({
+    userStories,
+    story,
+    progressIndex,
+    userStoryIndex,
+  }) => (
     <Footer
       onIconPress={() => {
         console.log('Share icon clicked');
@@ -391,24 +417,39 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                    | Default | Type                                                    | <div style="width:290px">Description</div>                             |
-> | :---------------------- | :-----: | :------------------------------------------------------ | ---------------------------------------------------------------------- |
-> | **visible\***           |  false  | boolean                                                 | Hide / show story view                                                 |
-> | **stories\***           |   []    | StoryType[]                                             | Array of stories                                                       |
-> | backgroundColor         | #000000 | string                                                  | Background color of story view                                         |
-> | maxVideoDuration        |  null   | number                                                  | Override video progress duration (default is actual duration of video) |
-> | style                   |   {}    | ViewStyle                                               | Style of story view                                                    |
-> | showSourceIndicator     |  true   | boolean                                                 | Display indicator while video loading                                  |
-> | sourceIndicatorProps    |   {}    | ActivityIndicatorProps                                  | To override indicator props                                            |
-> | onComplete              |  null   | () => {}                                                | Callback when all stories completes                                    |
-> | renderHeaderComponent   |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render Header component (`UserHeaderView`) or custom component         |
-> | renderFooterComponent   |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render Footer component (`Footer`) or custom component                 |
-> | renderCustomView        |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render any custom view on Story                                        |
-> | storyContainerViewProps |   {}    | ViewProps                                               | Root story view props                                                  |
-> | headerViewProps         |   {}    | ViewProps                                               | Header view wrapper props                                              |
-> | footerViewProps         |   {}    | ViewProps                                               | Footer view wrapper props                                              |
-> | customViewProps         |   {}    | ViewProps                                               | Custom view wrapper props                                              |
-> | videoProps              |   {}    | VideoProperties                                         | To override video properties                                           |
+> | Name                    | Default | Type                                                       | <div style="width:290px">Description</div>                             |
+> | :---------------------- | :-----: | :--------------------------------------------------------- | ---------------------------------------------------------------------- |
+> | **visible\***           |  false  | boolean                                                    | Hide / show story view                                                 |
+> | **stories\***           |   []    | StoryType[]                                                | Array of stories                                                       |
+> | backgroundColor         | #000000 | string                                                     | Background color of story view                                         |
+> | maxVideoDuration        |  null   | number                                                     | Override video progress duration (default is actual duration of video) |
+> | style                   |   {}    | ViewStyle                                                  | Style of story view                                                    |
+> | showSourceIndicator     |  true   | boolean                                                    | Display indicator while video loading                                  |
+> | sourceIndicatorProps    |   {}    | ActivityIndicatorProps                                     | To override indicator props                                            |
+> | onComplete              |  null   | () => {}                                                   | Callback when all stories completes                                    |
+> | renderHeaderComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component          |
+> | renderFooterComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                 |
+> | renderCustomView        |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                        |
+> | storyContainerViewProps |   {}    | ViewProps                                                  | Root story view props                                                  |
+> | headerViewProps         |   {}    | ViewProps                                                  | Header view wrapper props                                              |
+> | footerViewProps         |   {}    | ViewProps                                                  | Footer view wrapper props                                              |
+> | customViewProps         |   {}    | ViewProps                                                  | Custom view wrapper props                                              |
+> | videoProps              |   {}    | VideoProperties                                            | To override video properties                                           |
+
+---
+
+<br />
+
+### CallbackProps
+
+<br />
+
+> | Name              |  Default  | Type        | <div style="width:290px">Description</div>        |
+> | :---------------- | :-------: | :---------- | ------------------------------------------------- |
+> | **progressIndex** |     0     | number      | Current progress index of story                   |
+> | story             | undefined | StoryType[] | Current story array                               |
+> | userStories       | undefined | StoriesType | Current user story array (`Only for Multi Story`) |
+> | userStoryIndex    | undefined | number      | Current user story index (`Only for Multi Story`) |
 
 ---
 
@@ -420,7 +461,7 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 > | Name              |                                               Default                                                | Type             | <div style="width:290px">Description</div>                             |
 > | :---------------- | :--------------------------------------------------------------------------------------------------: | :--------------- | ---------------------------------------------------------------------- |
-> | progressIndex     |                                                  0                                                   | boolean          | To start story with any index                                          |
+> | progressIndex     |                                                  0                                                   | number           | To start story with any index                                          |
 > | barStyle          | {<br />`barActiveColor`: #ffffff' <br /> `barInActiveColor`: #FFFFFF7F <br /> `barHeight` : 2<br />} | BarStyleProps    | Progressbar Style: (`barActiveColor`, `barInActiveColor`, `barHeight`) |
 > | enableProgress    |                                                 true                                                 | boolean          | To display progressbar                                                 |
 > | progressViewProps |                                                  {}                                                  | ViewProps        | ProgressBar view wrapper props                                         |
@@ -430,7 +471,7 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-### UserHeaderView
+### ProfileHeader
 
 <br />
 
@@ -442,7 +483,12 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 > | customCloseButton |  null   | any                 | To render custom close button              |
 > | closeIconProps    |   {}    | ViewProps           | ProgressBar view wrapper props             |
 > | onImageClick      |  null   | () => {}            | Callback on user image click               |
-> | containerStyle    |   {}    | ViewStyle           | Root view style changes                    |
+> | rootStyle         |   {}    | ViewStyle           | root view style changes                    |
+> | containerStyle    |   {}    | ViewStyle           | container view style changes               |
+> | userImageStyle    |   {}    | ImageStyle          | To change profile Image view style         |
+> | userNameStyle     |   {}    | TextStyle           | To change profile name style               |
+> | userMessageStyle  |   {}    | TextStyle           | To change profile message/subtext style    |
+> | closeIconStyle    |   {}    | ImageStyle          | To change close icon style                 |
 > | userImageProps    |   {}    | ImageProps          | User Image props                           |
 > | userMessageProps  |   {}    | TextProps           | User Message Props                         |
 > | userNameProps     |   {}    | TextProps           | User Name Props                            |
@@ -455,17 +501,22 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                    | Default | Type           | <div style="width:290px">Description</div>             |
-> | :---------------------- | :-----: | :------------- | ------------------------------------------------------ |
-> | customInput             |  null   | TextInput      | Render any custom text input                           |
-> | shouldShowSendImage     |  true   | bool           | Show/hide send icon image                              |
-> | onIconPress             |  null   | () => {}       | Callback on send icon press                            |
-> | sendIconProps           |   {}    | ImageProps     | Additional props to customize 'send' image view        |
-> | shouldShowTextInputSend |  true   | bool           | Show/hide send text inside text input (like instagram) |
-> | onSendTextPress         |  null   | () => {}       | Callback on send text press                            |
-> | sendTextProps           |   {}    | TextProps      | Additional props to customize 'send' text view         |
-> | containerViewProps      |   {}    | ViewProps      | Root view props                                        |
-> | `props`                 |    -    | TextInputProps | Pass any `TextInput` props on `Footer` component       |
+> | Name                    | Default | Type                 | <div style="width:290px">Description</div>             |
+> | :---------------------- | :-----: | :------------------- | ------------------------------------------------------ |
+> | customInput             |  null   | TextInput            | Render any custom text input                           |
+> | shouldShowSendImage     |  true   | bool                 | Show/hide send icon image                              |
+> | onIconPress             |  null   | () => {}             | Callback on send icon press                            |
+> | sendIconProps           |   {}    | ImageProps           | Additional props to customize 'send' image view        |
+> | sendText                | 'Send'  | string               | To change text 'send' with any other string            |
+> | shouldShowTextInputSend |  true   | bool                 | Show/hide send text inside text input (like instagram) |
+> | onSendTextPress         |  null   | () => {}             | Callback on send text press                            |
+> | sendTextProps           |   {}    | TextProps            | Additional props to customize 'send' text view         |
+> | sendTextStyle           |   {}    | TextStyle            | To change style of send text                           |
+> | sendIconStyle           |   {}    | ImageStyle           | To change style of send icon                           |
+> | inputStyle              |   {}    | StyleProp<TextStyle> | To change style of input                               |
+> | containerStyle          |   {}    | ViewStyle            | To change style of root view                           |
+> | containerViewProps      |   {}    | ViewProps            | Root view props                                        |
+> | `props`                 |    -    | TextInputProps       | Pass any `TextInput` props on `Footer` component       |
 
 ---
 
