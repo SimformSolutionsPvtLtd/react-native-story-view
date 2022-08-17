@@ -5,6 +5,7 @@ import type {
   ImageSourcePropType,
   ImageStyle,
   TextProps,
+  TextStyle,
   View,
   ViewProps,
   ViewStyle,
@@ -153,6 +154,11 @@ export interface UserProps {
   closeIconProps?: ImageProps | undefined;
   userNameProps?: TextProps | undefined;
   userMessageProps?: TextProps | undefined;
+  userImageStyle?: ImageStyle;
+  rootStyle?: ViewStyle;
+  userNameStyle?: TextStyle;
+  userMessageStyle?: TextStyle;
+  closeIconStyle?: ImageStyle;
   customCloseButton?: any;
 }
 

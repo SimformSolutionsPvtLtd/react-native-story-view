@@ -461,7 +461,7 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 > | Name              |                                               Default                                                | Type             | <div style="width:290px">Description</div>                             |
 > | :---------------- | :--------------------------------------------------------------------------------------------------: | :--------------- | ---------------------------------------------------------------------- |
-> | progressIndex     |                                                  0                                                   | boolean          | To start story with any index                                          |
+> | progressIndex     |                                                  0                                                   | number           | To start story with any index                                          |
 > | barStyle          | {<br />`barActiveColor`: #ffffff' <br /> `barInActiveColor`: #FFFFFF7F <br /> `barHeight` : 2<br />} | BarStyleProps    | Progressbar Style: (`barActiveColor`, `barInActiveColor`, `barHeight`) |
 > | enableProgress    |                                                 true                                                 | boolean          | To display progressbar                                                 |
 > | progressViewProps |                                                  {}                                                  | ViewProps        | ProgressBar view wrapper props                                         |
@@ -483,7 +483,12 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 > | customCloseButton |  null   | any                 | To render custom close button              |
 > | closeIconProps    |   {}    | ViewProps           | ProgressBar view wrapper props             |
 > | onImageClick      |  null   | () => {}            | Callback on user image click               |
-> | containerStyle    |   {}    | ViewStyle           | Root view style changes                    |
+> | rootStyle         |   {}    | ViewStyle           | root view style changes                    |
+> | containerStyle    |   {}    | ViewStyle           | container view style changes               |
+> | userImageStyle    |   {}    | ImageStyle          | To change profile Image view style         |
+> | userNameStyle     |   {}    | TextStyle           | To change profile name style               |
+> | userMessageStyle  |   {}    | TextStyle           | To change profile message/subtext style    |
+> | closeIconStyle    |   {}    | ImageStyle          | To change close icon style                 |
 > | userImageProps    |   {}    | ImageProps          | User Image props                           |
 > | userMessageProps  |   {}    | TextProps           | User Message Props                         |
 > | userNameProps     |   {}    | TextProps           | User Name Props                            |
@@ -496,17 +501,22 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                    | Default | Type           | <div style="width:290px">Description</div>             |
-> | :---------------------- | :-----: | :------------- | ------------------------------------------------------ |
-> | customInput             |  null   | TextInput      | Render any custom text input                           |
-> | shouldShowSendImage     |  true   | bool           | Show/hide send icon image                              |
-> | onIconPress             |  null   | () => {}       | Callback on send icon press                            |
-> | sendIconProps           |   {}    | ImageProps     | Additional props to customize 'send' image view        |
-> | shouldShowTextInputSend |  true   | bool           | Show/hide send text inside text input (like instagram) |
-> | onSendTextPress         |  null   | () => {}       | Callback on send text press                            |
-> | sendTextProps           |   {}    | TextProps      | Additional props to customize 'send' text view         |
-> | containerViewProps      |   {}    | ViewProps      | Root view props                                        |
-> | `props`                 |    -    | TextInputProps | Pass any `TextInput` props on `Footer` component       |
+> | Name                    | Default | Type                 | <div style="width:290px">Description</div>             |
+> | :---------------------- | :-----: | :------------------- | ------------------------------------------------------ |
+> | customInput             |  null   | TextInput            | Render any custom text input                           |
+> | shouldShowSendImage     |  true   | bool                 | Show/hide send icon image                              |
+> | onIconPress             |  null   | () => {}             | Callback on send icon press                            |
+> | sendIconProps           |   {}    | ImageProps           | Additional props to customize 'send' image view        |
+> | sendText                | 'Send'  | string               | To change text 'send' with any other string            |
+> | shouldShowTextInputSend |  true   | bool                 | Show/hide send text inside text input (like instagram) |
+> | onSendTextPress         |  null   | () => {}             | Callback on send text press                            |
+> | sendTextProps           |   {}    | TextProps            | Additional props to customize 'send' text view         |
+> | sendTextStyle           |   {}    | TextStyle            | To change style of send text                           |
+> | sendIconStyle           |   {}    | ImageStyle           | To change style of send icon                           |
+> | inputStyle              |   {}    | StyleProp<TextStyle> | To change style of input                               |
+> | containerStyle          |   {}    | ViewStyle            | To change style of root view                           |
+> | containerViewProps      |   {}    | ViewProps            | Root view props                                        |
+> | `props`                 |    -    | TextInputProps       | Pass any `TextInput` props on `Footer` component       |
 
 ---
 

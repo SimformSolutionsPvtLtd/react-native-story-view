@@ -1,5 +1,12 @@
 import React, { useRef } from 'react';
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Icons } from '../../assets';
 import { Strings } from '../../constants';
 import { useKeyboardListener } from '../../hooks';
@@ -10,6 +17,11 @@ import type { FooterProps } from './types';
 const Footer = ({
   onIconPress,
   onSendTextPress,
+  sendTextStyle,
+  sendIconStyle,
+  inputStyle,
+  containerStyle,
+  sendText,
   shouldShowSendImage = true,
   shouldShowTextInputSend = true,
   sendIconProps,
@@ -26,14 +38,22 @@ const Footer = ({
     onSendTextPress?.();
   };
 
+  const _sendTextStyle = StyleSheet.flatten([styles.sendText, sendTextStyle]);
+  const _sendIconStyle = StyleSheet.flatten([styles.sendIcon, sendIconStyle]);
+  const _inputStyle = StyleSheet.flatten([styles.input, inputStyle]);
+  const _containerStyle = StyleSheet.flatten([
+    styles.container,
+    containerStyle,
+  ]);
+
   return (
-    <View style={styles.container} {...containerViewProps}>
+    <View style={_containerStyle} {...containerViewProps}>
       <View style={styles.sectionStyle}>
         <>
           {customInput ?? (
             <TextInput
               ref={ref}
-              style={styles.input}
+              style={_inputStyle}
               placeholder={Strings.sendMessage}
               placeholderTextColor={Colors.white}
               {...rest}
@@ -42,8 +62,8 @@ const Footer = ({
         </>
         {isKeyboardVisible && shouldShowTextInputSend && (
           <TouchableOpacity onPress={handleSendTextPress}>
-            <Text style={styles.sendText} {...sendTextProps}>
-              {Strings.send}
+            <Text style={_sendTextStyle} {...sendTextProps}>
+              {sendText ?? Strings.send}
             </Text>
           </TouchableOpacity>
         )}
@@ -52,7 +72,7 @@ const Footer = ({
         <TouchableOpacity onPress={onIconPress} testID="footerIcon">
           <Image
             source={Icons.send}
-            style={styles.sendIcon}
+            style={_sendIconStyle}
             {...sendIconProps}
           />
         </TouchableOpacity>
