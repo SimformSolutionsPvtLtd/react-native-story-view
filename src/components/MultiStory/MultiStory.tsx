@@ -36,6 +36,9 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
               props?.onComplete?.();
               setIsStoryViewShow(false);
             }}
+            onChangePosition={(progressIndex, storyIndex: any) =>
+              props?.onChangePosition?.(progressIndex, storyIndex)
+            }
             {...props?.storyContainerProps}
             stories={stories}
             userStoryIndex={pressedIndex}
