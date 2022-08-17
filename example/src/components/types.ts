@@ -1,18 +1,12 @@
 import { RefObject } from 'react';
 import type {
-  StoriesType,
   MultiStoryRef,
   UserProps,
+  CallbackProps
 } from 'react-native-story-view';
 
-interface CallbackProps {
-  userStories?: StoriesType;
-  progressIndex?: number;
-  userStoryIndex?: number;
-}
-
-export interface HeaderProps extends CallbackProps, UserProps {
+export interface HeaderProps extends Partial<CallbackProps>, UserProps {
   multiStoryRef?: RefObject<MultiStoryRef> | null;
 }
 
-export interface FooterProps extends CallbackProps {}
+export interface FooterProps extends Partial<CallbackProps> {}

@@ -8,5 +8,6 @@ export type {
   StoryType,
   UserProps,
   StoryRef,
+  CallbackProps,
 } from './types';
 export { UserHeaderView, StoryContainer };

@@ -156,10 +156,10 @@ const multiStoryRef = useRef<MultiStoryRef>(null);
   stories={stories}
   ref={multiStoryRef}
   storyContainerProps={{
-    renderHeaderComponent: (userStories, progressIndex, userStoryIndex) => (
-      <Header {...{ userStories, multiStoryRef }} />
+    renderHeaderComponent: ({ userStories, progressIndex, userStoryIndex }) => (
+      <Header {...{ userStories, progressIndex, multiStoryRef }} />
     ),
-    renderFooterComponent: (userStories, progressIndex, userStoryIndex) => (
+    renderFooterComponent: ({ userStories, progressIndex, userStoryIndex }) => (
       <Footer {...{ userStories }} />
     ),
     barStyle: {
@@ -233,12 +233,22 @@ const [isStoryViewVisible, setIsStoryViewShow] = useState(false);
     visible={true}
     maxVideoDuration={10}
     stories={userStories[0].stories}
-    footerComponent={<Footer onIconPress={() => {}} />}
-    renderHeaderComponent={(userStories, progressIndex) => (
+    renderFooterComponent={({ story, progressIndex }) => (
+      <Footer
+        onSendTextPress={() => {
+          Alert.alert(`Current Story id ${story?.[progressIndex].id} `);
+          Keyboard.dismiss();
+        }}
+        onIconPress={() => {
+          Alert.alert('Current Story progress index' + progressIndex);
+        }}
+      />
+    )}
+    renderHeaderComponent={({ story, progressIndex }) => (
       <UserHeaderView
-        userImage={{ uri: userStories?.profile ?? '' }}
-        userName={userStories?.username}
-        userMessage={userStories?.title}
+        userImage={{ uri: userStories[0]?.profile ?? '' }}
+        userName={userStories[0]?.username}
+        userMessage={userStories[0]?.title}
         onImageClick={() => {}}
         onClosePress={() => setIsStoryViewShow(false)}
       />
@@ -272,11 +282,22 @@ ProgressBar customisation can be controlled through StoryContainer itself. `enab
 ### UserHeaderView
 
 This is an individual component, To display user details on header like instagram/whatsapp. In `renderHeaderComponent` of StoryContainer, Custom component can be assigned.
+For Multi Story, renderHeaderComponent receives `progressIndex`, `userStories` and `userStoryIndex` for getting current user data.
+For Single Story, renderHeaderComponent receives `story` and `progressIndex` for getting whole story array and current progress index, `userStories` is undefined for single story.
 
 ```js
 <StoryContainer
-  renderHeaderComponent={(userStories: UserProps) => (
+  renderHeaderComponent={({
+    userStories,
+    story,
+    progressIndex,
+    userStoryIndex,
+  }) => (
     <UserHeaderView
+      /*
+       * `userStories` only for Multi story
+       * For single story use main story array: stories[0].username
+       */
       userImage={{ uri: userStories?.[0].profile ?? '' }}
       userName={userStories?.[0].username}
       userMessage={userStories?.[0].title}
@@ -297,7 +318,12 @@ This is an individual component, To display footer like instagram. Any TextInput
 
 ```js
 <StoryContainer
-  renderFooterComponent={userStories => (
+  renderFooterComponent={({
+    userStories,
+    story,
+    progressIndex,
+    userStoryIndex,
+  }) => (
     <Footer
       onIconPress={() => {
         console.log('Share icon clicked');
@@ -391,24 +417,39 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                    | Default | Type                                                    | <div style="width:290px">Description</div>                             |
-> | :---------------------- | :-----: | :------------------------------------------------------ | ---------------------------------------------------------------------- |
-> | **visible\***           |  false  | boolean                                                 | Hide / show story view                                                 |
-> | **stories\***           |   []    | StoryType[]                                             | Array of stories                                                       |
-> | backgroundColor         | #000000 | string                                                  | Background color of story view                                         |
-> | maxVideoDuration        |  null   | number                                                  | Override video progress duration (default is actual duration of video) |
-> | style                   |   {}    | ViewStyle                                               | Style of story view                                                    |
-> | showSourceIndicator     |  true   | boolean                                                 | Display indicator while video loading                                  |
-> | sourceIndicatorProps    |   {}    | ActivityIndicatorProps                                  | To override indicator props                                            |
-> | onComplete              |  null   | () => {}                                                | Callback when all stories completes                                    |
-> | renderHeaderComponent   |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render Header component (`UserHeaderView`) or custom component         |
-> | renderFooterComponent   |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render Footer component (`Footer`) or custom component                 |
-> | renderCustomView        |  null   | (userStories, progressIndex, storyIndex) => JSX.Element | Render any custom view on Story                                        |
-> | storyContainerViewProps |   {}    | ViewProps                                               | Root story view props                                                  |
-> | headerViewProps         |   {}    | ViewProps                                               | Header view wrapper props                                              |
-> | footerViewProps         |   {}    | ViewProps                                               | Footer view wrapper props                                              |
-> | customViewProps         |   {}    | ViewProps                                               | Custom view wrapper props                                              |
-> | videoProps              |   {}    | VideoProperties                                         | To override video properties                                           |
+> | Name                    | Default | Type                                                       | <div style="width:290px">Description</div>                             |
+> | :---------------------- | :-----: | :--------------------------------------------------------- | ---------------------------------------------------------------------- |
+> | **visible\***           |  false  | boolean                                                    | Hide / show story view                                                 |
+> | **stories\***           |   []    | StoryType[]                                                | Array of stories                                                       |
+> | backgroundColor         | #000000 | string                                                     | Background color of story view                                         |
+> | maxVideoDuration        |  null   | number                                                     | Override video progress duration (default is actual duration of video) |
+> | style                   |   {}    | ViewStyle                                                  | Style of story view                                                    |
+> | showSourceIndicator     |  true   | boolean                                                    | Display indicator while video loading                                  |
+> | sourceIndicatorProps    |   {}    | ActivityIndicatorProps                                     | To override indicator props                                            |
+> | onComplete              |  null   | () => {}                                                   | Callback when all stories completes                                    |
+> | renderHeaderComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`UserHeaderView`) or custom component         |
+> | renderFooterComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                 |
+> | renderCustomView        |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                        |
+> | storyContainerViewProps |   {}    | ViewProps                                                  | Root story view props                                                  |
+> | headerViewProps         |   {}    | ViewProps                                                  | Header view wrapper props                                              |
+> | footerViewProps         |   {}    | ViewProps                                                  | Footer view wrapper props                                              |
+> | customViewProps         |   {}    | ViewProps                                                  | Custom view wrapper props                                              |
+> | videoProps              |   {}    | VideoProperties                                            | To override video properties                                           |
+
+---
+
+<br />
+
+### CallbackProps
+
+<br />
+
+> | Name              |  Default  | Type        | <div style="width:290px">Description</div>        |
+> | :---------------- | :-------: | :---------- | ------------------------------------------------- |
+> | **progressIndex** |     0     | number      | Current progress index of story                   |
+> | story             | undefined | StoryType[] | Current story array                               |
+> | userStories       | undefined | StoriesType | Current user story array (`Only for Multi Story`) |
+> | userStoryIndex    | undefined | number      | Current user story index (`Only for Multi Story`) |
 
 ---
 
