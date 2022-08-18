@@ -5,7 +5,7 @@ import { StoryAvatar } from '../StoryAvatar';
 import type { MultiStoryProps, MultiStoryRef } from './types';
 
 const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
-  ({ stories, ...props }, ref) => {
+  ({ stories, avatarProps, ...props }, ref) => {
     const [isStoryViewVisible, setIsStoryViewShow] = useState<boolean>(false);
     const [pressedIndex, setPressedIndex] = useState<number>(0);
 
@@ -23,9 +23,10 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
         <FlatList
           horizontal
           data={stories}
+          showsHorizontalScrollIndicator={false}
           keyExtractor={item => item?.id?.toString()}
           renderItem={({ item, index }) => (
-            <StoryAvatar {...{ item, index, openStories }} />
+            <StoryAvatar {...{ item, index, openStories, ...avatarProps }} />
           )}
           {...props}
         />

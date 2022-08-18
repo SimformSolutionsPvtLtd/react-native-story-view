@@ -18,6 +18,7 @@ exports[`MultiStory Component Match Snapshot 1`] = `
     removeClippedSubviews={false}
     renderItem={[Function]}
     scrollEventThrottle={50}
+    showsHorizontalScrollIndicator={false}
     stickyHeaderIndices={Array []}
     viewabilityConfigCallbackPairs={Array []}
   >
