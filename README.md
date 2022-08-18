@@ -155,6 +155,9 @@ const multiStoryRef = useRef<MultiStoryRef>(null);
 <MultiStory
   stories={stories}
   ref={multiStoryRef}
+  avatarProps={{
+    userNameStyle: { fontSize: 16 },
+  }}
   storyContainerProps={{
     renderHeaderComponent: ({ userStories, progressIndex, userStoryIndex }) => (
       <Header {...{ userStories, progressIndex, multiStoryRef }} />
@@ -382,14 +385,30 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                | Default | Type                              | <div style="width:290px">Description</div>                                  |
-> | :------------------ | :-----: | :-------------------------------- | --------------------------------------------------------------------------- |
-> | **stories\***       |    0    | StoriesType[]                     | Array of multiple user stories                                              |
-> | ref                 |  null   | MultiStoryRef                     | To access `close` story method                                              |
-> | storyContainerProps |   {}    | StoryContainerProps               | Customize all story props, detailed props in below `StoryContainer` section |
-> | onChangePosition    |  null   | (progressIndex, storyIndex) => {} | Callback when progress index changes                                        |
-> | onComplete          |  null   | () => {}                          | Callback when stories closed or complete                                    |
-> | `props`             |    -    | FlatListProps                     | Pass any `FlatList` props to customize horizontal user list                 |
+> | Name                | Default | Type                                            | <div style="width:290px">Description</div>                                  |
+> | :------------------ | :-----: | :---------------------------------------------- | --------------------------------------------------------------------------- |
+> | **stories\***       |    0    | StoriesType[]                                   | Array of multiple user stories                                              |
+> | ref                 |  null   | MultiStoryRef                                   | To access `close` story method                                              |
+> | storyContainerProps |   {}    | StoryContainerProps                             | Customize all story props, detailed props in below `StoryContainer` section |
+> | avatarProps         |   {}    | [StoryAvatarStyleProps](#StoryAvatarStyleProps) | Customize avatar component styles                                           |
+> | onChangePosition    |  null   | (progressIndex, storyIndex) => {}               | Callback when progress index changes                                        |
+> | onComplete          |  null   | () => {}                                        | Callback when stories closed or complete                                    |
+> | `props`             |    -    | FlatListProps                                   | Pass any `FlatList` props to customize horizontal user list                 |
+
+---
+
+### StoryAvatarStyleProps
+
+<br />
+
+> | Name           | Default | Type           | <div style="width:290px">Description</div> |
+> | :------------- | :-----: | :------------- | ------------------------------------------ |
+> | userNameStyle  |    -    | TextStyle      | To change style of user name               |
+> | userImageStyle |    -    | ImageStyle     | To change style of user avatar             |
+> | containerStyle |    -    | ViewStyle      | To change style of image container         |
+> | userImageProps |    -    | ImageProps     | To customize image props                   |
+> | userNameProps  |    -    | ViewStyle      | To customize text props                    |
+> | rootProps      |    -    | PressableProps | To customize root view props               |
 
 ---
 

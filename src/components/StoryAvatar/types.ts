@@ -1,7 +1,24 @@
+import type {
+  ImageProps,
+  ImageStyle,
+  PressableProps,
+  TextProps,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 import type { StoriesType } from '../StoryView/types';
 
-export interface StoryAvatarProps {
+export interface StoryAvatarProps extends StoryAvatarStyleProps {
   item?: StoriesType;
   index?: number;
   openStories?: (position: number) => void;
+}
+
+export interface StoryAvatarStyleProps {
+  userNameStyle?: TextStyle;
+  userImageStyle?: ImageStyle;
+  containerStyle?: ViewStyle;
+  userImageProps?: ImageProps;
+  userNameProps?: TextProps;
+  rootProps?: PressableProps;
 }
