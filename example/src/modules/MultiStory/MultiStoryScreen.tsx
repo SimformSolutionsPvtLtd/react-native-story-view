@@ -1,15 +1,31 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { ImageBackground, View, Text } from 'react-native';
 import { MultiStory } from '../../../../src';
 import type { MultiStoryRef } from 'react-native-story-view';
 import { stories, Strings } from '../../constants';
-import { Colors } from '../../theme';
-import styles from './styles';
 import { Header, Footer } from '../../components';
+import { Colors } from '../../theme';
 import Images from '../../assets';
+import styles from './styles';
 
 const MultiStoryScreen = () => {
   const multiStoryRef = useRef<MultiStoryRef>(null);
+  const [userStories, setUserStories] = useState(
+    JSON.parse(JSON.stringify(stories))
+  );
+
+  const onStoryClose = (viewedStories?: Array<boolean[]>) => {
+    if (viewedStories == null || viewedStories == undefined) return;
+    const stories = [...userStories];
+    userStories.map((_: any, index: number) => {
+      userStories[index].stories.map((_: any, subIndex: number) => {
+        stories[index].stories[subIndex].isSeen =
+          viewedStories[index][subIndex];
+      });
+    });
+    setUserStories([...stories]);
+  };
+
   return (
     <ImageBackground
       style={styles.container}
@@ -18,9 +34,18 @@ const MultiStoryScreen = () => {
       <View style={styles.storyWrapper}>
         <Text style={styles.albumText}>{Strings.album}</Text>
         <MultiStory
-          stories={stories}
+          stories={userStories}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           ref={multiStoryRef}
+          /* callback after multi story is closed
+            `viewedStories` contains multi dimension array of booleans whether story is seen or not
+          */
+          onComplete={onStoryClose}
+          avatarProps={{
+            viewedStoryContainerStyle: {
+              borderColor: Colors.lightGrey
+            }
+          }}
           storyContainerProps={{
             renderHeaderComponent: ({ userStories }) => (
               <Header {...{ userStories, multiStoryRef }} />

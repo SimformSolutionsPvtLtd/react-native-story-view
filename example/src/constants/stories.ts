@@ -13,6 +13,7 @@ const stories = [
         duration: 3,
         isReadMore: true,
         storyId: 1,
+        isSeen: false
       },
       {
         id: 2,
@@ -21,6 +22,7 @@ const stories = [
         duration: 4,
         isReadMore: true,
         storyId: 1,
+        isSeen: false
       },
       {
         id: 3,
@@ -29,8 +31,9 @@ const stories = [
         duration: 15,
         isReadMore: true,
         storyId: 1,
-      },
-    ],
+        isSeen: false
+      }
+    ]
   },
   {
     id: 2,
@@ -46,6 +49,7 @@ const stories = [
         duration: 5,
         isReadMore: true,
         storyId: 2,
+        isSeen: false
       },
       {
         id: 1,
@@ -54,8 +58,9 @@ const stories = [
         duration: 10,
         isReadMore: true,
         storyId: 2,
-      },
-    ],
+        isSeen: false
+      }
+    ]
   },
   {
     id: 3,
@@ -71,6 +76,7 @@ const stories = [
         duration: 5,
         isReadMore: true,
         storyId: 3,
+        isSeen: false
       },
       {
         id: 1,
@@ -79,8 +85,9 @@ const stories = [
         duration: 10,
         isReadMore: true,
         storyId: 3,
-      },
-    ],
+        isSeen: false
+      }
+    ]
   },
   {
     id: 4,
@@ -96,6 +103,7 @@ const stories = [
         duration: 5,
         isReadMore: true,
         storyId: 4,
+        isSeen: false
       },
       {
         id: 1,
@@ -104,8 +112,9 @@ const stories = [
         duration: 10,
         isReadMore: true,
         storyId: 4,
-      },
-    ],
+        isSeen: false
+      }
+    ]
   },
   {
     id: 5,
@@ -121,9 +130,10 @@ const stories = [
         duration: 5,
         isReadMore: true,
         storyId: 4,
-      },
-    ],
-  },
+        isSeen: false
+      }
+    ]
+  }
 ];
 
 export default stories;

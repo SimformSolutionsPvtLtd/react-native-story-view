@@ -29,11 +29,15 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
       previousStory,
       storyIndex,
       onComplete,
+      viewedStories,
       ...props
     }: MultiStoryListItemProps,
     ref
   ) => {
     const storyRef = useRef<StoryRef>(null);
+    const storyInitialIndex: number = viewedStories?.[index]?.findIndex(
+      (val: boolean) => !val
+    );
 
     useImperativeHandle(ref, () => ({
       onScrollBegin: () => storyRef?.current?.pause(true),
@@ -50,7 +54,7 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
             nextStory={nextStory}
             previousStory={previousStory}
             stories={item.stories}
-            progressIndex={0}
+            progressIndex={storyInitialIndex < 0 ? 0 : storyInitialIndex}
             maxVideoDuration={15}
             renderHeaderComponent={() => (
               <ProfileHeader
@@ -77,6 +81,7 @@ const MultiStoryContainer = ({
   stories,
   visible,
   onComplete,
+  viewedStories = [],
   ...props
 }: MultiStoryContainerProps) => {
   const flatListRef = useRef<any>(null);
@@ -161,6 +166,7 @@ const MultiStoryContainer = ({
                 previousStory,
                 storyIndex,
                 onComplete,
+                viewedStories,
               }}
               {...props}
             />

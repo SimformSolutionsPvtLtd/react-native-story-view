@@ -39,6 +39,13 @@ export default memo(function ProfileHeader({
     closeIconStyle,
   ]);
 
+  const touchPos = {
+    top: 20,
+    bottom: 30,
+    left: 30,
+    right: 30,
+  };
+
   return (
     <View style={_rootStyle} {...rest}>
       {!!userImage && (
@@ -63,7 +70,7 @@ export default memo(function ProfileHeader({
         )}
       </View>
       {customCloseButton ?? (
-        <TouchableOpacity onPress={() => onClosePress?.()}>
+        <TouchableOpacity onPress={() => onClosePress?.()} hitSlop={touchPos}>
           <Image
             source={Icons.closeIcon}
             style={_closeIconStyle}

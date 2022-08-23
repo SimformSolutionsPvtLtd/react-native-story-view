@@ -93,6 +93,7 @@ const userStories = [
           type: 'image', //image or video type of story
           duration: 5, //default duration
           storyId: 1,
+          isSeen: false,
         },
         {
           id: 1,
@@ -100,6 +101,7 @@ const userStories = [
           type: 'video',
           duration: 15,
           storyId: 1,
+          isSeen: false,
         },
       ],
     },
@@ -343,7 +345,8 @@ Pass any custom view in story view. It will be rendered on top of story view as 
       type: 'image' | 'video';
       duration: number
       isReadMore: boolean
-      storyId: number
+      storyId: number,
+      isSeen?: boolean,
     }
   ]
 }]
@@ -355,15 +358,15 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                | Default | Type                                            | <div style="width:290px">Description</div>                                  |
-> | :------------------ | :-----: | :---------------------------------------------- | --------------------------------------------------------------------------- |
-> | **stories\***       |    0    | StoriesType[]                                   | Array of multiple user stories                                              |
-> | ref                 |  null   | MultiStoryRef                                   | To access `close` story method                                              |
-> | storyContainerProps |   {}    | StoryContainerProps                             | Customize all story props, detailed props in below `StoryContainer` section |
-> | avatarProps         |   {}    | [StoryAvatarStyleProps](#StoryAvatarStyleProps) | Customize avatar component styles                                           |
-> | onChangePosition    |  null   | (progressIndex, storyIndex) => {}               | Callback when progress index changes                                        |
-> | onComplete          |  null   | () => {}                                        | Callback when stories closed or complete                                    |
-> | `props`             |    -    | FlatListProps                                   | Pass any `FlatList` props to customize horizontal user list                 |
+> | Name                | Default | Type                                            | <div style="width:290px">Description</div>                                                                              |
+> | :------------------ | :-----: | :---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+> | **stories\***       |    0    | StoriesType[]                                   | Array of multiple user stories                                                                                          |
+> | ref                 |  null   | MultiStoryRef                                   | To access `close` story method                                                                                          |
+> | storyContainerProps |   {}    | StoryContainerProps                             | Customize all story props, detailed props in below `StoryContainer` section                                             |
+> | avatarProps         |   {}    | [StoryAvatarStyleProps](#StoryAvatarStyleProps) | Customize avatar component styles                                                                                       |
+> | onChangePosition    |  null   | (progressIndex, storyIndex) => {}               | Callback when progress index changes                                                                                    |
+> | onComplete          |  null   | (viewedStories?: Array<boolean[]>) => void      | Callback when stories closed or completes. `viewedStories` contains multi array of boolean whether story is seen or not |
+> | `props`             |    -    | FlatListProps                                   | Pass any `FlatList` props to customize horizontal user list                                                             |
 
 ---
 
@@ -371,14 +374,15 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name           | Default | Type           | <div style="width:290px">Description</div> |
-> | :------------- | :-----: | :------------- | ------------------------------------------ |
-> | userNameStyle  |    -    | TextStyle      | To change style of user name               |
-> | userImageStyle |    -    | ImageStyle     | To change style of user avatar             |
-> | containerStyle |    -    | ViewStyle      | To change style of image container         |
-> | userImageProps |    -    | ImageProps     | To customize image props                   |
-> | userNameProps  |    -    | ViewStyle      | To customize text props                    |
-> | rootProps      |    -    | PressableProps | To customize root view props               |
+> | Name                      | Default | Type           | <div style="width:290px">Description</div>                |
+> | :------------------------ | :-----: | :------------- | --------------------------------------------------------- |
+> | userNameStyle             |    -    | TextStyle      | To change style of user name                              |
+> | userImageStyle            |    -    | ImageStyle     | To change style of user avatar                            |
+> | containerStyle            |    -    | ViewStyle      | To change style of image container                        |
+> | userImageProps            |    -    | ImageProps     | To customize image props                                  |
+> | userNameProps             |    -    | ViewStyle      | To customize text props                                   |
+> | rootProps                 |    -    | PressableProps | To customize root view props                              |
+> | viewedStoryContainerStyle |    -    | ViewStyle      | To customize story avatar when all stories of it are seen |
 
 ---
 
@@ -406,24 +410,25 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                    | Default | Type                                                       | <div style="width:290px">Description</div>                             |
-> | :---------------------- | :-----: | :--------------------------------------------------------- | ---------------------------------------------------------------------- |
-> | **visible\***           |  false  | boolean                                                    | Hide / show story view                                                 |
-> | **stories\***           |   []    | StoryType[]                                                | Array of stories                                                       |
-> | backgroundColor         | #000000 | string                                                     | Background color of story view                                         |
-> | maxVideoDuration        |  null   | number                                                     | Override video progress duration (default is actual duration of video) |
-> | style                   |   {}    | ViewStyle                                                  | Style of story view                                                    |
-> | showSourceIndicator     |  true   | boolean                                                    | Display indicator while video loading                                  |
-> | sourceIndicatorProps    |   {}    | ActivityIndicatorProps                                     | To override indicator props                                            |
-> | onComplete              |  null   | () => {}                                                   | Callback when all stories completes                                    |
-> | renderHeaderComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component          |
-> | renderFooterComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                 |
-> | renderCustomView        |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                        |
-> | storyContainerViewProps |   {}    | ViewProps                                                  | Root story view props                                                  |
-> | headerViewProps         |   {}    | ViewProps                                                  | Header view wrapper props                                              |
-> | footerViewProps         |   {}    | ViewProps                                                  | Footer view wrapper props                                              |
-> | customViewProps         |   {}    | ViewProps                                                  | Custom view wrapper props                                              |
-> | videoProps              |   {}    | VideoProperties                                            | To override video properties                                           |
+> | Name                    | Default | Type                                                       | <div style="width:290px">Description</div>                                       |
+> | :---------------------- | :-----: | :--------------------------------------------------------- | -------------------------------------------------------------------------------- |
+> | **visible\***           |  false  | boolean                                                    | Hide / show story view                                                           |
+> | **stories\***           |   []    | StoryType[]                                                | Array of stories                                                                 |
+> | backgroundColor         | #000000 | string                                                     | Background color of story view                                                   |
+> | maxVideoDuration        |  null   | number                                                     | Override video progress duration (default is actual duration of video)           |
+> | style                   |   {}    | ViewStyle                                                  | Style of story view                                                              |
+> | showSourceIndicator     |  true   | boolean                                                    | Display indicator while video loading                                            |
+> | sourceIndicatorProps    |   {}    | ActivityIndicatorProps                                     | To override indicator props                                                      |
+> | onComplete              |  null   | () => {}                                                   | Callback when all stories completes                                              |
+> | renderHeaderComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component                    |
+> | renderFooterComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                           |
+> | renderCustomView        |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                                  |
+> | storyContainerViewProps |   {}    | ViewProps                                                  | Root story view props                                                            |
+> | headerViewProps         |   {}    | ViewProps                                                  | Header view wrapper props                                                        |
+> | footerViewProps         |   {}    | ViewProps                                                  | Footer view wrapper props                                                        |
+> | customViewProps         |   {}    | ViewProps                                                  | Custom view wrapper props                                                        |
+> | videoProps              |   {}    | VideoProperties                                            | To override video properties                                                     |
+> | ref                     |   {}    | StoryRef                                                   | To access 'pause' story method and 'viewedStories' stories object (Single Story) |
 
 ---
 
@@ -522,11 +527,11 @@ $ yarn example android   // For Android
 # TODO
 
 - [ ] Customize StoryAvatar in reference of Instagram
-- [ ] Add `seen` functionality on StoryAvatar and stories
 - [ ] Customized Story example
 - [ ] Refactor Cube transition (make perfect cube in reference of Instagram)
 - [ ] Add Support for different transitions effect
 - [ ] Landscape support
+- [ ] Optimize video loading on android
 
 <br />
 

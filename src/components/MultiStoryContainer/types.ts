@@ -7,6 +7,7 @@ export interface MultiStoryContainerProps
   onComplete?: () => void;
   userStoryIndex?: number;
   visible?: boolean;
+  viewedStories: Array<boolean[]>;
   onChangePosition?: (
     storyIndex: number,
     userIndex?: number
@@ -19,6 +20,7 @@ export interface MultiStoryListItemProps
   index: number;
   storyIndex: number;
   animatedTransitionStyle: any;
+  viewedStories: Array<boolean[]>;
   nextStory?: () => void;
   previousStory?: () => void;
   onComplete?: () => void;

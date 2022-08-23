@@ -2,6 +2,7 @@ import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { MultiStoryContainer } from '../MultiStoryContainer';
 import { StoryAvatar } from '../StoryAvatar';
+import type { StoryType } from '../StoryView';
 import type { MultiStoryProps, MultiStoryRef } from './types';
 
 const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
@@ -14,9 +15,20 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
       setPressedIndex(index);
     };
 
+    const viewedStories = Array(stories.length)
+      .fill(stories)
+      .map((row, index) =>
+        row?.[index]?.stories.map((item: StoryType) => item?.isSeen ?? false)
+      );
+
     useImperativeHandle(ref, () => ({
-      close: () => setIsStoryViewShow(false),
+      close: _onClose,
     }));
+
+    const _onClose = () => {
+      setIsStoryViewShow(false);
+      props?.onComplete?.(viewedStories);
+    };
 
     return (
       <View>
@@ -26,20 +38,21 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
           showsHorizontalScrollIndicator={false}
           keyExtractor={item => item?.id?.toString()}
           renderItem={({ item, index }) => (
-            <StoryAvatar {...{ item, index, openStories, ...avatarProps }} />
+            <StoryAvatar
+              {...{ item, index, openStories, viewedStories, ...avatarProps }}
+            />
           )}
           {...props}
         />
         {isStoryViewVisible && (
           <MultiStoryContainer
             visible={isStoryViewVisible}
-            onComplete={() => {
-              props?.onComplete?.();
-              setIsStoryViewShow(false);
+            onComplete={_onClose}
+            viewedStories={[...viewedStories]}
+            onChangePosition={(progressIndex, storyIndex: any) => {
+              viewedStories[storyIndex][progressIndex] = true;
+              props?.onChangePosition?.(progressIndex, storyIndex);
             }}
-            onChangePosition={(progressIndex, storyIndex: any) =>
-              props?.onChangePosition?.(progressIndex, storyIndex)
-            }
             {...props?.storyContainerProps}
             stories={stories}
             userStoryIndex={pressedIndex}

@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   AppState,
   AppStateStatus,
@@ -10,18 +16,21 @@ import type { OnLoadData } from 'react-native-video';
 import { useKeyboardListener } from '../../../hooks';
 import { Colors, Metrics } from '../../../theme';
 import styles from '../styles';
-import { ClickPosition, StoryContainerProps } from '../types';
+import { ClickPosition, StoryContainerProps, StoryMode } from '../types';
 
-const useStoryContainer = ({
-  onChangePosition,
-  ...props
-}: StoryContainerProps) => {
+const useStoryContainer = (
+  { onChangePosition, ...props }: StoryContainerProps,
+  viewedStories: MutableRefObject<boolean[]>
+) => {
   const [progressIndex, setProgressIndex] = useState(props?.progressIndex ?? 0);
   const [isLoaded, setLoaded] = useState(false);
   const [duration, setDuration] = useState(0);
   const [isPause, setPause] = useState(true);
   const [visibleElements, setVisibleElements] = useState(true);
   const appState = useRef(AppState.currentState);
+  const storyMode: StoryMode = props?.userStoryIndex
+    ? StoryMode.MultiStory
+    : StoryMode.SingleStory;
 
   const isKeyboardVisible = useKeyboardListener();
 
@@ -35,8 +44,18 @@ const useStoryContainer = ({
   useEffect(() => {
     if (props?.index === props?.userStoryIndex) {
       onChangePosition?.(progressIndex, props?.userStoryIndex);
+      if (storyMode === StoryMode.SingleStory) {
+        viewedStories.current[progressIndex] = true;
+      }
     }
-  }, [props?.index, props?.userStoryIndex, progressIndex, onChangePosition]);
+  }, [
+    storyMode,
+    viewedStories,
+    props?.index,
+    props?.userStoryIndex,
+    progressIndex,
+    onChangePosition,
+  ]);
 
   const onImageLoaded = () => {
     setLoaded(true);
