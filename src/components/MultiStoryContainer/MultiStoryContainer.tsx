@@ -126,6 +126,7 @@ const MultiStoryContainer = ({
         <Animated.FlatList
           horizontal
           pagingEnabled
+          initialNumToRender={2}
           data={stories}
           ref={flatListRef}
           onScroll={onScroll}
