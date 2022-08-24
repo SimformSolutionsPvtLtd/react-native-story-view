@@ -1,5 +1,12 @@
 import type { ViewToken } from 'react-native';
+import type { Value } from 'react-native-reanimated';
 import type { StoriesType, StoryContainerProps } from '../StoryView/types';
+
+export enum TransitionMode {
+  Default,
+  Cube,
+  Scale,
+}
 
 export interface MultiStoryContainerProps
   extends Omit<StoryContainerProps, 'stories'> {
@@ -12,6 +19,7 @@ export interface MultiStoryContainerProps
     storyIndex: number,
     userIndex?: number
   ) => void | undefined;
+  transitionMode?: TransitionMode;
 }
 
 export interface MultiStoryListItemProps
@@ -40,3 +48,5 @@ export interface ListItemRef {
   onScrollBegin: () => void;
   onScrollEnd: () => void;
 }
+
+export type ScrollValue = Value<number>;

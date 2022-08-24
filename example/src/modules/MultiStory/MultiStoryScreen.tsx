@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ImageBackground, View, Text } from 'react-native';
-import { MultiStory } from '../../../../src';
+import { MultiStory, TransitionMode } from '../../../../src';
 import type { MultiStoryRef } from 'react-native-story-view';
 import { stories, Strings } from '../../constants';
 import { Header, Footer } from '../../components';
@@ -35,6 +35,7 @@ const MultiStoryScreen = () => {
         <Text style={styles.albumText}>{Strings.album}</Text>
         <MultiStory
           stories={userStories}
+          transitionMode={TransitionMode.Scale}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           ref={multiStoryRef}
           /* callback after multi story is closed

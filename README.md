@@ -358,15 +358,16 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                | Default | Type                                            | <div style="width:290px">Description</div>                                                                              |
-> | :------------------ | :-----: | :---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-> | **stories\***       |    0    | StoriesType[]                                   | Array of multiple user stories                                                                                          |
-> | ref                 |  null   | MultiStoryRef                                   | To access `close` story method                                                                                          |
-> | storyContainerProps |   {}    | StoryContainerProps                             | Customize all story props, detailed props in below `StoryContainer` section                                             |
-> | avatarProps         |   {}    | [StoryAvatarStyleProps](#StoryAvatarStyleProps) | Customize avatar component styles                                                                                       |
-> | onChangePosition    |  null   | (progressIndex, storyIndex) => {}               | Callback when progress index changes                                                                                    |
-> | onComplete          |  null   | (viewedStories?: Array<boolean[]>) => void      | Callback when stories closed or completes. `viewedStories` contains multi array of boolean whether story is seen or not |
-> | `props`             |    -    | FlatListProps                                   | Pass any `FlatList` props to customize horizontal user list                                                             |
+> | Name                |       Default       | Type                                            | <div style="width:290px">Description</div>                                                                                                                           |
+> | :------------------ | :-----------------: | :---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+> | **stories\***       |          0          | StoriesType[]                                   | Array of multiple user stories                                                                                                                                       |
+> | ref                 |        null         | MultiStoryRef                                   | To access `close` story method                                                                                                                                       |
+> | storyContainerProps |         {}          | StoryContainerProps                             | Customize all story props, detailed props in below `StoryContainer` section                                                                                          |
+> | avatarProps         |         {}          | [StoryAvatarStyleProps](#StoryAvatarStyleProps) | Customize avatar component styles                                                                                                                                    |
+> | onChangePosition    |        null         | (progressIndex, storyIndex) => {}               | Callback when progress index changes                                                                                                                                 |
+> | transitionMode      | TransitionMode.Cube | TransitionMode: {Default, Cube, Scale}          | To customize user story transition, (TransitionMode.default : no transition, Transition.scale : zoomIn/zoomOut transition, Transition.Cube: 3D cube transition) cube |
+> | onComplete          |        null         | (viewedStories?: Array<boolean[]>) => void      | Callback when stories closed or completes. `viewedStories` contains multi array of boolean whether story is seen or not                                              |
+> | `props`             |          -          | FlatListProps                                   | Pass any `FlatList` props to customize horizontal user list                                                                                                          |
 
 ---
 
@@ -392,15 +393,16 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                | Default | Type                             | <div style="width:290px">Description</div>                                  |
-> | :------------------ | :-----: | :------------------------------- | --------------------------------------------------------------------------- |
-> | **stories\***       |    0    | StoriesType[]                    | Array of multiple user stories                                              |
-> | **visible\***       |  false  | boolean                          | Hide / show story view                                                      |
-> | userStoryIndex      |    0    | number                           | Pass clicked index of horizontal user list.                                 |
-> | storyContainerProps |   {}    | StoryContainerProps              | Customize all story props, detailed props in below `StoryContainer` section |
-> | onChangePosition    |  null   | (progressIndex, userIndex) => {} | Callback when progress index changes                                        |
-> | onComplete          |  null   | () => {}                         | Callback when stories closed or complete                                    |
-> | `props`             |    -    | StoryContainerProps              | Pass any `StoryContainerProps` props to customize story                     |
+> | Name                |       Default       | Type                                   | <div style="width:290px">Description</div>                                                                                                                           |
+> | :------------------ | :-----------------: | :------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+> | **stories\***       |          0          | StoriesType[]                          | Array of multiple user stories                                                                                                                                       |
+> | **visible\***       |        false        | boolean                                | Hide / show story view                                                                                                                                               |
+> | userStoryIndex      |          0          | number                                 | Pass clicked index of horizontal user list.                                                                                                                          |
+> | storyContainerProps |         {}          | StoryContainerProps                    | Customize all story props, detailed props in below `StoryContainer` section                                                                                          |
+> | onChangePosition    |        null         | (progressIndex, userIndex) => {}       | Callback when progress index changes                                                                                                                                 |
+> | transitionMode      | TransitionMode.Cube | TransitionMode: {Default, Cube, Scale} | To customize user story transition, (TransitionMode.default : no transition, Transition.scale : zoomIn/zoomOut transition, Transition.Cube: 3D cube transition) cube |
+> | onComplete          |        null         | () => {}                               | Callback when stories closed or complete                                                                                                                             |
+> | `props`             |          -          | StoryContainerProps                    | Pass any `StoryContainerProps` props to customize story                                                                                                              |
 
 ---
 
@@ -529,7 +531,7 @@ $ yarn example android   // For Android
 - [ ] Customize StoryAvatar in reference of Instagram
 - [ ] Customized Story example
 - [ ] Refactor Cube transition (make perfect cube in reference of Instagram)
-- [ ] Add Support for different transitions effect
+- [ ] <strike> Add Support for different transitions effect </strike>
 - [ ] Landscape support
 - [ ] Optimize video loading on android
 
