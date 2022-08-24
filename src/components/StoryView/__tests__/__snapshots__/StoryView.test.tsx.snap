@@ -93,7 +93,8 @@ exports[`StoryContainer component Match Snapshot 1`] = `
             onError={[Function]}
             onLoad={[Function]}
             onLoadStart={[Function]}
-            paused={false}
+            onReadyForDisplay={[Function]}
+            paused={true}
             resizeMode="contain"
             source={
               Object {
@@ -161,6 +162,8 @@ exports[`StoryView component Match Snapshot 1`] = `
     onError={[Function]}
     onLoad={[Function]}
     onLoadStart={[Function]}
+    onReadyForDisplay={[Function]}
+    paused={true}
     resizeMode="contain"
     source={
       Object {
