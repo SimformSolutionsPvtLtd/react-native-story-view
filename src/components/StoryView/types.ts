@@ -30,6 +30,11 @@ export enum ProgressState {
   Paused = 3,
 }
 
+export enum StoryMode {
+  MultiStory = 'MultiStory',
+  SingleStory = 'SingleStory',
+}
+
 export interface CommonProps {
   images?: Array<string>;
   duration?: number | undefined;
@@ -121,7 +126,7 @@ export interface StoryContainerProps extends CommonProps {
   renderFooterComponent?: (callback: CallbackProps) => JSX.Element;
   userProfile?: UserProps | undefined;
   footerView?: FooterViewProps | undefined;
-  onComplete?: () => void;
+  onComplete?: (viewedStories?: Array<boolean[]>) => void;
   renderCustomView?: (callback: CallbackProps) => JSX.Element;
   backgroundColor?: string;
   style?: ViewStyle;
@@ -192,4 +197,5 @@ export type StoriesType = {
 
 export type StoryRef = {
   pause: (pause: boolean) => void;
+  viewedStories: boolean[];
 };

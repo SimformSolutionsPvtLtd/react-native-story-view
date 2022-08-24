@@ -19,7 +19,7 @@ exports[`StoryAvatar Component Match Snapshot 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "borderColor": "#CA1D7E",
+        "borderColor": "#FFFFFF7F",
         "borderRadius": 52.5,
         "borderWidth": 2,
         "height": 105,

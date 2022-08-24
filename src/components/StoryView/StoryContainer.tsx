@@ -34,6 +34,12 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
     }: StoryContainerProps,
     ref
   ) => {
+    const viewedStories = useRef<boolean[]>(
+      Array(props?.stories?.length)
+        .fill(props?.stories)
+        .map((item, index) => item?.[index]?.isSeen ?? false)
+    );
+
     const {
       progressIndex,
       isPause,
@@ -52,7 +58,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
       onStoryPressRelease,
       rootStyle,
       containerStyle,
-    } = useStoryContainer(props);
+    } = useStoryContainer(props, viewedStories);
 
     const viewRef = useRef<View>(null);
 
@@ -62,6 +68,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
           setPause(pause);
         }
       },
+      viewedStories: viewedStories.current,
     }));
 
     useEffect(() => {

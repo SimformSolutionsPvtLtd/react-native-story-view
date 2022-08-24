@@ -4,9 +4,10 @@ import type { StoriesType, StoryContainerProps } from '../StoryView/types';
 
 export interface MultiStoryProps extends Partial<FlatListProps<any>> {
   stories: StoriesType[];
-  onComplete?: () => void;
+  onComplete?: (viewedStories?: Array<boolean[]>) => void;
   onChangePosition?: (progressIndex: number, storyIndex: number) => void;
   avatarProps?: StoryAvatarStyleProps;
+  viewedStories?: Array<boolean[]>;
   storyContainerProps?: Omit<StoryContainerProps, 'stories'>;
 }
 

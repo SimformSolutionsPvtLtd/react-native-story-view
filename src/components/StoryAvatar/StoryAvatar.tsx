@@ -7,19 +7,27 @@ const StoryAvatar = ({
   item,
   index,
   openStories,
+  viewedStories = [],
   userNameStyle,
   userImageStyle,
   userImageProps,
+  viewedStoryContainerStyle,
   userNameProps,
   rootProps,
   containerStyle,
 }: StoryAvatarProps) => {
+  const isUserStorySeen: boolean = viewedStories?.[index]?.every(
+    (val: boolean) => val
+  );
   const _userNameStyle = StyleSheet.flatten([styles.username, userNameStyle]);
   const _userImageStyle = StyleSheet.flatten([styles.image, userImageStyle]);
   const _containerStyle = StyleSheet.flatten([
     styles.imageContainer,
     containerStyle,
+    (isUserStorySeen && viewedStoryContainerStyle) ??
+      styles.viewedStoryContainer,
   ]);
+
   return (
     <Pressable onPress={() => openStories?.(index!)} {...rootProps}>
       <View style={_containerStyle}>

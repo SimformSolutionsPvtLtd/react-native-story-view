@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     marginRight: moderateScale(16),
   },
+  viewedStoryContainer: {
+    borderColor: Colors.inActiveColor,
+  },
   username: {
     alignSelf: 'center',
     marginRight: moderateScale(16),
