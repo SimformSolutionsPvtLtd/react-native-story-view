@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   AppState,
   AppStateStatus,
@@ -48,20 +48,24 @@ const useStoryContainer = ({
   }, [props?.userStoryIndex, props?.index]);
 
   const handleAppStateChange = (nextAppState: AppStateStatus) => {
+    appState.current = nextAppState;
     const isBackgroundState =
       appState.current.match(/inactive|background/) &&
       nextAppState === 'active';
-    setPause(!isBackgroundState ?? false);
-    appState.current = nextAppState;
+
+    if (props?.index !== props?.userStoryIndex) return;
+    setPause(isBackgroundState === null ? false : !isBackgroundState);
   };
 
+  const appStateChange = useCallback(handleAppStateChange, [
+    props?.index,
+    props?.userStoryIndex,
+  ]);
+
   useEffect(() => {
-    const subscription = AppState.addEventListener(
-      'change',
-      handleAppStateChange
-    );
+    const subscription = AppState.addEventListener('change', appStateChange);
     return () => subscription.remove();
-  }, []);
+  }, [appStateChange]);
 
   const onVideoLoaded = (length: OnLoadData) => {
     setLoaded(true);

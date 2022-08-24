@@ -14,7 +14,7 @@ const useMultiStoryContainer = (flatListRef: any, { ...props }) => {
   const scrollX = useValue(0);
   const previousIndex = useRef(0);
   const viewabilityConfig = useRef({
-    itemVisiblePercentThreshold: 100,
+    itemVisiblePercentThreshold: 70,
   });
   const isKeyboardVisible = useKeyboardListener();
 
