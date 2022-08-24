@@ -28,13 +28,12 @@
     "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' -c .eslintrc --fix ",
     "build_local": "yarn build && yarn pack",
     "test": "jest",
-    "postinstall": "patch-package",
     "example": "yarn --cwd example"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-reanimated": ">=2.9.1",
+    "react-native-reanimated": ">=2.10.0",
     "react-native-video": "*"
   },
   "devDependencies": {
@@ -60,7 +59,7 @@
     "prettier": "^2.7.1",
     "react": "17.0.2",
     "react-native": "0.68.2",
-    "react-native-reanimated": "^2.9.1",
+    "react-native-reanimated": "^2.10.0",
     "react-native-video": "^5",
     "react-test-renderer": "17.0.2",
     "typescript": "^4.6.4"
