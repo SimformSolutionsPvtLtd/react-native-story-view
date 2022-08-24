@@ -41,37 +41,7 @@ module.exports = {
   };
 ```
 
-**Extra Step (Temporary)**
-
-`react-native-reanimated` version `2.9.1` don't have ref exposed for Animated.FlatList, which is required for controlling manual transition when story completes. So here is **temporary** patch until it is available in new version.
-
-Apply this command on root directory of project.
-
-```
-git apply node_modules/react-native-story-view/patches/react-native-reanimated+2.9.1.patch
-```
-
-> Only caveat is, This step need to be performed everytime if node_modules reinstalled.
-
-<br />
-
-Another way is to add this patch in your project on root directory [`patches/react-native-reanimated+2.9.1.patch`](https://github.com/SimformSolutionsPvtLtd/react-native-story-view/blob/develop/patches/react-native-reanimated%2B2.9.1.patch)
-
-Install patch-package using yarn
-
-```
-yarn add patch-package postinstall-postinstall
-```
-
-Add this script in `package.json`. Now any-time node_modules is reinstalled patch will be auto applied.
-
-```
-"scripts": {
-+  "postinstall": "patch-package"
-}
-```
-
-##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video), [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated) and [patch-package](https://www.npmjs.com/package/patch-package)
+##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video) and [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated)
 
 ---
 
