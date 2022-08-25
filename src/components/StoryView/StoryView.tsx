@@ -1,16 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import Video, { OnLoadData } from 'react-native-video';
+import Video, { OnBufferData, OnLoadData } from 'react-native-video';
+import convertToProxyURL from 'react-native-video-cache-control';
 import { Colors, Metrics } from '../../theme';
 import ProgressiveImage from './ProgressiveImage';
 import styles from './styles';
 import { StoryViewProps, StroyTypes } from './types';
 
+const BUFFER_TIME = 1000 * 60;
+
 const StoryView = (props: StoryViewProps) => {
   const [loading, setLoading] = useState(true);
-  const image = props?.stories?.[props?.progressIndex];
+  const [buffering, setBuffering] = useState(true);
+  const source = props?.stories?.[props?.progressIndex];
   const videoRef = useRef<Video>(null);
   const videoData = useRef<OnLoadData>();
+  const isCurrentIndex = props?.index === props?.storyIndex;
 
   useEffect(() => {
     if (props?.index === props?.storyIndex) {
@@ -23,53 +28,76 @@ const StoryView = (props: StoryViewProps) => {
   };
 
   const loadVideo = () => {
-    if (videoData.current === undefined) return;
-    setTimeout(() => {
-      if (props?.index === props?.storyIndex) {
-        props?.onVideoLoaded && props?.onVideoLoaded(videoData.current!);
-        setLoading(false);
-      }
-    }, 250);
+    if (isCurrentIndex) {
+      if (videoData.current === undefined) return;
+      setLoading(false);
+      setBuffering(false);
+      props?.onVideoLoaded?.(videoData.current);
+    }
+  };
+
+  const onBuffer = (data: OnBufferData) => {
+    setBuffering(data.isBuffering);
   };
 
   return (
     <View style={styles.divStory} ref={props?.viewRef}>
-      {image?.type === StroyTypes.Image ? (
+      {source?.type === StroyTypes.Image ? (
         <ProgressiveImage
           viewStyle={props?.imageStyle ?? styles.imgStyle}
-          imgSource={{ uri: image.url ?? '' }}
-          thumbnailSource={{ uri: image.url ?? '' }}
+          imgSource={{ uri: source.url ?? '' }}
+          thumbnailSource={{ uri: source.url ?? '' }}
           onImageLoaded={props.onImageLoaded}
         />
       ) : (
-        <>
-          {loading && props?.showSourceIndicator && (
-            <ActivityIndicator
-              animating
-              color={Colors.loaderColor}
-              size="small"
-              style={styles.loaderView}
-              {...props?.sourceIndicatorProps}
+        isCurrentIndex && (
+          <>
+            <Video
+              ref={videoRef}
+              resizeMode="contain"
+              paused={props.pause || loading}
+              source={{
+                uri: convertToProxyURL({
+                  url: source?.url!,
+                }),
+              }}
+              onEnd={props?.onVideoEnd}
+              posterResizeMode="contain"
+              onError={(_error: any) => {
+                setLoading(false);
+              }}
+              onProgress={data => {
+                if (isCurrentIndex) {
+                  props?.onVideoProgress?.(data);
+                }
+              }}
+              bufferConfig={{
+                minBufferMs: BUFFER_TIME,
+                bufferForPlaybackMs: BUFFER_TIME,
+                bufferForPlaybackAfterRebufferMs: BUFFER_TIME,
+              }}
+              onBuffer={onBuffer}
+              onLoadStart={onLoadStart}
+              onLoad={(item: OnLoadData) => {
+                videoData.current = item;
+                !Metrics.isIOS && loadVideo();
+              }}
+              onReadyForDisplay={loadVideo}
+              style={styles.contentVideoView}
+              {...props?.videoProps}
             />
-          )}
-          <Video
-            ref={videoRef}
-            resizeMode="contain"
-            paused={props.pause || loading}
-            source={{ uri: image?.url }}
-            onError={(_error: any) => {
-              setLoading(false);
-            }}
-            onLoadStart={onLoadStart}
-            onLoad={(item: OnLoadData) => {
-              videoData.current = item;
-              !Metrics.isIOS && loadVideo();
-            }}
-            onReadyForDisplay={loadVideo}
-            style={styles.contentVideoView}
-            {...props?.videoProps}
-          />
-        </>
+            {(loading || buffering) && props?.showSourceIndicator && (
+              <ActivityIndicator
+                animating
+                pointerEvents="none"
+                color={Colors.loaderColor}
+                size="small"
+                style={styles.loaderView}
+                {...props?.sourceIndicatorProps}
+              />
+            )}
+          </>
+        )
       )}
     </View>
   );

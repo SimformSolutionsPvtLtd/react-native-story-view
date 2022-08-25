@@ -15,12 +15,12 @@ It works on both android and iOS platforms.
 
 ## Installation
 
-##### 1. Install library, react-native-video and react-native-reanimated,
+##### 1. Install library, react-native-video, react-native-video-cache-control and react-native-reanimated
 
 ```bash
-$ npm install react-native-video react-native-reanimated react-native-story-view
+$ npm install react-native-video react-native-reanimated react-native-video-cache-control react-native-story-view
 # --- or ---
-$ yarn add react-native-video react-native-reanimated react-native-story-view
+$ yarn add react-native-video react-native-reanimated react-native-video-cache-control react-native-story-view
 ```
 
 ##### 2. Install cocoapods in the ios project
@@ -41,7 +41,7 @@ module.exports = {
   };
 ```
 
-##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video) and [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated)
+##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video), [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated) and [react-native-video-cache-control](https://www.npmjs.com/package/react-native-video-cache-control)
 
 ---
 

@@ -35,7 +35,7 @@ const MultiStoryScreen = () => {
         <Text style={styles.albumText}>{Strings.album}</Text>
         <MultiStory
           stories={userStories}
-          transitionMode={TransitionMode.Scale}
+          transitionMode={TransitionMode.Cube}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           ref={multiStoryRef}
           /* callback after multi story is closed

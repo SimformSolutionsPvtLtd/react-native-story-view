@@ -26,9 +26,12 @@ const ProgressView = (props: ProgressBarsProps) => {
         <ProgressBar
           index={index}
           key={i}
+          storyType={props?.stories[index].type}
           storyIndex={props?.storyIndex}
           currentUserIndex={props?.index}
           barStyle={props.barStyle}
+          videoDuration={props?.videoDuration}
+          setVideoDuration={props?.setVideoDuration}
           duration={props.duration || 3}
           currentIndex={props.currentIndex}
           next={props?.next}

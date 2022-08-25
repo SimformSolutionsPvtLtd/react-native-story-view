@@ -52,9 +52,13 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
       changeStory,
       setLoaded,
       setDuration,
+      videoDuration,
+      onVideoProgress,
+      onVideoEnd,
       onArrowClick,
       onStoryPressHold,
       isKeyboardVisible,
+      setVideoDuration,
       onStoryPressRelease,
       rootStyle,
       containerStyle,
@@ -101,6 +105,9 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
                 onVideoLoaded={onVideoLoaded}
                 onImageLoaded={onImageLoaded}
                 progressIndex={progressIndex}
+                videoDuration={videoDuration}
+                onVideoEnd={onVideoEnd}
+                onVideoProgress={onVideoProgress}
                 pause={isPause}
                 index={props?.index ?? 0}
                 storyIndex={props?.userStoryIndex ?? 0}
@@ -120,10 +127,12 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
                   isLoaded={isLoaded}
                   duration={duration}
                   storyIndex={props?.userStoryIndex ?? 0}
+                  currentIndex={progressIndex}
+                  setVideoDuration={setVideoDuration}
                   index={props?.index ?? 0}
+                  videoDuration={videoDuration ?? 0}
                   pause={enableProgress && isPause}
                   stories={props?.stories}
-                  currentIndex={progressIndex}
                   barStyle={props?.barStyle}
                   currentStory={props?.stories[progressIndex]}
                   length={props?.stories?.map((_, i) => i)}
