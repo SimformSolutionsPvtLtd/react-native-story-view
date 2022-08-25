@@ -6,7 +6,7 @@ import type { StoryType } from '../StoryView';
 import type { MultiStoryProps, MultiStoryRef } from './types';
 
 const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
-  ({ stories, avatarProps, ...props }, ref) => {
+  ({ stories, transitionMode, avatarProps, ...props }, ref) => {
     const [isStoryViewVisible, setIsStoryViewShow] = useState<boolean>(false);
     const [pressedIndex, setPressedIndex] = useState<number>(0);
 
@@ -53,6 +53,7 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
               viewedStories[storyIndex][progressIndex] = true;
               props?.onChangePosition?.(progressIndex, storyIndex);
             }}
+            transitionMode={transitionMode}
             {...props?.storyContainerProps}
             stories={stories}
             userStoryIndex={pressedIndex}

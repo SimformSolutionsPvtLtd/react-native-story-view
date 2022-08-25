@@ -1,17 +1,27 @@
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
-import Animated, {
-  Extrapolate,
-  interpolateNode,
-  useValue,
-} from 'react-native-reanimated';
+import Animated, { useValue } from 'react-native-reanimated';
 import { useKeyboardListener } from '../../../hooks';
-import { Metrics } from '../../../theme';
-import type { ViewConfig } from '../types';
+import {
+  MultiStoryContainerProps,
+  TransitionMode,
+  ScrollValue,
+  ViewConfig,
+} from '../types';
+import {
+  cubeTransition,
+  defaultTransition,
+  scaleTransition,
+} from '../utils/StoryTransitions';
 
-const useMultiStoryContainer = (flatListRef: any, { ...props }) => {
-  const [storyIndex, setStoryIndex] = useState(props?.userStoryIndex ?? 0);
-  const scrollX = useValue(0);
+const useMultiStoryContainer = (
+  flatListRef: any,
+  {
+    userStoryIndex,
+    transitionMode = TransitionMode.Cube,
+  }: Partial<MultiStoryContainerProps>
+) => {
+  const [storyIndex, setStoryIndex] = useState(userStoryIndex ?? 0);
+  const scrollX: ScrollValue = useValue(0);
   const previousIndex = useRef(0);
   const viewabilityConfig = useRef({
     itemVisiblePercentThreshold: 70,
@@ -46,45 +56,15 @@ const useMultiStoryContainer = (flatListRef: any, { ...props }) => {
     { useNativeDriver: true }
   );
 
-  //TODO: Make perfect cube transition and add other transitions
   const animatedTransitionStyle = (index: number) => {
-    const width = Metrics.screenWidth;
-    const perspective = width;
-    const angle = Math.atan(perspective / (width / 2));
-
-    const offset = index * width;
-    const inputRange = [
-      width * (index - 1),
-      width * index,
-      width * (index + 1),
-    ];
-
-    const translateX = interpolateNode(scrollX, {
-      inputRange,
-      outputRange: [0, 0, 0],
-      extrapolate: Extrapolate.CLAMP,
-    });
-
-    const scale = interpolateNode(scrollX, {
-      inputRange,
-      outputRange: [0.79, 1, 0.78],
-    });
-
-    const rotateY = interpolateNode(scrollX, {
-      inputRange: [offset - width, offset + width],
-      outputRange: [angle, -angle],
-      extrapolate: Extrapolate.CLAMP,
-    });
-
-    return {
-      ...StyleSheet.absoluteFillObject,
-      transform: [
-        { perspective },
-        { translateX },
-        { rotateY: Animated.concat(rotateY, 'rad') },
-        { scale },
-      ],
-    };
+    switch (transitionMode) {
+      case TransitionMode.Cube:
+        return cubeTransition(index, scrollX);
+      case TransitionMode.Scale:
+        return scaleTransition(index, scrollX);
+      default:
+        return defaultTransition();
+    }
   };
 
   return {
