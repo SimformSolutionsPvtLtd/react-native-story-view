@@ -101,7 +101,7 @@ export const Metrics = {
     xxl: 25,
     xxxl: 30,
   },
-  keyboardVerticalOffset: Platform.OS === 'ios' ? moderateScale(40) : 0,
   isIOS: Platform.OS === 'ios',
+  keyboardVerticalOffset: Platform.OS === 'ios' ? 10 : 30,
   statusBarHeight: StatusBar.currentHeight,
 };

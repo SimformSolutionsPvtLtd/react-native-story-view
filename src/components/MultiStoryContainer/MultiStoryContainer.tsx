@@ -4,8 +4,12 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { Modal, SafeAreaView } from 'react-native';
+import { Modal } from 'react-native';
 import Animated from 'react-native-reanimated';
+import {
+  GestureHandlerRootView,
+  PanGestureHandler,
+} from 'react-native-gesture-handler';
 import { useMultiStoryContainer } from './hooks';
 import { StoryContainer, ProfileHeader } from '../StoryView';
 import { Footer } from '../Footer';
@@ -42,6 +46,8 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
     useImperativeHandle(ref, () => ({
       onScrollBegin: () => storyRef?.current?.pause(true),
       onScrollEnd: () => storyRef?.current?.pause(false),
+      handleLongPress: (visibility: boolean) =>
+        storyRef?.current?.handleLongPress(visibility),
     }));
 
     return (
@@ -82,24 +88,44 @@ const MultiStoryContainer = ({
   stories,
   visible,
   onComplete,
+  onUserStoryIndexChange,
   viewedStories = [],
   ...props
 }: MultiStoryContainerProps) => {
   const flatListRef = useRef<any>(null);
-
-  const {
-    storyIndex,
-    onViewRef,
-    viewabilityConfig,
-    animatedTransitionStyle,
-    onScroll,
-  } = useMultiStoryContainer(flatListRef, props);
-
   const itemsRef = useRef<ListItemRef[]>([]);
 
   useEffect(() => {
     itemsRef.current = itemsRef.current.slice(0, stories.length);
   }, [itemsRef, stories]);
+
+  const onScrollBeginDrag = () => itemsRef.current[storyIndex]?.onScrollBegin();
+  const onScrollEndDrag = () => itemsRef.current[storyIndex]?.onScrollEnd();
+  const handleLongPress = (visiblity: boolean) => {
+    itemsRef.current[storyIndex]?.handleLongPress(visiblity);
+  };
+
+  const {
+    storyIndex,
+    onViewRef,
+    viewabilityConfig,
+    gestureHandler,
+    listStyle,
+    rootStyle,
+    animatedTransitionStyle,
+    onScroll,
+  } = useMultiStoryContainer(
+    flatListRef,
+    props,
+    onScrollBeginDrag,
+    onScrollEndDrag,
+    handleLongPress,
+    onComplete
+  );
+
+  useEffect(() => {
+    onUserStoryIndexChange?.(storyIndex);
+  }, [onUserStoryIndexChange, storyIndex]);
 
   if (!visible) return null;
 
@@ -126,54 +152,57 @@ const MultiStoryContainer = ({
   return (
     <Modal
       visible={visible}
-      statusBarTranslucent={true}
+      transparent={true}
       onRequestClose={() => onComplete?.()}>
-      <SafeAreaView style={styles.container}>
-        <Animated.FlatList
-          horizontal
-          pagingEnabled
-          initialNumToRender={2}
-          data={stories}
-          ref={flatListRef}
-          onScroll={onScroll}
-          onScrollBeginDrag={() =>
-            itemsRef.current[storyIndex]?.onScrollBegin()
-          }
-          onScrollEndDrag={() => itemsRef.current[storyIndex]?.onScrollEnd()}
-          scrollEventThrottle={16}
-          initialScrollIndex={storyIndex}
-          keyboardShouldPersistTaps="handled"
-          getItemLayout={(_, index) => ({
-            length: Metrics.screenWidth,
-            offset: Metrics.screenWidth * index,
-            index,
-          })}
-          onViewableItemsChanged={onViewRef.current}
-          viewabilityConfig={viewabilityConfig.current}
-          decelerationRate={Metrics.isIOS ? 0.99 : 0.92}
-          keyExtractor={item => item?.title + item?.id?.toString()}
-          contentContainerStyle={{
-            width: Metrics.screenWidth * stories.length,
-          }}
-          extraData={storyIndex}
-          renderItem={({ item, index }: ListItemProps) => (
-            <MultiStoryListItem
-              ref={(elements: any) => (itemsRef.current[index] = elements)}
-              {...{
-                item,
-                index,
-                animatedTransitionStyle,
-                nextStory,
-                previousStory,
-                storyIndex,
-                onComplete,
-                viewedStories,
-              }}
-              {...props}
-            />
-          )}
-        />
-      </SafeAreaView>
+      <GestureHandlerRootView style={rootStyle}>
+        <PanGestureHandler
+          activateAfterLongPress={200}
+          onGestureEvent={gestureHandler}>
+          <Animated.FlatList
+            horizontal
+            style={listStyle}
+            pagingEnabled
+            initialNumToRender={2}
+            data={stories}
+            ref={flatListRef}
+            onScroll={onScroll}
+            onScrollBeginDrag={onScrollBeginDrag}
+            onScrollEndDrag={onScrollEndDrag}
+            scrollEventThrottle={16}
+            initialScrollIndex={storyIndex}
+            keyboardShouldPersistTaps="handled"
+            getItemLayout={(_, index) => ({
+              length: Metrics.screenWidth,
+              offset: Metrics.screenWidth * index,
+              index,
+            })}
+            onViewableItemsChanged={onViewRef.current}
+            viewabilityConfig={viewabilityConfig.current}
+            decelerationRate={Metrics.isIOS ? 0.99 : 0.92}
+            keyExtractor={item => item?.title + item?.id?.toString()}
+            contentContainerStyle={{
+              width: Metrics.screenWidth * stories.length,
+            }}
+            extraData={storyIndex}
+            renderItem={({ item, index }: ListItemProps) => (
+              <MultiStoryListItem
+                ref={(elements: any) => (itemsRef.current[index] = elements)}
+                {...{
+                  item,
+                  index,
+                  animatedTransitionStyle,
+                  nextStory,
+                  previousStory,
+                  storyIndex,
+                  onComplete,
+                  viewedStories,
+                }}
+                {...props}
+              />
+            )}
+          />
+        </PanGestureHandler>
+      </GestureHandlerRootView>
     </Modal>
   );
 };

@@ -68,12 +68,18 @@ exports[`StoryContainer component Match Snapshot 1`] = `
       >
         <View
           style={
-            Object {
-              "alignSelf": "center",
-              "height": "100%",
-              "paddingBottom": 6,
-              "width": 750,
-            }
+            Array [
+              Object {
+                "alignSelf": "center",
+                "height": "100%",
+                "paddingBottom": 6,
+                "width": 750,
+              },
+              Object {
+                "height": 1334,
+                "width": 750,
+              },
+            ]
           }
         >
           <Video
@@ -92,7 +98,6 @@ exports[`StoryContainer component Match Snapshot 1`] = `
             onProgress={[Function]}
             onReadyForDisplay={[Function]}
             paused={true}
-            posterResizeMode="contain"
             resizeMode="contain"
             source={
               Object {
@@ -162,12 +167,18 @@ exports[`StoryContainer component Match Snapshot 1`] = `
 exports[`StoryView component Match Snapshot 1`] = `
 <View
   style={
-    Object {
-      "alignSelf": "center",
-      "height": "100%",
-      "paddingBottom": 6,
-      "width": 750,
-    }
+    Array [
+      Object {
+        "alignSelf": "center",
+        "height": "100%",
+        "paddingBottom": 6,
+        "width": 750,
+      },
+      Object {
+        "height": 1334,
+        "width": 750,
+      },
+    ]
   }
 >
   <Video
@@ -185,7 +196,6 @@ exports[`StoryView component Match Snapshot 1`] = `
     onProgress={[Function]}
     onReadyForDisplay={[Function]}
     paused={true}
-    posterResizeMode="contain"
     resizeMode="contain"
     source={
       Object {

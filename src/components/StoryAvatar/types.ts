@@ -9,8 +9,10 @@ import type {
 import type { StoriesType } from '../StoryView/types';
 
 export interface StoryAvatarProps extends StoryAvatarStyleProps {
-  item?: StoriesType;
   index: number;
+  item?: StoriesType;
+  pressedIndex?: number;
+  isStoryViewVisible?: boolean;
   viewedStories?: Array<boolean[]>;
   openStories?: (position: number) => void;
 }
@@ -23,4 +25,10 @@ export interface StoryAvatarStyleProps {
   userNameProps?: TextProps;
   rootProps?: PressableProps;
   viewedStoryContainerStyle?: ViewStyle;
+}
+
+export interface CircleAnimationProps {
+  index: number;
+  pressedIndex?: number;
+  isStoryViewVisible?: boolean;
 }

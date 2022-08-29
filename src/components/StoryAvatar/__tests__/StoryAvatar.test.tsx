@@ -6,7 +6,7 @@ jest.useFakeTimers();
 
 describe('StoryAvatar Component', () => {
   it('Match Snapshot', () => {
-    const { toJSON } = render(<StoryAvatar />);
+    const { toJSON } = render(<StoryAvatar index={0} />);
     expect(toJSON()).toMatchSnapshot();
   });
 });

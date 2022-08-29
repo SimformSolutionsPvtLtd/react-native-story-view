@@ -18,9 +18,9 @@ It works on both android and iOS platforms.
 ##### 1. Install library, react-native-video, react-native-video-cache-control and react-native-reanimated
 
 ```bash
-$ npm install react-native-video react-native-reanimated react-native-video-cache-control react-native-story-view
+$ npm install react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control react-native-story-view
 # --- or ---
-$ yarn add react-native-video react-native-reanimated react-native-video-cache-control react-native-story-view
+$ yarn add react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control react-native-story-view
 ```
 
 ##### 2. Install cocoapods in the ios project
@@ -41,7 +41,7 @@ module.exports = {
   };
 ```
 
-##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video), [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated) and [react-native-video-cache-control](https://www.npmjs.com/package/react-native-video-cache-control)
+##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video), [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated), [react-native-gesture-handler ](https://www.npmjs.com/package/react-native-gesture-handler) and [react-native-video-cache-control](https://www.npmjs.com/package/react-native-video-cache-control)
 
 ---
 
@@ -352,6 +352,16 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 }]
 ```
 
+---
+
+### Transitions
+
+| Cube                                          | Scale                                          | Default                                          |
+| --------------------------------------------- | ---------------------------------------------- | ------------------------------------------------ |
+| <img src="./assets/cube.gif"  height="300" /> | <img src="./assets/scale.gif"  height="300" /> | <img src="./assets/default.gif"  height="300" /> |
+
+---
+
 ## Props
 
 ### MultiStory
@@ -531,7 +541,6 @@ $ yarn example android   // For Android
 - [ ] Customize StoryAvatar in reference of Instagram
 - [ ] Customized Story example
 - [ ] Refactor Cube transition (make perfect cube in reference of Instagram)
-- [ ] <strike> Add Support for different transitions effect </strike>
 - [ ] Landscape support
 - [ ] Optimize video loading on android
 
@@ -549,6 +558,10 @@ For bugs, feature requests, and discussion please use [GitHub Issues](https://gi
 
 We'd love to have you improve this library or fix a problem 💪
 Check out our [Contributing Guide](CONTRIBUTING.md) for ideas on contributing.
+
+## Awesome Mobile Libraries
+
+- Check out our other available [awesome mobile libraries](https://github.com/SimformSolutionsPvtLtd/Awesome-Mobile-Libraries)
 
 ## License
 

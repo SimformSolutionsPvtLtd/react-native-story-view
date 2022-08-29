@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, useWindowDimensions, View } from 'react-native';
 import Video, { OnBufferData, OnLoadData } from 'react-native-video';
 import convertToProxyURL from 'react-native-video-cache-control';
 import { Colors, Metrics } from '../../theme';
@@ -40,8 +40,10 @@ const StoryView = (props: StoryViewProps) => {
     setBuffering(data.isBuffering);
   };
 
+  const { height, width } = useWindowDimensions();
+
   return (
-    <View style={styles.divStory} ref={props?.viewRef}>
+    <View style={[styles.divStory, { height, width }]} ref={props?.viewRef}>
       {source?.type === StroyTypes.Image ? (
         <ProgressiveImage
           viewStyle={props?.imageStyle ?? styles.imgStyle}
@@ -62,7 +64,6 @@ const StoryView = (props: StoryViewProps) => {
                 }),
               }}
               onEnd={props?.onVideoEnd}
-              posterResizeMode="contain"
               onError={(_error: any) => {
                 setLoading(false);
               }}

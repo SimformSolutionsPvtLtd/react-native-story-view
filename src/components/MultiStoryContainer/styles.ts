@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
   touchContainer: {
     flex: 1,
   },
+  list: {
+    flex: 1,
+    backgroundColor: Colors.black,
+  },
 });
 
 export default styles;

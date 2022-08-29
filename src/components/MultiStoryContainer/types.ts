@@ -12,6 +12,7 @@ export interface MultiStoryContainerProps
   extends Omit<StoryContainerProps, 'stories'> {
   stories: StoriesType[];
   onComplete?: () => void;
+  onUserStoryIndexChange?: (index: number) => void;
   userStoryIndex?: number;
   visible?: boolean;
   viewedStories: Array<boolean[]>;
@@ -47,6 +48,16 @@ export interface ListItemProps {
 export interface ListItemRef {
   onScrollBegin: () => void;
   onScrollEnd: () => void;
+  handleLongPress: (visibility: boolean) => void;
+}
+
+export interface DraggableGestureProps {
+  backgroundColor?: string;
+  onComplete?: () => void;
+  onScrollBeginDrag: () => void;
+  onScrollEndDrag: () => void;
+  handleLongPress: (visibility: boolean) => void;
+  isKeyboardVisible: boolean;
 }
 
 export type ScrollValue = Value<number>;
