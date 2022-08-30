@@ -7,7 +7,7 @@ jest.useFakeTimers();
 describe('MultiStoryContainer Component', () => {
   it('Match Snapshot', () => {
     const { toJSON } = render(
-      <MultiStoryContainer visible={false} stories={[]} />
+      <MultiStoryContainer visible={false} stories={[]} viewedStories={[]} />
     );
     expect(toJSON()).toMatchSnapshot();
   });

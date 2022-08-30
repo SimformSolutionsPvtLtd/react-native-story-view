@@ -209,5 +209,6 @@ export type StoriesType = {
 
 export type StoryRef = {
   pause: (pause: boolean) => void;
+  handleLongPress: (visibility: boolean) => void;
   viewedStories: boolean[];
 };

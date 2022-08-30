@@ -60,6 +60,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
       isKeyboardVisible,
       setVideoDuration,
       onStoryPressRelease,
+      setVisibleElements,
       rootStyle,
       containerStyle,
     } = useStoryContainer(props, viewedStories);
@@ -72,6 +73,13 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
           setPause(pause);
         }
       },
+      handleLongPress: (visibility: boolean) => {
+        if (props?.index === props?.userStoryIndex) {
+          setVisibleElements(!visibility);
+          setPause(visibility);
+        }
+      },
+
       viewedStories: viewedStories.current,
     }));
 
@@ -187,7 +195,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
       <SafeAreaView style={rootStyle}>
         <KeyboardAvoidingView
           style={containerStyle}
-          keyboardVerticalOffset={50}
+          keyboardVerticalOffset={Metrics.keyboardVerticalOffset}
           behavior={'padding'}>
           {props.visible && storyViewContent()}
         </KeyboardAvoidingView>

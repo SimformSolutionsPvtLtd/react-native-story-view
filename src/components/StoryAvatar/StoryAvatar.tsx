@@ -1,11 +1,15 @@
 import React from 'react';
-import { View, Pressable, Image, Text, StyleSheet } from 'react-native';
+import { View, Pressable, Text, StyleSheet } from 'react-native';
+import Animated from 'react-native-reanimated';
+import useCircleAnimation from './hooks/useCircleAnimation';
 import styles from './styles';
 import type { StoryAvatarProps } from './types';
 
 const StoryAvatar = ({
   item,
   index,
+  pressedIndex,
+  isStoryViewVisible,
   openStories,
   viewedStories = [],
   userNameStyle,
@@ -19,6 +23,7 @@ const StoryAvatar = ({
   const isUserStorySeen: boolean = viewedStories?.[index]?.every(
     (val: boolean) => val
   );
+
   const _userNameStyle = StyleSheet.flatten([styles.username, userNameStyle]);
   const _userImageStyle = StyleSheet.flatten([styles.image, userImageStyle]);
   const _containerStyle = StyleSheet.flatten([
@@ -28,13 +33,19 @@ const StoryAvatar = ({
       styles.viewedStoryContainer,
   ]);
 
+  const { avatarAnimatedStyle } = useCircleAnimation({
+    pressedIndex,
+    index,
+    isStoryViewVisible,
+  });
+
   return (
-    <Pressable onPress={() => openStories?.(index!)} {...rootProps}>
+    <Pressable onPress={() => openStories?.(index)} {...rootProps}>
       <View style={_containerStyle}>
-        <Image
+        <Animated.Image
           resizeMode="cover"
           source={{ uri: item?.profile }}
-          style={_userImageStyle}
+          style={[_userImageStyle, avatarAnimatedStyle]}
           {...userImageProps}
         />
       </View>

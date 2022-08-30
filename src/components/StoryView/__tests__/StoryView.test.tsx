@@ -10,7 +10,9 @@ jest.mock('react-native-video', () => 'Video');
 
 describe('StoryView component', () => {
   it('Match Snapshot', () => {
-    const { toJSON } = render(<StoryView stories={[]} progressIndex={0} />);
+    const { toJSON } = render(
+      <StoryView videoDuration={[]} stories={[]} progressIndex={0} />
+    );
     expect(toJSON()).toMatchSnapshot();
   });
 });
@@ -37,6 +39,8 @@ describe('ProgressView component', () => {
         currentStory={0}
         length={[]}
         progress={0}
+        videoDuration={[]}
+        setVideoDuration={() => {}}
       />
     );
     expect(toJSON()).toMatchSnapshot();

@@ -12,17 +12,23 @@ import {
   defaultTransition,
   scaleTransition,
 } from '../utils/StoryTransitions';
+import useDraggableGesture from './useDraggableGesture';
 
 const useMultiStoryContainer = (
   flatListRef: any,
   {
     userStoryIndex,
+    backgroundColor,
     transitionMode = TransitionMode.Cube,
-  }: Partial<MultiStoryContainerProps>
+  }: Partial<MultiStoryContainerProps>,
+  onScrollBeginDrag: () => void,
+  onScrollEndDrag: () => void,
+  handleLongPress: (visibility: boolean) => void,
+  onComplete?: () => void
 ) => {
   const [storyIndex, setStoryIndex] = useState(userStoryIndex ?? 0);
   const scrollX: ScrollValue = useValue(0);
-  const previousIndex = useRef(0);
+  const previousIndex = useRef<number>(0);
   const viewabilityConfig = useRef({
     itemVisiblePercentThreshold: 70,
   });
@@ -67,11 +73,23 @@ const useMultiStoryContainer = (
     }
   };
 
+  const { listStyle, rootStyle, gestureHandler } = useDraggableGesture({
+    backgroundColor,
+    onComplete,
+    onScrollBeginDrag,
+    onScrollEndDrag,
+    handleLongPress,
+    isKeyboardVisible,
+  });
+
   return {
     scrollX,
     onViewRef,
     viewabilityConfig,
+    listStyle,
+    rootStyle,
     storyIndex,
+    gestureHandler,
     setStoryIndex,
     onScroll,
     animatedTransitionStyle,
