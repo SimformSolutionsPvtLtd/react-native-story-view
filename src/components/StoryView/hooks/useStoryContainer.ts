@@ -12,11 +12,16 @@ import {
   NativeTouchEvent,
   StyleSheet,
 } from 'react-native';
-import type { OnLoadData } from 'react-native-video';
+import type { OnLoadData, OnProgressData } from 'react-native-video';
 import { useKeyboardListener } from '../../../hooks';
 import { Colors, Metrics } from '../../../theme';
 import styles from '../styles';
-import { ClickPosition, StoryContainerProps, StoryMode } from '../types';
+import {
+  ClickPosition,
+  StoryContainerProps,
+  StoryMode,
+  StroyTypes,
+} from '../types';
 
 const useStoryContainer = (
   { onChangePosition, ...props }: StoryContainerProps,
@@ -31,6 +36,10 @@ const useStoryContainer = (
   const storyMode: StoryMode = props?.userStoryIndex
     ? StoryMode.MultiStory
     : StoryMode.SingleStory;
+  const storyCount = props?.stories?.length ?? 0;
+  const [videoDuration, setVideoDuration] = useState<number[]>(
+    Array(storyCount).fill(0)
+  );
 
   const isKeyboardVisible = useKeyboardListener();
 
@@ -86,9 +95,45 @@ const useStoryContainer = (
     return () => subscription.remove();
   }, [appStateChange]);
 
+  const setEmptyDurations = useCallback(() => {
+    setVideoDuration(Array(storyCount).fill(0));
+  }, [storyCount]);
+
+  /* force reset video durations on user story change */
+  useEffect(() => {
+    if (props?.stories[progressIndex]?.type === StroyTypes.Video) {
+      if (props?.index === props?.userStoryIndex) {
+        setEmptyDurations();
+      }
+    }
+  }, [
+    setEmptyDurations,
+    props?.index,
+    progressIndex,
+    props?.stories,
+    props?.userStoryIndex,
+    storyCount,
+  ]);
+
   const onVideoLoaded = (length: OnLoadData) => {
-    setLoaded(true);
+    setPause(false);
     setDuration(props?.maxVideoDuration ?? length?.duration);
+  };
+
+  const onVideoEnd = () => {
+    if (props?.index === props?.userStoryIndex) {
+      const videoDurations = [...videoDuration];
+      videoDurations[progressIndex] = duration + 1;
+      setVideoDuration([...videoDurations]);
+      return;
+    }
+  };
+
+  const onVideoProgress = (progressData?: OnProgressData) => {
+    const videoDurations = [...videoDuration];
+    videoDurations[progressIndex] = progressData?.currentTime ?? 0;
+    setVideoDuration([...videoDurations]);
+    !isLoaded && setLoaded(true);
   };
 
   const changeStory = (evt: NativeTouchEvent) => {
@@ -104,6 +149,7 @@ const useStoryContainer = (
   };
 
   const onArrowClick = (type: string) => {
+    if (props?.userStoryIndex !== props?.index) return;
     switch (type) {
       case ClickPosition.Left:
         onChange(progressIndex - 1);
@@ -165,14 +211,18 @@ const useStoryContainer = (
     progressIndex,
     isLoaded,
     duration,
+    videoDuration,
     setPause,
     setLoaded,
     setDuration,
     onImageLoaded,
     onVideoLoaded,
+    onVideoProgress,
+    onVideoEnd,
     changeStory,
     onArrowClick,
     onStoryPressHold,
+    setVideoDuration,
     onStoryPressRelease,
     isKeyboardVisible,
     opacity: visibleElements ? 1 : 0,

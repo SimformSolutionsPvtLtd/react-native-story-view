@@ -76,25 +76,23 @@ exports[`StoryContainer component Match Snapshot 1`] = `
             }
           }
         >
-          <ActivityIndicator
-            animating={true}
-            color="#575899"
-            size="small"
-            style={
+          <Video
+            bufferConfig={
               Object {
-                "flex": 1,
-                "left": "45%",
-                "position": "absolute",
-                "top": "50%",
+                "bufferForPlaybackAfterRebufferMs": 60000,
+                "bufferForPlaybackMs": 60000,
+                "minBufferMs": 60000,
               }
             }
-          />
-          <Video
+            onBuffer={[Function]}
+            onEnd={[Function]}
             onError={[Function]}
             onLoad={[Function]}
             onLoadStart={[Function]}
+            onProgress={[Function]}
             onReadyForDisplay={[Function]}
             paused={true}
+            posterResizeMode="contain"
             resizeMode="contain"
             source={
               Object {
@@ -107,6 +105,20 @@ exports[`StoryContainer component Match Snapshot 1`] = `
                 "borderRadius": 4,
                 "flex": 1,
                 "overflow": "hidden",
+              }
+            }
+          />
+          <ActivityIndicator
+            animating={true}
+            color="#575899"
+            pointerEvents="none"
+            size="small"
+            style={
+              Object {
+                "flex": 1,
+                "left": "45%",
+                "position": "absolute",
+                "top": "50%",
               }
             }
           />
@@ -159,11 +171,21 @@ exports[`StoryView component Match Snapshot 1`] = `
   }
 >
   <Video
+    bufferConfig={
+      Object {
+        "bufferForPlaybackAfterRebufferMs": 60000,
+        "bufferForPlaybackMs": 60000,
+        "minBufferMs": 60000,
+      }
+    }
+    onBuffer={[Function]}
     onError={[Function]}
     onLoad={[Function]}
     onLoadStart={[Function]}
+    onProgress={[Function]}
     onReadyForDisplay={[Function]}
     paused={true}
+    posterResizeMode="contain"
     resizeMode="contain"
     source={
       Object {
