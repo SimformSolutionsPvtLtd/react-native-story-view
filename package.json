@@ -5,7 +5,11 @@
   "main": "lib/index",
   "types": "lib/index.d.ts",
   "contributors": [],
-  "author": "",
+  "author": "Simform Solutions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SimformSolutionsPvtLtd/react-native-story-view"
+  },
   "keywords": [
     "react",
     "react-native",
@@ -83,7 +87,7 @@
       "./node_modules/react-native-gesture-handler/jestSetup.js",
       "./jest-setup.js"
     ],
-    "modulePathIgnorePatterns" :[
+    "modulePathIgnorePatterns": [
       "./src/components/MultiStoryContainer/__tests__",
       "./src/components/StoryAvatar/__tests__"
     ]
