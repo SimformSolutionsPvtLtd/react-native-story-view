@@ -63,7 +63,7 @@ module.exports = {
 
 ## Usage
 
-StoryView is divided into several components, MultiStory, MultiStoryContainer and StoryContainer all for rendering Story. ProfileHeader and Footer are individual components for header and footer. We'll look usage and customization of all these.
+StoryView is divided into several components, `MultiStory` is the root component. ProfileHeader and Footer are individual components for header and footer. StoryContainer internally used for rendering Story. We'll look usage and customization of all these.
 
 <br />
 Checkout Multi Story Example
@@ -117,7 +117,15 @@ const userStories = [
 
 ### MultiStory
 
-This is the root component of StoryView package. It displays horizontal list of users with pre-defined ui and uses animated flatlist under the hood to display stories. `StoryContainer` is used under the hood for story so all customization can be done from `storyContainerProps`.
+  <table>
+    <tr>
+      <td><a href="https://github.com/SimformSolutionsPvtLtd/react-native-story-view"><img width="300" alt="SimformSolutions" src="./assets/stories_list.gif"></a></td>
+      <td><a href="https://github.com/SimformSolutionsPvtLtd/react-native-story-view"><img width="200" alt="SimformSolutions" src="./assets/multistory.gif"></a>
+     </td>
+    </tr>
+  </table>
+
+This is the root component of StoryView package. It displays horizontal list of users with pre-defined ui from `StoryAvatar` component and uses animated flatlist under the hood to display stories. `StoryContainer` is used under the hood for story so all customization can be done from `storyContainerProps`.
 
 #### Basic Usage
 
@@ -130,6 +138,7 @@ const multiStoryRef = useRef<MultiStoryRef>(null);
   avatarProps={{
     userNameStyle: { fontSize: 16 },
   }}
+  // all StoryContainer props applies here
   storyContainerProps={{
     renderHeaderComponent: ({ userStories, progressIndex, userStoryIndex }) => (
       <Header {...{ userStories, progressIndex, multiStoryRef }} />
@@ -148,12 +157,131 @@ const multiStoryRef = useRef<MultiStoryRef>(null);
 Checkout Multi Story Example
 <a href='https://github.com/SimformSolutionsPvtLtd/react-native-story-view/blob/develop/example/src/modules/MultiStory/MultiStoryScreen.tsx'><b>here</b></a>
 <br />
+<br />
+
+### ProfileHeader
+
+  <table>
+    <tr>
+      <td><a href="https://github.com/SimformSolutionsPvtLtd/react-native-story-view"><img width="300" alt="SimformSolutions" src="./assets/header.png"></a></td>
+    </tr>
+  </table>
+
+This is an individual component, To display user details on header like instagram/whatsapp. In `renderHeaderComponent` of StoryContainer, Custom component can be assigned.
+For MultiStory, renderHeaderComponent receives `progressIndex`, `userStories`, `story` and `userStoryIndex` for getting current user data.
+
+```js
+const multiStoryRef = useRef(null);
+
+<MultiStory
+  ref={multiStoryRef}
+  storyContainerProps={{
+    renderHeaderComponent: ({
+      userStories,
+      story,
+      progressIndex,
+      userStoryIndex,
+    }) => (
+      <ProfileHeader
+        userImage={{ uri: userStories?.profile ?? '' }}
+        userName={userStories?.username}
+        userMessage={userStories?.title}
+        onClosePress={() => {
+          multiStoryRef?.current?.close?.();
+        }}
+      />
+    ),
+  }}
+/>;
+```
+
+### Footer
+
+  <table>
+    <tr>
+      <td><a href="https://github.com/SimformSolutionsPvtLtd/react-native-story-view"><img width="300" alt="SimformSolutions" src="./assets/footer.png"></a></td>
+      <td><a href="https://github.com/SimformSolutionsPvtLtd/react-native-story-view"><img width="200" alt="SimformSolutions" src="./assets/footer.gif"></a>
+     </td>
+    </tr>
+  </table>
+
+This is an individual component, To display footer like instagram. Any TextInput props can be directly passed to `Footer`. In `renderFooterComponent` of StoryContainer, Custom component can be assigned.
+
+```js
+<MultiStory
+  storyContainerProps={{
+    renderFooterComponent: ({
+      userStories,
+      story,
+      progressIndex,
+      userStoryIndex,
+    }) => (
+      <Footer
+        onIconPress={() => {
+          console.log('Share icon clicked');
+        }}
+        onSendTextPress={() => {
+          console.log('Message sent');
+        }}
+        shouldShowSendImage={true}
+        shouldShowTextInputSend={true}
+        placeholder="Enter Message"
+      />
+    ),
+  }}
+/>
+```
 
 ---
 
+## Additional Reference
+
+### StoryContainer
+
+This is the core component of StoryView, which provides all functionality of story view and customization. It is used to render all stories in `MultiStory`. This component is just for _reference_ how `storyContainerProps` in `MultiStory` being passed in this component internally.
+
+```js
+const [isStoryViewVisible, setIsStoryViewShow] = useState(false);
+
+<StoryContainer
+  visible={isStoryViewVisible}
+  maxVideoDuration={10}
+  stories={userStories[0].stories}
+  renderFooterComponent={({ story, progressIndex }) => (
+    <Footer
+      onSendTextPress={() => {
+        Alert.alert(`Current Story id ${story?.[progressIndex].id} `);
+        Keyboard.dismiss();
+      }}
+      onIconPress={() => {
+        Alert.alert('Current Story progress index' + progressIndex);
+      }}
+    />
+  )}
+  renderHeaderComponent={({ story, progressIndex }) => (
+    <ProfileHeader
+      userImage={{ uri: userStories[0]?.profile ?? '' }}
+      userName={userStories[0]?.username}
+      userMessage={userStories[0]?.title}
+      onImageClick={() => {}}
+      onClosePress={() => setIsStoryViewShow(false)}
+    />
+  )}
+  //Callback when all stories completes
+  onComplete={() => setIsStoryViewShow(false)}
+/>;
+```
+
 ### MultiStoryContainer
 
-`MultiStory` is wrapper on this component with extra horizontal user list UI. Use this component to render multiple stories with any customised horizontal user list UI.
+`MultiStory` is wrapper on this component with extra horizontal user list UI of `StoryAvatar`. If MultiStory's horizontal list customisation is not sufficient for any use-case, use this base component and add your own customised horizontal user list UI.
+
+  <table>
+    <tr>
+      <td><a href="https://github.com/SimformSolutionsPvtLtd/react-native-story-view"><img width="140" alt="SimformSolutions" src="./assets/multiStoryContainer.gif"></a>
+     </td>
+    </tr>
+  </table>
 
 #### Basic Usage
 
@@ -191,140 +319,64 @@ const openStories = (index: number) => {
   </View>
 ```
 
-### StoryContainer
-
-This is the core component of StoryView, which provides all functionality of story view and customization. It is used to render all stories in `MultiStory`. Use this only when need to render single user story otherwise use `MultiStory` or `MultiStoryContainer` for all needs. Need to be wrapped with Modal additionally.
-
-#### Basic Usage
-
-```js
-const [isStoryViewVisible, setIsStoryViewShow] = useState(false);
-
-<Modal
-  visible={isStoryViewVisible}
-  statusBarTranslucent={true}
-  onRequestClose={() => setIsStoryViewShow(false)}>
-  <StoryContainer
-    visible={true}
-    maxVideoDuration={10}
-    stories={userStories[0].stories}
-    renderFooterComponent={({ story, progressIndex }) => (
-      <Footer
-        onSendTextPress={() => {
-          Alert.alert(`Current Story id ${story?.[progressIndex].id} `);
-          Keyboard.dismiss();
-        }}
-        onIconPress={() => {
-          Alert.alert('Current Story progress index' + progressIndex);
-        }}
-      />
-    )}
-    renderHeaderComponent={({ story, progressIndex }) => (
-      <ProfileHeader
-        userImage={{ uri: userStories[0]?.profile ?? '' }}
-        userName={userStories[0]?.username}
-        userMessage={userStories[0]?.title}
-        onImageClick={() => {}}
-        onClosePress={() => setIsStoryViewShow(false)}
-      />
-    )}
-    //Callback when all stories completes
-    onComplete={() => setIsStoryViewShow(false)}
-  />
-</Modal>;
-```
-
 ### ProgressBar
+
+  <table>
+    <tr>
+      <td><a href="https://github.com/SimformSolutionsPvtLtd/react-native-story-view"><img width="300" alt="SimformSolutions" src="./assets/progressbar.gif"></a></td>
+    </tr>
+  </table>
 
 ProgressBar customisation can be controlled through StoryContainer itself. `enableProgress` to make visible the progressbar.`progressIndex` to start story from any index. `barStyle` to customize look feel of progressbar.`onChangePosition` trigger when progressbar index will change returns current index.
 
 ```js
-<StoryContainer
-  enableProgress={true}
-  //Callback when progressbar index changes
-  onChangePosition={position => {}}
-  progressIndex={0}
-  barStyle={{
-    barHeight: 2,
-    barInActiveColor: 'red',
-    barActiveColor: 'blue',
+<MultiStory
+  storyContainerProps={{
+    enableProgress: true,
+    //Callback when progressbar index changes
+    onChangePosition: position => {},
+    barStyle: {
+      barHeight: 2,
+      barInActiveColor: 'green',
+      barActiveColor: 'grey',
+    },
+    maxVideoDuration: 25,
+    progressIndex: 0,
   }}
-  stories={userStories[0].stories}
-  maxVideoDuration={25}
-/>
-```
-
-### ProfileHeader
-
-This is an individual component, To display user details on header like instagram/whatsapp. In `renderHeaderComponent` of StoryContainer, Custom component can be assigned.
-For Multi Story, renderHeaderComponent receives `progressIndex`, `userStories` and `userStoryIndex` for getting current user data.
-For Single Story, renderHeaderComponent receives `story` and `progressIndex` for getting whole story array and current progress index, `userStories` is undefined for single story.
-
-```js
-<StoryContainer
-  renderHeaderComponent={({
-    userStories,
-    story,
-    progressIndex,
-    userStoryIndex,
-  }) => (
-    <ProfileHeader
-      /*
-       * `userStories` only for Multi story
-       * For single story use main story array: stories[0].username
-       */
-      userImage={{ uri: userStories?.[0].profile ?? '' }}
-      userName={userStories?.[0].username}
-      userMessage={userStories?.[0].title}
-      onImageClick={() => {
-        console.log('User profile image tapped');
-      }}
-      onClosePress={() => {
-        setIsStoryViewShow(false);
-      }}
-    />
-  )}
-/>
-```
-
-### Footer
-
-This is an individual component, To display footer like instagram. Any TextInput props can be directly passed to `Footer`. In `renderFooterComponent` of StoryContainer, Custom component can be assigned.
-
-```js
-<StoryContainer
-  renderFooterComponent={({
-    userStories,
-    story,
-    progressIndex,
-    userStoryIndex,
-  }) => (
-    <Footer
-      onIconPress={() => {
-        console.log('Share icon clicked');
-      }}
-      onSendTextPress={() => {
-        console.log('Message sent');
-      }}
-      shouldShowSendImage={true}
-      shouldShowTextInputSend={true}
-      placeholder="Enter Message"
-    />
-  )}
 />
 ```
 
 ### Custom View
 
+  <table>
+    <tr>
+      <td><a href="https://github.com/SimformSolutionsPvtLtd/react-native-story-view"><img width="300" alt="SimformSolutions" src="./assets/custom_view.png"></a></td>
+    </tr>
+  </table>
+
 Pass any custom view in story view. It will be rendered on top of story view as it have an absolute position. In `renderCustomView` of StoryContainer, Any custom component can be assigned.
 
 ```js
-<StoryContainer
-  renderCustomView={() => (
-    <Pressable>
-      <Text>Close</Text>
-    </Pressable>
-  )}
+<MultiStory
+  storyContainerProps={{
+    renderCustomView: () => (
+      <View
+        style={{
+          position: 'absolute',
+          top: 40,
+          right: 50,
+        }}>
+        <Image
+          source={Images.star}
+          style={{
+            height: 25,
+            width: 25,
+            tintColor: 'green',
+          }}
+        />
+      </View>
+    ),
+  }}
 />
 ```
 
@@ -356,9 +408,9 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 ### Transitions
 
-| Cube                                          | Scale                                          | Default                                          |
-| --------------------------------------------- | ---------------------------------------------- | ------------------------------------------------ |
-| <img src="./assets/cube.gif"  height="300" /> | <img src="./assets/scale.gif"  height="300" /> | <img src="./assets/default.gif"  height="300" /> |
+| Cube                                         | Scale                                         | Default                                         |
+| -------------------------------------------- | --------------------------------------------- | ----------------------------------------------- |
+| <img src="./assets/cube.gif"  width="200" /> | <img src="./assets/scale.gif"  width="200" /> | <img src="./assets/default.gif"  width="200" /> |
 
 ---
 
@@ -370,7 +422,7 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 > | Name                |       Default       | Type                                            | <div style="width:290px">Description</div>                                                                                                                           |
 > | :------------------ | :-----------------: | :---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-> | **stories\***       |          0          | StoriesType[]                                   | Array of multiple user stories                                                                                                                                       |
+> | **stories\***       |      undefined      | StoriesType[]                                   | Array of multiple user stories                                                                                                                                       |
 > | ref                 |        null         | MultiStoryRef                                   | To access `close` story method                                                                                                                                       |
 > | storyContainerProps |         {}          | StoryContainerProps                             | Customize all story props, detailed props in below `StoryContainer` section                                                                                          |
 > | avatarProps         |         {}          | [StoryAvatarStyleProps](#StoryAvatarStyleProps) | Customize avatar component styles                                                                                                                                    |
@@ -405,7 +457,7 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 > | Name                |       Default       | Type                                   | <div style="width:290px">Description</div>                                                                                                                           |
 > | :------------------ | :-----------------: | :------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-> | **stories\***       |          0          | StoriesType[]                          | Array of multiple user stories                                                                                                                                       |
+> | **stories\***       |      undefined      | StoriesType[]                          | Array of multiple user stories                                                                                                                                       |
 > | **visible\***       |        false        | boolean                                | Hide / show story view                                                                                                                                               |
 > | userStoryIndex      |          0          | number                                 | Pass clicked index of horizontal user list.                                                                                                                          |
 > | storyContainerProps |         {}          | StoryContainerProps                    | Customize all story props, detailed props in below `StoryContainer` section                                                                                          |
@@ -422,25 +474,25 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                    | Default | Type                                                       | <div style="width:290px">Description</div>                                       |
-> | :---------------------- | :-----: | :--------------------------------------------------------- | -------------------------------------------------------------------------------- |
-> | **visible\***           |  false  | boolean                                                    | Hide / show story view                                                           |
-> | **stories\***           |   []    | StoryType[]                                                | Array of stories                                                                 |
-> | backgroundColor         | #000000 | string                                                     | Background color of story view                                                   |
-> | maxVideoDuration        |  null   | number                                                     | Override video progress duration (default is actual duration of video)           |
-> | style                   |   {}    | ViewStyle                                                  | Style of story view                                                              |
-> | showSourceIndicator     |  true   | boolean                                                    | Display indicator while video loading                                            |
-> | sourceIndicatorProps    |   {}    | ActivityIndicatorProps                                     | To override indicator props                                                      |
-> | onComplete              |  null   | () => {}                                                   | Callback when all stories completes                                              |
-> | renderHeaderComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component                    |
-> | renderFooterComponent   |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                           |
-> | renderCustomView        |  null   | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                                  |
-> | storyContainerViewProps |   {}    | ViewProps                                                  | Root story view props                                                            |
-> | headerViewProps         |   {}    | ViewProps                                                  | Header view wrapper props                                                        |
-> | footerViewProps         |   {}    | ViewProps                                                  | Footer view wrapper props                                                        |
-> | customViewProps         |   {}    | ViewProps                                                  | Custom view wrapper props                                                        |
-> | videoProps              |   {}    | VideoProperties                                            | To override video properties                                                     |
-> | ref                     |   {}    | StoryRef                                                   | To access 'pause' story method and 'viewedStories' stories object (Single Story) |
+> | Name                    |  Default  | Type                                                       | <div style="width:290px">Description</div>                                       |
+> | :---------------------- | :-------: | :--------------------------------------------------------- | -------------------------------------------------------------------------------- |
+> | **visible\***           |   false   | boolean                                                    | Hide / show story view                                                           |
+> | **stories\***           | undefined | StoryType[]                                                | Array of stories                                                                 |
+> | backgroundColor         |  #000000  | string                                                     | Background color of story view                                                   |
+> | maxVideoDuration        |   null    | number                                                     | Override video progress duration (default is actual duration of video)           |
+> | style                   |    {}     | ViewStyle                                                  | Style of story view                                                              |
+> | showSourceIndicator     |   true    | boolean                                                    | Display indicator while video loading                                            |
+> | sourceIndicatorProps    |    {}     | ActivityIndicatorProps                                     | To override indicator props                                                      |
+> | onComplete              |   null    | () => {}                                                   | Callback when all stories completes                                              |
+> | renderHeaderComponent   |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component                    |
+> | renderFooterComponent   |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                           |
+> | renderCustomView        |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                                  |
+> | storyContainerViewProps |    {}     | ViewProps                                                  | Root story view props                                                            |
+> | headerViewProps         |    {}     | ViewProps                                                  | Header view wrapper props                                                        |
+> | footerViewProps         |    {}     | ViewProps                                                  | Footer view wrapper props                                                        |
+> | customViewProps         |    {}     | ViewProps                                                  | Custom view wrapper props                                                        |
+> | videoProps              |    {}     | VideoProperties                                            | To override video properties                                                     |
+> | ref                     |    {}     | StoryRef                                                   | To access 'pause' story method and 'viewedStories' stories object (Single Story) |
 
 ---
 
