@@ -34,10 +34,10 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*",
+    "react-native": ">=0.62",
+    "react-native-video": ">=5",
+    "react-native-video-cache-control": "*",
     "react-native-reanimated": ">=2.10.0",
-    "react-native-video": "*",
-    "react-native-video-cache-control": ">=1.1.1",
     "react-native-gesture-handler": ">=2.5.0"
   },
   "devDependencies": {
