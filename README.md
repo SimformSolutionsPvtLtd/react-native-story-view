@@ -15,15 +15,25 @@ It works on both android and iOS platforms.
 
 ## Installation
 
-##### 1. Install library, react-native-video, react-native-video-cache-control and react-native-reanimated
+##### 1. Install Story View
 
 ```bash
-$ npm install react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control react-native-story-view
+$ npm install react-native-story-view
 # --- or ---
-$ yarn add react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control react-native-story-view
+$ yarn add react-native-story-view
 ```
 
-##### 2. Install cocoapods in the ios project
+##### 2. Install peer dependencies
+
+```bash
+$ npm install react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control
+# --- or ---
+$ yarn add react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control
+```
+
+> Note: If you already have these libraries installed and at the latest version, you are done here!
+
+##### 3. Install cocoapods in the ios project
 
 ```bash
 cd ios && pod install
@@ -354,7 +364,7 @@ ProgressBar customisation can be controlled through StoryContainer itself. `enab
     </tr>
   </table>
 
-Pass any custom view in story view. It will be rendered on top of story view as it have an absolute position. In `renderCustomView` of StoryContainer, Any custom component can be assigned.
+Pass any custom view in story view. It will be rendered on top of story view as it has an absolute position. In `renderCustomView` of StoryContainer, Any custom component can be assigned.
 
 ```js
 <MultiStory
