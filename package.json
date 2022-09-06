@@ -4,6 +4,7 @@
   "description": "React Native component to provide status/stories feature.",
   "main": "lib/index",
   "types": "lib/index.d.ts",
+  "homepage": "https://github.com/SimformSolutionsPvtLtd/react-native-story-view#readme",
   "contributors": [],
   "author": "Simform Solutions",
   "repository": {
