@@ -1,0 +1,116 @@
+{
+  "name": "react-native-story-view",
+  "version": "0.0.1",
+  "description": "React Native component to provide status/stories feature.",
+  "main": "lib/index",
+  "types": "lib/index.d.ts",
+  "homepage": "https://github.com/SimformSolutionsPvtLtd/react-native-story-view#readme",
+  "contributors": [],
+  "author": "Simform Solutions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SimformSolutionsPvtLtd/react-native-story-view"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "typescript",
+    "story-view",
+    "status-view",
+    "rn"
+  ],
+  "license": "MIT",
+  "files": [
+    "/lib"
+  ],
+  "scripts": {
+    "prepare": "husky install",
+    "clean": "rm -rf node_modules",
+    "build": "rm -rf lib && tsc -p . && cp -R ./src/assets ./lib/ ",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' -c .eslintrc --fix ",
+    "build_local": "yarn build && yarn pack",
+    "test": "jest",
+    "example": "yarn --cwd example"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": ">=0.62",
+    "react-native-video": ">=5",
+    "react-native-video-cache-control": "*",
+    "react-native-reanimated": ">=2.10.0",
+    "react-native-gesture-handler": ">=2.5.0"
+  },
+  "devDependencies": {
+    "react-native-video-cache-control": "^1.1.1",
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@react-native-community/eslint-config": "^3.0.1",
+    "@testing-library/react-native": "^9.0.0",
+    "@types/jest": "^27.4.0",
+    "@types/react-native": "^0.66.15",
+    "@types/react-native-video": "^5.0.13",
+    "@types/react-test-renderer": "^17.0.1",
+    "babel-jest": "^27.4.6",
+    "eslint": "^7.32.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^7.0.4",
+    "jest": "^27.4.7",
+    "lint-staged": "^11.1.2",
+    "metro-react-native-babel-preset": "^0.67.0",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
+    "prettier": "^2.7.1",
+    "react": "17.0.2",
+    "react-native": "0.68.2",
+    "react-native-gesture-handler": "^2.5.0",
+    "react-native-reanimated": "^2.10.0",
+    "react-native-video": "^5",
+    "react-test-renderer": "17.0.2",
+    "typescript": "4.7.4"
+  },
+  "resolutions": {
+    "@types/react": "*"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "setupFilesAfterEnv": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js",
+      "./jest-setup.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "./src/components/MultiStoryContainer/__tests__",
+      "./src/components/StoryAvatar/__tests__"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,tsx}": [
+      "eslint"
+    ]
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn build && yarn test"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}

@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Component Match Snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "paddingBottom": 13.142857142857142,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "#ffffff",
+        "borderRadius": 36,
+        "borderWidth": 1,
+        "flex": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginHorizontal": 16,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <TextInput
+      placeholder="Send Message"
+      placeholderTextColor="#ffffff"
+      style={
+        Object {
+          "color": "#ffffff",
+          "flex": 1,
+          "fontSize": 15.6,
+          "height": 73.92857142857143,
+          "paddingHorizontal": 24,
+          "paddingVertical": 24.642857142857142,
+        }
+      }
+    />
+  </View>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+    testID="footerIcon"
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/assets/icons/send.png",
+        }
+      }
+      style={
+        Object {
+          "height": 36,
+          "marginRight": 16,
+          "tintColor": "#ffffff",
+          "width": 36,
+        }
+      }
+    />
+  </View>
+</View>
+`;
+
+exports[`Footer Icon Props Match Snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "paddingBottom": 13.142857142857142,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "#ffffff",
+        "borderRadius": 36,
+        "borderWidth": 1,
+        "flex": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginHorizontal": 16,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <TextInput
+      placeholder="Send Message"
+      placeholderTextColor="#ffffff"
+      style={
+        Object {
+          "color": "#ffffff",
+          "flex": 1,
+          "fontSize": 15.6,
+          "height": 73.92857142857143,
+          "paddingHorizontal": 24,
+          "paddingVertical": 24.642857142857142,
+        }
+      }
+    />
+  </View>
+</View>
+`;
+
+exports[`Footer TextInput Match Snapshot 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "paddingBottom": 13.142857142857142,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "#ffffff",
+        "borderRadius": 36,
+        "borderWidth": 1,
+        "flex": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginHorizontal": 16,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <TextInput
+      placeholder="Send Message"
+      placeholderTextColor="#ffffff"
+      style={
+        Object {
+          "color": "#ffffff",
+          "flex": 1,
+          "fontSize": 15.6,
+          "height": 73.92857142857143,
+          "paddingHorizontal": 24,
+          "paddingVertical": 24.642857142857142,
+        }
+      }
+    />
+  </View>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+    testID="footerIcon"
+  >
+    <Image
+      source={
+        Object {
+          "testUri": "../../../src/assets/icons/send.png",
+        }
+      }
+      style={
+        Object {
+          "height": 36,
+          "marginRight": 16,
+          "tintColor": "#ffffff",
+          "width": 36,
+        }
+      }
+    />
+  </View>
+</View>
+`;

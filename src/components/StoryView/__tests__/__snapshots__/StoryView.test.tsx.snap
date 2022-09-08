@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressView component Match Snapshot 1`] = `
+<View
+  collapsable={false}
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "height": 16.428571428571427,
+      "justifyContent": "space-between",
+      "position": "absolute",
+      "top": 16.428571428571427,
+      "width": "98%",
+    }
+  }
+/>
+`;
+
+exports[`StoryContainer component Match Snapshot 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "#000000",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    onLayout={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#000000",
+          "flex": 1,
+        },
+        Object {
+          "paddingBottom": 0,
+        },
+      ]
+    }
+  >
+    <View
+      onLayout={[Function]}
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignSelf": "center",
+                "height": "100%",
+                "paddingBottom": 6,
+                "width": 750,
+              },
+              Object {
+                "height": 1334,
+                "width": 750,
+              },
+            ]
+          }
+        >
+          <Video
+            bufferConfig={
+              Object {
+                "bufferForPlaybackAfterRebufferMs": 60000,
+                "bufferForPlaybackMs": 60000,
+                "minBufferMs": 60000,
+              }
+            }
+            onBuffer={[Function]}
+            onEnd={[Function]}
+            onError={[Function]}
+            onLoad={[Function]}
+            onLoadStart={[Function]}
+            onProgress={[Function]}
+            onReadyForDisplay={[Function]}
+            paused={true}
+            resizeMode="contain"
+            source={
+              Object {
+                "uri": undefined,
+              }
+            }
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "borderRadius": 4,
+                "flex": 1,
+                "overflow": "hidden",
+              }
+            }
+          />
+          <ActivityIndicator
+            animating={true}
+            color="#575899"
+            pointerEvents="none"
+            size="small"
+            style={
+              Object {
+                "flex": 1,
+                "left": "45%",
+                "position": "absolute",
+                "top": "50%",
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+              "position": "absolute",
+              "width": "100%",
+            },
+            Object {
+              "opacity": 1,
+            },
+          ]
+        }
+      >
+        <View
+          collapsable={false}
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "height": 16.428571428571427,
+              "justifyContent": "space-between",
+              "position": "absolute",
+              "top": 16.428571428571427,
+              "width": "98%",
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;
+
+exports[`StoryView component Match Snapshot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignSelf": "center",
+        "height": "100%",
+        "paddingBottom": 6,
+        "width": 750,
+      },
+      Object {
+        "height": 1334,
+        "width": 750,
+      },
+    ]
+  }
+>
+  <Video
+    bufferConfig={
+      Object {
+        "bufferForPlaybackAfterRebufferMs": 60000,
+        "bufferForPlaybackMs": 60000,
+        "minBufferMs": 60000,
+      }
+    }
+    onBuffer={[Function]}
+    onError={[Function]}
+    onLoad={[Function]}
+    onLoadStart={[Function]}
+    onProgress={[Function]}
+    onReadyForDisplay={[Function]}
+    paused={true}
+    resizeMode="contain"
+    source={
+      Object {
+        "uri": undefined,
+      }
+    }
+    style={
+      Object {
+        "backgroundColor": "transparent",
+        "borderRadius": 4,
+        "flex": 1,
+        "overflow": "hidden",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`StoryView should render Footer component Match Snapshot 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "#000000",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    onLayout={[Function]}
+    style={
+      Array [
+        Object {
+          "backgroundColor": "#000000",
+          "flex": 1,
+        },
+        Object {
+          "paddingBottom": 0,
+        },
+      ]
+    }
+  />
+</RCTSafeAreaView>
+`;

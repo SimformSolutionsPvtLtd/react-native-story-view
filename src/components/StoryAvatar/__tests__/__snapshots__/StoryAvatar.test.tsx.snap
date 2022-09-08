@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoryAvatar Component Match Snapshot 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "#FFFFFF7F",
+        "borderRadius": 52.5,
+        "borderWidth": 2,
+        "height": 105,
+        "justifyContent": "center",
+        "marginRight": 24,
+        "overflow": "hidden",
+        "width": 105,
+      }
+    }
+  >
+    <Image
+      resizeMode="cover"
+      source={
+        Object {
+          "uri": undefined,
+        }
+      }
+      style={
+        Object {
+          "borderRadius": 52.5,
+          "height": "95%",
+          "width": "95%",
+        }
+      }
+    />
+  </View>
+  <Text
+    style={
+      Object {
+        "alignSelf": "center",
+        "color": "#ffffff",
+        "fontWeight": "500",
+        "marginRight": 24,
+        "marginTop": 9,
+      }
+    }
+  />
+</View>
+`;
