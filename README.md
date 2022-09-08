@@ -2,7 +2,7 @@
 
 # react-native-story-view
 
-[![npm version](https://img.shields.io/badge/npm%20package-0.0.1-orange)](https://www.npmjs.org/package/react-native-story-view) [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/badge/npm%20package-0.0.2-orange)](https://www.npmjs.org/package/react-native-story-view) [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
 
 ---
 
@@ -49,6 +49,23 @@ module.exports = {
           'react-native-reanimated/plugin',
       ],
   };
+```
+
+<br />
+
+#### Extra Step
+
+<b>Android:</b><br />
+If you're facing issue related to 'android-scalablevideoview' or 'videocache' module not found.
+Add this code in android's build.gradle
+
+```
+jcenter() {
+    content {
+        includeModule("com.yqritc", "android-scalablevideoview")
+        includeModule("com.danikula", "videocache")
+    }
+}
 ```
 
 ##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video), [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated), [react-native-gesture-handler ](https://www.npmjs.com/package/react-native-gesture-handler) and [react-native-video-cache-control](https://www.npmjs.com/package/react-native-video-cache-control)
