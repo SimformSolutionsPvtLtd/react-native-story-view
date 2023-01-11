@@ -157,6 +157,9 @@ export interface StoryContainerProps extends CommonProps {
   ) => void | undefined;
   previousStory?: () => void | undefined;
   nextStory?: () => void;
+  customViewStyle?: ViewStyle;
+  headerStyle?: ViewStyle;
+  footerStyle?: ViewStyle;
 }
 
 export interface UserProps {

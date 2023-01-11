@@ -2,7 +2,7 @@
 
 # react-native-story-view
 
-[![npm version](https://img.shields.io/badge/npm%20package-0.0.2-orange)](https://www.npmjs.org/package/react-native-story-view) [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/badge/npm%20package-0.0.3-orange)](https://www.npmjs.org/package/react-native-story-view) [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
 
 ---
 
@@ -520,6 +520,9 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 > | customViewProps         |    {}     | ViewProps                                                  | Custom view wrapper props                                                        |
 > | videoProps              |    {}     | VideoProperties                                            | To override video properties                                                     |
 > | ref                     |    {}     | StoryRef                                                   | To access 'pause' story method and 'viewedStories' stories object (Single Story) |
+> | customViewStyle         |    {}     | ViewStyle                                                  | Style of custom view container                                                   |
+> | headerStyle             |    {}     | ViewStyle                                                  | Style of header container                                                        |
+> | footerStyle             |    {}     | ViewStyle                                                  | Style of footer container                                                        |
 
 ---
 
