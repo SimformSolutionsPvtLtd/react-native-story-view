@@ -80,7 +80,7 @@ const stories = [
       },
       {
         id: 1,
-        url: 'https://www.selenagomez.com/sites/g/files/aaj10001/f/styles/suzuki_breakpoints_image_mobile-lg_sq/public/release/202203/ab67616d0000b273b69a2033d72a130888a227a1.jpg?itok=lWC-TVwE',
+        url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202336/rs_1028x1024-230406133109-Hollywood_record_label.png?fit=around%7C1028:1024&output-quality=90&crop=1028:1024;center,top',
         type: 'image',
         duration: 10,
         isReadMore: true,

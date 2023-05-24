@@ -36,13 +36,12 @@
   "peerDependencies": {
     "react": "*",
     "react-native": ">=0.62",
+    "react-native-gesture-handler": ">=2.5.0",
+    "react-native-reanimated": ">=3.0.0",
     "react-native-video": ">=5",
-    "react-native-video-cache-control": "*",
-    "react-native-reanimated": ">=2.10.0",
-    "react-native-gesture-handler": ">=2.5.0"
+    "react-native-video-cache-control": "*"
   },
   "devDependencies": {
-    "react-native-video-cache-control": "^1.1.1",
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@commitlint/cli": "^16.1.0",
@@ -66,8 +65,9 @@
     "react": "17.0.2",
     "react-native": "0.68.2",
     "react-native-gesture-handler": "^2.5.0",
-    "react-native-reanimated": "^2.10.0",
+    "react-native-reanimated": "^3.2.0",
     "react-native-video": "^5",
+    "react-native-video-cache-control": "^1.1.1",
     "react-test-renderer": "17.0.2",
     "typescript": "4.7.4"
   },
