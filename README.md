@@ -2,7 +2,7 @@
 
 # react-native-story-view
 
-[![npm version](https://img.shields.io/badge/npm%20package-0.0.3-orange)](https://www.npmjs.org/package/react-native-story-view) [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
+[![react-native-story-view on npm](https://img.shields.io/npm/v/react-native-story-view.svg?style=flat)](https://www.npmjs.com/package/react-native-story-view) [![react-native-story-view downloads](https://img.shields.io/npm/dm/react-native-story-view)](https://www.npmtrends.com/react-native-story-view) [![react-native-story-view install size](https://packagephobia.com/badge?p=react-native-story-view)](https://packagephobia.com/result?p=react-native-story-view) [![Android](https://img.shields.io/badge/Platform-Android-green?logo=android)](https://www.android.com) [![iOS](https://img.shields.io/badge/Platform-iOS-green?logo=apple)](https://developer.apple.com/ios) [![MIT](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
 
 ---
 
@@ -68,7 +68,7 @@ jcenter() {
 }
 ```
 
-##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video), [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated), [react-native-gesture-handler ](https://www.npmjs.com/package/react-native-gesture-handler) and [react-native-video-cache-control](https://www.npmjs.com/package/react-native-video-cache-control)
+##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video), [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated), [react-native-gesture-handler](https://www.npmjs.com/package/react-native-gesture-handler) and [react-native-video-cache-control](https://www.npmjs.com/package/react-native-video-cache-control)
 
 ---
 
@@ -452,7 +452,7 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 > | **stories\***       |      undefined      | StoriesType[]                                   | Array of multiple user stories                                                                                                                                       |
 > | ref                 |        null         | MultiStoryRef                                   | To access `close` story method                                                                                                                                       |
 > | storyContainerProps |         {}          | StoryContainerProps                             | Customize all story props, detailed props in below `StoryContainer` section                                                                                          |
-> | avatarProps         |         {}          | [StoryAvatarStyleProps](#StoryAvatarStyleProps) | Customize avatar component styles                                                                                                                                    |
+> | avatarProps         |         {}          | [StoryAvatarStyleProps](#storyavatarstyleprops) | Customize avatar component styles                                                                                                                                    |
 > | onChangePosition    |        null         | (progressIndex, storyIndex) => {}               | Callback when progress index changes                                                                                                                                 |
 > | transitionMode      | TransitionMode.Cube | TransitionMode: {Default, Cube, Scale}          | To customize user story transition, (TransitionMode.default : no transition, Transition.scale : zoomIn/zoomOut transition, Transition.Cube: 3D cube transition) cube |
 > | onComplete          |        null         | (viewedStories?: Array<boolean[]>) => void      | Callback when stories closed or completes. `viewedStories` contains multi array of boolean whether story is seen or not                                              |
@@ -511,9 +511,9 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 > | showSourceIndicator      |   true    | boolean                                                    | Display indicator while video loading                                            |
 > | sourceIndicatorProps     |    {}     | ActivityIndicatorProps                                     | To override indicator props                                                      |
 > | onComplete               |   null    | () => {}                                                   | Callback when all stories completes                                              |
-> | renderHeaderComponent    |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component                    |
-> | renderFooterComponent    |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                           |
-> | renderCustomView         |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                                  |
+> | renderHeaderComponent    |   null    | (callback: [CallbackProps](#callbackprops)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component                    |
+> | renderFooterComponent    |   null    | (callback: [CallbackProps](#callbackprops)) => JSX.Element | Render Footer component (`Footer`) or custom component                           |
+> | renderCustomView         |   null    | (callback: [CallbackProps](#callbackprops)) => JSX.Element | Render any custom view on Story                                                  |
 > | renderIndicatorComponent |    {}     | () => JSX.Element                                          | Render loader when we press on Story, which represent loading state of story     |
 > | storyContainerViewProps  |    {}     | ViewProps                                                  | Root story view props                                                            |
 > | headerViewProps          |    {}     | ViewProps                                                  | Header view wrapper props                                                        |
@@ -614,9 +614,9 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 A full working example project is here [Example](./example/src/App.tsx)
 
 ```sh
-$ yarn
-$ yarn example ios   // For ios
-$ yarn example android   // For Android
+yarn
+yarn example ios   // For ios
+yarn example android   // For Android
 ```
 
 # TODO
