@@ -136,6 +136,7 @@ export interface StoryContainerProps extends CommonProps {
   isShowReply?: boolean | undefined;
   renderHeaderComponent?: (callback: CallbackProps) => JSX.Element;
   renderFooterComponent?: (callback: CallbackProps) => JSX.Element;
+  renderIndicatorComponent?: () => JSX.Element;
   userProfile?: UserProps | undefined;
   footerView?: FooterViewProps | undefined;
   onComplete?: (viewedStories?: Array<boolean[]>) => void;

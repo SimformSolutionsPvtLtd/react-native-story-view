@@ -1,5 +1,6 @@
 import StoryContainer from './StoryContainer';
 import ProfileHeader from './ProfileHeader';
+import Indicator from './Indicator';
 
 export type {
   StoryViewProps,
@@ -10,4 +11,4 @@ export type {
   StoryRef,
   CallbackProps,
 } from './types';
-export { ProfileHeader, StoryContainer };
+export { ProfileHeader, StoryContainer, Indicator };

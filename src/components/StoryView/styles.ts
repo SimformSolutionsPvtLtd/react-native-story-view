@@ -153,6 +153,10 @@ const styles = StyleSheet.create({
     top: '50%',
     left: '45%',
   },
+  loaderStyle: {
+    flex: 1,
+    alignSelf: 'center',
+  },
 });
 
 export default styles;

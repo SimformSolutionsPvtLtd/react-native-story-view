@@ -501,28 +501,29 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 <br />
 
-> | Name                    |  Default  | Type                                                       | <div style="width:290px">Description</div>                                       |
-> | :---------------------- | :-------: | :--------------------------------------------------------- | -------------------------------------------------------------------------------- |
-> | **visible\***           |   false   | boolean                                                    | Hide / show story view                                                           |
-> | **stories\***           | undefined | StoryType[]                                                | Array of stories                                                                 |
-> | backgroundColor         |  #000000  | string                                                     | Background color of story view                                                   |
-> | maxVideoDuration        |   null    | number                                                     | Override video progress duration (default is actual duration of video)           |
-> | style                   |    {}     | ViewStyle                                                  | Style of story view                                                              |
-> | showSourceIndicator     |   true    | boolean                                                    | Display indicator while video loading                                            |
-> | sourceIndicatorProps    |    {}     | ActivityIndicatorProps                                     | To override indicator props                                                      |
-> | onComplete              |   null    | () => {}                                                   | Callback when all stories completes                                              |
-> | renderHeaderComponent   |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component                    |
-> | renderFooterComponent   |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                           |
-> | renderCustomView        |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                                  |
-> | storyContainerViewProps |    {}     | ViewProps                                                  | Root story view props                                                            |
-> | headerViewProps         |    {}     | ViewProps                                                  | Header view wrapper props                                                        |
-> | footerViewProps         |    {}     | ViewProps                                                  | Footer view wrapper props                                                        |
-> | customViewProps         |    {}     | ViewProps                                                  | Custom view wrapper props                                                        |
-> | videoProps              |    {}     | VideoProperties                                            | To override video properties                                                     |
-> | ref                     |    {}     | StoryRef                                                   | To access 'pause' story method and 'viewedStories' stories object (Single Story) |
-> | customViewStyle         |    {}     | ViewStyle                                                  | Style of custom view container                                                   |
-> | headerStyle             |    {}     | ViewStyle                                                  | Style of header container                                                        |
-> | footerStyle             |    {}     | ViewStyle                                                  | Style of footer container                                                        |
+> | Name                     |  Default  | Type                                                       | <div style="width:290px">Description</div>                                       |
+> | :----------------------- | :-------: | :--------------------------------------------------------- | -------------------------------------------------------------------------------- |
+> | **visible\***            |   false   | boolean                                                    | Hide / show story view                                                           |
+> | **stories\***            | undefined | StoryType[]                                                | Array of stories                                                                 |
+> | backgroundColor          |  #000000  | string                                                     | Background color of story view                                                   |
+> | maxVideoDuration         |   null    | number                                                     | Override video progress duration (default is actual duration of video)           |
+> | style                    |    {}     | ViewStyle                                                  | Style of story view                                                              |
+> | showSourceIndicator      |   true    | boolean                                                    | Display indicator while video loading                                            |
+> | sourceIndicatorProps     |    {}     | ActivityIndicatorProps                                     | To override indicator props                                                      |
+> | onComplete               |   null    | () => {}                                                   | Callback when all stories completes                                              |
+> | renderHeaderComponent    |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Header component (`ProfileHeader`) or custom component                    |
+> | renderFooterComponent    |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render Footer component (`Footer`) or custom component                           |
+> | renderCustomView         |   null    | (callback: [CallbackProps](#CallbackProps)) => JSX.Element | Render any custom view on Story                                                  |
+> | renderIndicatorComponent |    {}     | () => JSX.Element                                          | Render loader when we press on Story, which represent loading state of story     |
+> | storyContainerViewProps  |    {}     | ViewProps                                                  | Root story view props                                                            |
+> | headerViewProps          |    {}     | ViewProps                                                  | Header view wrapper props                                                        |
+> | footerViewProps          |    {}     | ViewProps                                                  | Footer view wrapper props                                                        |
+> | customViewProps          |    {}     | ViewProps                                                  | Custom view wrapper props                                                        |
+> | videoProps               |    {}     | VideoProperties                                            | To override video properties                                                     |
+> | ref                      |    {}     | StoryRef                                                   | To access 'pause' story method and 'viewedStories' stories object (Single Story) |
+> | customViewStyle          |    {}     | ViewStyle                                                  | Style of custom view container                                                   |
+> | headerStyle              |    {}     | ViewStyle                                                  | Style of header container                                                        |
+> | footerStyle              |    {}     | ViewStyle                                                  | Style of footer container                                                        |
 
 ---
 

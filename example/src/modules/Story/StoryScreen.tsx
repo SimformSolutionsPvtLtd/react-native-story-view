@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Modal, SafeAreaView, View } from 'react-native';
-import { Footer, Header } from '../../components';
 import {
   StoryAvatar,
   StoryContainer,
   StoryRef,
   StoryType
-} from '../../../../src';
+} from 'react-native-story-view';
+import { Footer, Header } from '../../components';
 import { stories } from '../../constants';
 import styles from './styles';
-import { useRef } from 'react';
 
 const StoryScreen = () => {
   const [isStoryViewVisible, setIsStoryViewShow] = useState<boolean>(false);

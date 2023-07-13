@@ -1,5 +1,5 @@
 import type { ViewToken } from 'react-native';
-import type { Value } from 'react-native-reanimated';
+import type { SharedValue } from 'react-native-reanimated';
 import type { StoriesType, StoryContainerProps } from '../StoryView/types';
 
 export enum TransitionMode {
@@ -28,11 +28,13 @@ export interface MultiStoryListItemProps
   item: StoriesType;
   index: number;
   storyIndex: number;
-  animatedTransitionStyle: any;
   viewedStories: Array<boolean[]>;
   nextStory?: () => void;
   previousStory?: () => void;
   onComplete?: () => void;
+  transitionMode?: TransitionMode;
+  scrollX: ScrollValue;
+  isTransitionActive: boolean;
 }
 
 export interface ViewConfig {
@@ -60,4 +62,4 @@ export interface DraggableGestureProps {
   isKeyboardVisible: boolean;
 }
 
-export type ScrollValue = Value<number>;
+export type ScrollValue = SharedValue<number>;

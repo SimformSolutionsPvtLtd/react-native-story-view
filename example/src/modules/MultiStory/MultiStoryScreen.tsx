@@ -1,7 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { ImageBackground, View, Text } from 'react-native';
-import { MultiStory, TransitionMode } from '../../../../src';
-import type { MultiStoryRef } from 'react-native-story-view';
+import {
+  type MultiStoryRef,
+  Indicator,
+  MultiStory,
+  TransitionMode
+} from 'react-native-story-view';
 import { stories, Strings } from '../../constants';
 import { Header, Footer } from '../../components';
 import { Colors } from '../../theme';
@@ -54,6 +58,7 @@ const MultiStoryScreen = () => {
             renderFooterComponent: ({ userStories, story, progressIndex }) => (
               <Footer {...{ userStories, story, progressIndex }} />
             ),
+            renderIndicatorComponent: () => <Indicator />,
             barStyle: {
               barActiveColor: Colors.red
             }
