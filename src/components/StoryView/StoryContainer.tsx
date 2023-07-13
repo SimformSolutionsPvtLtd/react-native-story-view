@@ -149,7 +149,9 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
               </View>
             )}
             {renderHeaderComponent && (
-              <View style={[styles.topView, { opacity }]} {...headerViewProps}>
+              <View
+                style={[styles.topView, props?.headerStyle ?? {}, { opacity }]}
+                {...headerViewProps}>
                 <>
                   {renderHeaderComponent?.({
                     userStories,
@@ -162,7 +164,11 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
             )}
             {renderCustomView && (
               <View
-                style={[styles.customView, { opacity }]}
+                style={[
+                  styles.customView,
+                  props?.customViewStyle ?? {},
+                  { opacity },
+                ]}
                 {...customViewProps}>
                 <>
                   {renderCustomView?.({
@@ -176,7 +182,9 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
             )}
           </View>
           {renderFooterComponent && (
-            <View style={[styles.bottomView, { opacity }]} {...footerViewProps}>
+            <View
+              style={[styles.bottomView, props?.footerStyle ?? {}, { opacity }]}
+              {...footerViewProps}>
               <>
                 {renderFooterComponent?.({
                   userStories,

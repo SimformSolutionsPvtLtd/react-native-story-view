@@ -18,6 +18,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.black,
   },
+  loaderStyle: {
+    flex: 1,
+    alignSelf: 'center',
+  },
 });
 
 export default styles;

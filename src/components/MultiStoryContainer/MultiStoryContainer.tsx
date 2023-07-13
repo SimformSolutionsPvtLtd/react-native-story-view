@@ -3,37 +3,45 @@ import React, {
   useEffect,
   useImperativeHandle,
   useRef,
+  useState,
 } from 'react';
 import { Modal } from 'react-native';
-import Animated from 'react-native-reanimated';
 import {
   GestureHandlerRootView,
   PanGestureHandler,
 } from 'react-native-gesture-handler';
-import { useMultiStoryContainer } from './hooks';
-import { StoryContainer, ProfileHeader } from '../StoryView';
-import { Footer } from '../Footer';
+import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { Metrics } from '../../theme';
+import { Footer } from '../Footer';
+import { Indicator, ProfileHeader, StoryContainer } from '../StoryView';
+import type { StoryRef } from '../StoryView/types';
+import { useMultiStoryContainer } from './hooks';
 import styles from './styles';
-import type {
+import {
   ListItemProps,
   ListItemRef,
   MultiStoryContainerProps,
   MultiStoryListItemProps,
+  TransitionMode,
 } from './types';
-import type { StoryRef } from '../StoryView/types';
+import {
+  cubeTransition,
+  defaultTransition,
+  scaleTransition,
+} from './utils/StoryTransitions';
 
 const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
   (
     {
       item,
       index,
-      animatedTransitionStyle,
+      scrollX,
       nextStory,
       previousStory,
       storyIndex,
       onComplete,
       viewedStories,
+      isTransitionActive,
       ...props
     }: MultiStoryListItemProps,
     ref
@@ -50,35 +58,50 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
         storyRef?.current?.handleLongPress(visibility),
     }));
 
+    const animationStyle = useAnimatedStyle(() => {
+      switch (props.transitionMode) {
+        case TransitionMode.Cube:
+          return cubeTransition(index, scrollX);
+        case TransitionMode.Scale:
+          return scaleTransition(index, scrollX);
+        default:
+          return defaultTransition();
+      }
+    }, [index, scrollX.value]);
+
     return (
       <Animated.View key={item.id} style={styles.itemContainer}>
-        <Animated.View style={animatedTransitionStyle(index)}>
-          <StoryContainer
-            visible={true}
-            key={index + item?.id}
-            ref={storyRef}
-            userStories={item}
-            nextStory={nextStory}
-            previousStory={previousStory}
-            stories={item.stories}
-            progressIndex={storyInitialIndex < 0 ? 0 : storyInitialIndex}
-            maxVideoDuration={15}
-            renderHeaderComponent={() => (
-              <ProfileHeader
-                userImage={{ uri: item.profile ?? '' }}
-                userName={item.username}
-                userMessage={item.title}
-                onClosePress={() => {
-                  onComplete?.();
-                }}
-              />
-            )}
-            renderFooterComponent={() => <Footer />}
-            {...props}
-            index={index}
-            userStoryIndex={storyIndex}
-          />
-        </Animated.View>
+        {storyIndex === index || isTransitionActive ? (
+          <Animated.View style={animationStyle}>
+            <StoryContainer
+              visible={true}
+              key={index + item?.id}
+              ref={storyRef}
+              userStories={item}
+              nextStory={nextStory}
+              previousStory={previousStory}
+              stories={item.stories}
+              progressIndex={storyInitialIndex < 0 ? 0 : storyInitialIndex}
+              maxVideoDuration={15}
+              renderHeaderComponent={() => (
+                <ProfileHeader
+                  userImage={{ uri: item.profile ?? '' }}
+                  userName={item.username}
+                  userMessage={item.title}
+                  onClosePress={() => {
+                    onComplete?.();
+                  }}
+                />
+              )}
+              renderFooterComponent={() => <Footer />}
+              {...props}
+              index={index}
+              userStoryIndex={storyIndex}
+            />
+          </Animated.View>
+        ) : (
+          props?.renderIndicatorComponent?.() ?? <Indicator />
+        )}
       </Animated.View>
     );
   }
@@ -94,6 +117,7 @@ const MultiStoryContainer = ({
 }: MultiStoryContainerProps) => {
   const flatListRef = useRef<any>(null);
   const itemsRef = useRef<ListItemRef[]>([]);
+  const [isTransitionActive, setIsTransitionActive] = useState<boolean>(false);
 
   useEffect(() => {
     itemsRef.current = itemsRef.current.slice(0, stories.length);
@@ -112,8 +136,8 @@ const MultiStoryContainer = ({
     gestureHandler,
     listStyle,
     rootStyle,
-    animatedTransitionStyle,
     onScroll,
+    scrollX,
   } = useMultiStoryContainer(
     flatListRef,
     props,
@@ -176,6 +200,7 @@ const MultiStoryContainer = ({
               offset: Metrics.screenWidth * index,
               index,
             })}
+            onLayout={() => setIsTransitionActive(true)}
             onViewableItemsChanged={onViewRef.current}
             viewabilityConfig={viewabilityConfig.current}
             decelerationRate={Metrics.isIOS ? 0.99 : 0.92}
@@ -190,12 +215,13 @@ const MultiStoryContainer = ({
                 {...{
                   item,
                   index,
-                  animatedTransitionStyle,
                   nextStory,
                   previousStory,
                   storyIndex,
                   onComplete,
                   viewedStories,
+                  scrollX,
+                  isTransitionActive,
                 }}
                 {...props}
               />

@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'column',
     width: Metrics.screenWidth,
+    zIndex: 999,
   },
   topView: {
     position: 'absolute',
@@ -151,6 +152,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '50%',
     left: '45%',
+  },
+  loaderStyle: {
+    flex: 1,
+    alignSelf: 'center',
   },
 });
 

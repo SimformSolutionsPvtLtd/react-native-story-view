@@ -1,38 +1,34 @@
 import { useEffect, useRef, useState } from 'react';
-import Animated, { useValue } from 'react-native-reanimated';
-import { useKeyboardListener } from '../../../hooks';
 import {
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from 'react-native-reanimated';
+import { useKeyboardListener } from '../../../hooks';
+import type {
   MultiStoryContainerProps,
-  TransitionMode,
   ScrollValue,
   ViewConfig,
 } from '../types';
-import {
-  cubeTransition,
-  defaultTransition,
-  scaleTransition,
-} from '../utils/StoryTransitions';
 import useDraggableGesture from './useDraggableGesture';
 
 const useMultiStoryContainer = (
   flatListRef: any,
-  {
-    userStoryIndex,
-    backgroundColor,
-    transitionMode = TransitionMode.Cube,
-  }: Partial<MultiStoryContainerProps>,
+  { userStoryIndex, backgroundColor }: Partial<MultiStoryContainerProps>,
   onScrollBeginDrag: () => void,
   onScrollEndDrag: () => void,
   handleLongPress: (visibility: boolean) => void,
   onComplete?: () => void
 ) => {
   const [storyIndex, setStoryIndex] = useState(userStoryIndex ?? 0);
-  const scrollX: ScrollValue = useValue(0);
+  const scrollX: ScrollValue = useSharedValue(0);
   const previousIndex = useRef<number>(0);
   const viewabilityConfig = useRef({
     itemVisiblePercentThreshold: 70,
   });
   const isKeyboardVisible = useKeyboardListener();
+  const onScroll = useAnimatedScrollHandler(event => {
+    scrollX.value = event.contentOffset.x;
+  });
 
   useEffect(() => {
     flatListRef?.current?.setNativeProps({ scrollEnabled: !isKeyboardVisible });
@@ -50,28 +46,6 @@ const useMultiStoryContainer = (
       previousIndex.current = index;
     }
   });
-
-  const onScroll = Animated.event(
-    [
-      {
-        nativeEvent: {
-          contentOffset: { x: scrollX },
-        },
-      },
-    ],
-    { useNativeDriver: true }
-  );
-
-  const animatedTransitionStyle = (index: number) => {
-    switch (transitionMode) {
-      case TransitionMode.Cube:
-        return cubeTransition(index, scrollX);
-      case TransitionMode.Scale:
-        return scaleTransition(index, scrollX);
-      default:
-        return defaultTransition();
-    }
-  };
 
   const { listStyle, rootStyle, gestureHandler } = useDraggableGesture({
     backgroundColor,
@@ -92,7 +66,6 @@ const useMultiStoryContainer = (
     gestureHandler,
     setStoryIndex,
     onScroll,
-    animatedTransitionStyle,
   };
 };
 
