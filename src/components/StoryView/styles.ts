@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'column',
     width: Metrics.screenWidth,
+    zIndex: 999,
   },
   topView: {
     position: 'absolute',
