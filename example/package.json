@@ -1,6 +1,7 @@
 {
   "name": "rnstoryview",
   "version": "0.0.1",
+  "license": "UNLICENSED",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
