@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, useWindowDimensions, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import Video, { OnBufferData, OnLoadData } from 'react-native-video';
 import convertToProxyURL from 'react-native-video-cache-control';
 import { Colors, Metrics } from '../../theme';
@@ -51,7 +56,7 @@ const StoryView = (props: StoryViewProps) => {
           thumbnailSource={{ uri: source.url ?? '' }}
           onImageLoaded={props.onImageLoaded}
         />
-      ) : (
+      ) : source?.type === StroyTypes.Video ? (
         isCurrentIndex && (
           <>
             <Video
@@ -99,6 +104,8 @@ const StoryView = (props: StoryViewProps) => {
             )}
           </>
         )
+      ) : (
+        <Text>{source?.url}</Text>
       )}
     </View>
   );

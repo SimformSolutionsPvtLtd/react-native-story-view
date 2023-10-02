@@ -42,6 +42,7 @@
   "files": [
     "/lib"
   ],
+  "private": "true",
   "scripts": {
     "prepare": "husky install",
     "clean": "rm -rf node_modules",
@@ -65,14 +66,16 @@
     "@babel/runtime": "^7.12.5",
     "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
-    "@react-native-community/eslint-config": "^3.0.1",
-    "@testing-library/react-native": "^9.0.0",
+    "@react-native-community/eslint-config": "^3.2.0",
+    "@testing-library/react-native": "^9.2.0",
     "@types/jest": "^27.4.0",
-    "@types/react-native": "^0.66.15",
-    "@types/react-native-video": "^5.0.13",
+    "@types/react": "^18.2.24",
+    "@types/react-dom": "^18.2.8",
+    "@types/react-native": "^0.72.3",
+    "@types/react-native-video": "^5.0.16",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^27.4.6",
-    "eslint": "^7.32.0",
+    "eslint": "^8.50.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.4",
     "jest": "^27.4.7",
@@ -81,13 +84,13 @@
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.7.1",
-    "react": "17.0.2",
-    "react-native": "0.68.2",
-    "react-native-gesture-handler": "^2.5.0",
-    "react-native-reanimated": "^3.2.0",
-    "react-native-video": "^5",
-    "react-native-video-cache-control": "^1.1.1",
-    "react-test-renderer": "17.0.2",
+    "react": "^18.2.0",
+    "react-native": "0.72.5",
+    "react-native-gesture-handler": "^2.13.1",
+    "react-native-reanimated": "^3.5.4",
+    "react-native-video": "^5.2.1",
+    "react-native-video-cache-control": "^1.2.2",
+    "react-test-renderer": "18.2.0",
     "typescript": "4.7.4"
   },
   "resolutions": {
@@ -131,5 +134,8 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
+  },
+  "dependencies": {
+    "react-dom": "^18.2.0"
   }
 }
