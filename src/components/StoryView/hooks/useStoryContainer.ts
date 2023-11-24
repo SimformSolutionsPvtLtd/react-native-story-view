@@ -118,7 +118,11 @@ const useStoryContainer = (
 
   const onVideoLoaded = (length: OnLoadData) => {
     setPause(false);
-    setDuration(props?.maxVideoDuration ?? length?.duration);
+    setDuration(
+      props?.stories?.[progressIndex]?.duration ??
+        props?.maxVideoDuration ??
+        length?.duration
+    );
   };
 
   const onVideoEnd = () => {
