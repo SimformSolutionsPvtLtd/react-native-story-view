@@ -43,7 +43,7 @@
     "/lib"
   ],
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky install && yarn build",
     "clean": "rm -rf node_modules",
     "build": "rm -rf lib && tsc -p . && cp -R ./src/assets ./lib/ ",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

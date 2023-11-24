@@ -6,10 +6,6 @@ import React, {
   useState,
 } from 'react';
 import { Modal } from 'react-native';
-import {
-  GestureHandlerRootView,
-  PanGestureHandler,
-} from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { Metrics } from '../../theme';
 import { Footer } from '../Footer';
@@ -42,6 +38,7 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
       onComplete,
       viewedStories,
       isTransitionActive,
+      gestureHandler,
       ...props
     }: MultiStoryListItemProps,
     ref
@@ -97,6 +94,7 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
               {...props}
               index={index}
               userStoryIndex={storyIndex}
+              gestureHandler={gestureHandler}
             />
           </Animated.View>
         ) : (
@@ -135,7 +133,6 @@ const MultiStoryContainer = ({
     viewabilityConfig,
     gestureHandler,
     listStyle,
-    rootStyle,
     onScroll,
     scrollX,
   } = useMultiStoryContainer(
@@ -178,57 +175,52 @@ const MultiStoryContainer = ({
       visible={visible}
       transparent={true}
       onRequestClose={() => onComplete?.()}>
-      <GestureHandlerRootView style={rootStyle}>
-        <PanGestureHandler
-          activateAfterLongPress={200}
-          onGestureEvent={gestureHandler}>
-          <Animated.FlatList
-            horizontal
-            style={listStyle}
-            pagingEnabled
-            initialNumToRender={2}
-            data={stories}
-            ref={flatListRef}
-            onScroll={onScroll}
-            onScrollBeginDrag={onScrollBeginDrag}
-            onScrollEndDrag={onScrollEndDrag}
-            scrollEventThrottle={16}
-            initialScrollIndex={storyIndex}
-            keyboardShouldPersistTaps="handled"
-            getItemLayout={(_, index) => ({
-              length: Metrics.screenWidth,
-              offset: Metrics.screenWidth * index,
+      <Animated.FlatList
+        horizontal
+        style={listStyle}
+        pagingEnabled
+        initialNumToRender={2}
+        data={stories}
+        ref={flatListRef}
+        onScroll={onScroll}
+        onScrollBeginDrag={onScrollBeginDrag}
+        onScrollEndDrag={onScrollEndDrag}
+        scrollEventThrottle={16}
+        initialScrollIndex={storyIndex}
+        keyboardShouldPersistTaps="handled"
+        getItemLayout={(_, index) => ({
+          length: Metrics.screenWidth,
+          offset: Metrics.screenWidth * index,
+          index,
+        })}
+        onLayout={() => setIsTransitionActive(true)}
+        onViewableItemsChanged={onViewRef.current}
+        viewabilityConfig={viewabilityConfig.current}
+        decelerationRate={Metrics.isIOS ? 0.99 : 0.92}
+        keyExtractor={item => item?.title + item?.id?.toString()}
+        contentContainerStyle={{
+          width: Metrics.screenWidth * stories.length,
+        }}
+        extraData={storyIndex}
+        renderItem={({ item, index }: ListItemProps) => (
+          <MultiStoryListItem
+            ref={(elements: any) => (itemsRef.current[index] = elements)}
+            {...{
+              item,
               index,
-            })}
-            onLayout={() => setIsTransitionActive(true)}
-            onViewableItemsChanged={onViewRef.current}
-            viewabilityConfig={viewabilityConfig.current}
-            decelerationRate={Metrics.isIOS ? 0.99 : 0.92}
-            keyExtractor={item => item?.title + item?.id?.toString()}
-            contentContainerStyle={{
-              width: Metrics.screenWidth * stories.length,
+              nextStory,
+              previousStory,
+              storyIndex,
+              onComplete,
+              viewedStories,
+              scrollX,
+              isTransitionActive,
             }}
-            extraData={storyIndex}
-            renderItem={({ item, index }: ListItemProps) => (
-              <MultiStoryListItem
-                ref={(elements: any) => (itemsRef.current[index] = elements)}
-                {...{
-                  item,
-                  index,
-                  nextStory,
-                  previousStory,
-                  storyIndex,
-                  onComplete,
-                  viewedStories,
-                  scrollX,
-                  isTransitionActive,
-                }}
-                {...props}
-              />
-            )}
+            gestureHandler={gestureHandler}
+            {...props}
           />
-        </PanGestureHandler>
-      </GestureHandlerRootView>
+        )}
+      />
     </Modal>
   );
 };
