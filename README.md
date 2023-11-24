@@ -413,13 +413,13 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 
 ```javascript
 [{
-  id: string;
+  id: number;
   username: string;
   title: string;
   profile: string;
   stories:Array<Story>[
     {
-      id: string;
+      id: number;
       url: string;
       type: 'image' | 'video';
       duration: number
