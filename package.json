@@ -1,6 +1,6 @@
 {
   "name": "react-native-story-view",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "React Native component to provide status/stories feature.",
   "main": "lib/index",
   "types": "lib/index.d.ts",
@@ -43,7 +43,7 @@
     "/lib"
   ],
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky install && yarn build",
     "clean": "rm -rf node_modules",
     "build": "rm -rf lib && tsc -p . && cp -R ./src/assets ./lib/ ",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",

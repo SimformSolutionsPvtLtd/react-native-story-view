@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
   parentView: {
     flex: 1,
   },
+  rootViewStyle: {
+    flex: 1,
+    backgroundColor: Colors.transparent,
+  },
   customView: {
     position: 'absolute',
     flexDirection: 'column',
@@ -59,6 +63,9 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     justifyContent: 'flex-end',
+    position: 'absolute',
+    left: 0,
+    right: 0,
   },
   mainView: {
     position: 'absolute',

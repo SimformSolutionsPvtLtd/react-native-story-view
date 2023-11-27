@@ -53,4 +53,9 @@ export const scaleTransition = (index: number, scrollX: ScrollValue) => {
   };
 };
 
-export const defaultTransition = () => ({ ...StyleSheet.absoluteFillObject });
+export const defaultTransition = () => {
+  'worklet';
+  return {
+    ...StyleSheet.absoluteFillObject,
+  };
+};
