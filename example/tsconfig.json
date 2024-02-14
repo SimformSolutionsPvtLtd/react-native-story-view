@@ -1,17 +1,3 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "esModuleInterop": true,
-    "jsx": "react-native",
-    "lib": ["ESNext"],
-    "module": "CommonJS",
-    "noEmit": true,
-    "paths": {
-      "react-native-story-view": ["../src"]
-    },
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ESNext",
-  },
-  "include": ["src"]
+  "extends": "@react-native/typescript-config/tsconfig.json"
 }
