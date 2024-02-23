@@ -9,7 +9,7 @@ export enum TransitionMode {
   Scale,
 }
 
-export interface MultiStoryContainerProps
+export interface StoryViewContainerProps
   extends Omit<StoryContainerProps, 'stories'> {
   stories: StoriesType[];
   onComplete?: () => void;
@@ -24,7 +24,7 @@ export interface MultiStoryContainerProps
   transitionMode?: TransitionMode;
 }
 
-export interface MultiStoryListItemProps
+export interface StoryViewListItemProps
   extends Omit<StoryContainerProps, 'stories'> {
   item: StoriesType;
   index: number;

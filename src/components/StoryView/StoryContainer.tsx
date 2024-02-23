@@ -104,7 +104,7 @@ const StoryContainer = forwardRef<StoryRef, StoryContainerProps>(
 
     const storyMode: StoryMode =
       props?.userStoryIndex !== undefined
-        ? StoryMode.MultiStory
+        ? StoryMode.StoryView
         : StoryMode.SingleStory;
     const [viewHeight, setViewHeight] = useState<number>(0);
     const bottom =

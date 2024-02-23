@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, MultiStoryScreen, StoryScreen } from '../modules';
+import { HomeScreen, StoryViewScreen, StoryScreen } from '../modules';
 import { NavigationStrings } from '../constants';
 import { Colors } from '../../src/theme';
 
@@ -26,7 +26,7 @@ const Routes = () => {
         />
         <Stack.Screen
           name={NavigationStrings.MULTI_STORY_SCREEN}
-          component={MultiStoryScreen}
+          component={StoryViewScreen}
           {...{ options }}
         />
         <Stack.Screen

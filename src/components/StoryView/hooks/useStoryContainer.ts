@@ -35,7 +35,7 @@ const useStoryContainer = (
   const appState = useRef(AppState.currentState);
   const storyMode: StoryMode =
     props?.userStoryIndex !== undefined
-      ? StoryMode.MultiStory
+      ? StoryMode.StoryView
       : StoryMode.SingleStory;
   const storyCount = props?.stories?.length ?? 0;
   const [videoDuration, setVideoDuration] = useState<number[]>(
@@ -186,13 +186,13 @@ const useStoryContainer = (
   };
 
   const onStoryPressHold = () => {
-    if (storyMode === StoryMode.MultiStory) return;
+    if (storyMode === StoryMode.StoryView) return;
     setVisibleElements(false);
     setPause(true);
   };
 
   const onStoryPressRelease = () => {
-    if (storyMode === StoryMode.MultiStory) return;
+    if (storyMode === StoryMode.StoryView) return;
     if (isPause && !visibleElements) {
       setVisibleElements(true);
       setPause(false);

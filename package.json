@@ -108,7 +108,7 @@
       "./jest-setup.js"
     ],
     "modulePathIgnorePatterns": [
-      "./src/components/MultiStoryContainer/__tests__",
+      "./src/components/StoryViewContainer/__tests__",
       "./src/components/StoryAvatar/__tests__"
     ]
   },

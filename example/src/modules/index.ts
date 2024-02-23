@@ -1,5 +1,5 @@
 import StoryScreen from './Story/StoryScreen';
-import MultiStoryScreen from './MultiStory/MultiStoryScreen';
+import StoryViewScreen from './MultiStory/MultiStoryScreen';
 import HomeScreen from './Home/HomeScreen';
 
-export { MultiStoryScreen, StoryScreen, HomeScreen };
+export { StoryViewScreen, StoryScreen, HomeScreen };

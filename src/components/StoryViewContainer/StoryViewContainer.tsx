@@ -11,13 +11,13 @@ import { Metrics } from '../../theme';
 import { Footer } from '../Footer';
 import { Indicator, ProfileHeader, StoryContainer } from '../StoryView';
 import type { StoryRef } from '../StoryView/types';
-import { useMultiStoryContainer } from './hooks';
+import { useStoryViewContainer } from './hooks';
 import styles from './styles';
 import {
   ListItemProps,
   ListItemRef,
-  MultiStoryContainerProps,
-  MultiStoryListItemProps,
+  StoryViewContainerProps,
+  StoryViewListItemProps,
   TransitionMode,
 } from './types';
 import {
@@ -26,7 +26,7 @@ import {
   scaleTransition,
 } from './utils/StoryTransitions';
 
-const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
+const StoryViewListItem = forwardRef<ListItemRef, StoryViewListItemProps>(
   (
     {
       item,
@@ -40,7 +40,7 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
       isTransitionActive,
       gestureHandler,
       ...props
-    }: MultiStoryListItemProps,
+    }: StoryViewListItemProps,
     ref
   ) => {
     const storyRef = useRef<StoryRef>(null);
@@ -105,14 +105,14 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
   }
 );
 
-const MultiStoryContainer = ({
+const StoryViewContainer = ({
   stories,
   visible,
   onComplete,
   onUserStoryIndexChange,
   viewedStories = [],
   ...props
-}: MultiStoryContainerProps) => {
+}: StoryViewContainerProps) => {
   const flatListRef = useRef<any>(null);
   const itemsRef = useRef<ListItemRef[]>([]);
   const [isTransitionActive, setIsTransitionActive] = useState<boolean>(false);
@@ -135,7 +135,7 @@ const MultiStoryContainer = ({
     listStyle,
     onScroll,
     scrollX,
-  } = useMultiStoryContainer(
+  } = useStoryViewContainer(
     flatListRef,
     props,
     onScrollBeginDrag,
@@ -203,7 +203,7 @@ const MultiStoryContainer = ({
         }}
         extraData={storyIndex}
         renderItem={({ item, index }: ListItemProps) => (
-          <MultiStoryListItem
+          <StoryViewListItem
             ref={(elements: any) => (itemsRef.current[index] = elements)}
             {...{
               item,
@@ -225,4 +225,4 @@ const MultiStoryContainer = ({
   );
 };
 
-export default MultiStoryContainer;
+export default StoryViewContainer;

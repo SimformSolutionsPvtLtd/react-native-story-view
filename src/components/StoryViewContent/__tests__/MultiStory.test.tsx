@@ -1,12 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import MultiStory from '../MultiStory';
+import StoryView from '../StoryView';
 
 jest.useFakeTimers();
 
-describe('MultiStory Component', () => {
+describe('StoryView Component', () => {
   it('Match Snapshot', () => {
-    const { toJSON } = render(<MultiStory stories={[]} />);
+    const { toJSON } = render(<StoryView stories={[]} />);
     expect(toJSON()).toMatchSnapshot();
   });
 });

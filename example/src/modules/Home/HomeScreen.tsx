@@ -15,7 +15,7 @@ const HomeScreen = () => {
         onPress={() =>
           navigation.navigate(NavigationStrings.MULTI_STORY_SCREEN)
         }>
-        <Text style={styles.text}>{Strings.MultiStory}</Text>
+        <Text style={styles.text}>{Strings.StoryView}</Text>
       </Pressable>
       <Pressable
         style={styles.button}

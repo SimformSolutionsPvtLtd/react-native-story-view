@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { ImageBackground, View, Text } from 'react-native';
 import {
-  type MultiStoryRef,
+  type StoryViewContentRef,
   Indicator,
-  MultiStory,
+  StoryView,
   TransitionMode
 } from 'react-native-story-view';
 import { stories, Strings } from '../../constants';
@@ -13,7 +13,7 @@ import Images from '../../assets';
 import styles from './styles';
 
 const MultiStoryScreen = () => {
-  const multiStoryRef = useRef<MultiStoryRef>(null);
+  const StoryViewRef = useRef<StoryViewContentRef>(null);
   const [userStories, setUserStories] = useState(
     JSON.parse(JSON.stringify(stories))
   );
@@ -37,11 +37,11 @@ const MultiStoryScreen = () => {
       source={Images.background}>
       <View style={styles.storyWrapper}>
         <Text style={styles.albumText}>{Strings.album}</Text>
-        <MultiStory
+        <StoryView
           stories={userStories}
           transitionMode={TransitionMode.Cube}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
-          ref={multiStoryRef}
+          ref={StoryViewRef}
           /* callback after multi story is closed
             `viewedStories` contains multi dimension array of booleans whether story is seen or not
           */
@@ -53,7 +53,7 @@ const MultiStoryScreen = () => {
           }}
           storyContainerProps={{
             renderHeaderComponent: ({ userStories }) => (
-              <Header {...{ userStories, multiStoryRef }} />
+              <Header {...{ userStories, StoryViewRef }} />
             ),
             renderFooterComponent: ({ userStories, story, progressIndex }) => (
               <Footer {...{ userStories, story, progressIndex }} />

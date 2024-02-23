@@ -5,12 +5,12 @@ import React, {
   useState,
 } from 'react';
 import { View, FlatList } from 'react-native';
-import { MultiStoryContainer } from '../MultiStoryContainer';
+import { StoryViewContainer } from '../StoryViewContainer';
 import { StoryAvatar } from '../StoryAvatar';
 import type { StoryType } from '../StoryView';
-import type { MultiStoryProps, MultiStoryRef } from './types';
+import type { StoryViewContentProps, StoryViewContentRef } from './types';
 
-const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
+const StoryView = forwardRef<StoryViewContentRef, StoryViewContentProps>(
   ({ stories, transitionMode, avatarProps, ...props }, ref) => {
     const [isStoryViewVisible, setIsStoryViewShow] = useState<boolean>(false);
     const [pressedIndex, setPressedIndex] = useState<number>(-1);
@@ -45,6 +45,7 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
     return (
       <View>
         <FlatList
+          scrollEnabled={stories?.length > 1}
           horizontal
           data={stories}
           showsHorizontalScrollIndicator={false}
@@ -65,7 +66,7 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
           {...props}
         />
         {isStoryViewVisible && (
-          <MultiStoryContainer
+          <StoryViewContainer
             visible={isStoryViewVisible}
             onComplete={_onClose}
             viewedStories={[...viewedStories]}
@@ -85,4 +86,4 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
   }
 );
 
-export default MultiStory;
+export default StoryView;

@@ -5,15 +5,15 @@ import {
 } from 'react-native-reanimated';
 import { useKeyboardListener } from '../../../hooks';
 import type {
-  MultiStoryContainerProps,
+  StoryViewContainerProps,
   ScrollValue,
   ViewConfig,
 } from '../types';
 import useDraggableGesture from './useDraggableGesture';
 
-const useMultiStoryContainer = (
+const useStoryViewContainer = (
   flatListRef: any,
-  { userStoryIndex, backgroundColor }: Partial<MultiStoryContainerProps>,
+  { userStoryIndex, backgroundColor }: Partial<StoryViewContainerProps>,
   onScrollBeginDrag: () => void,
   onScrollEndDrag: () => void,
   handleLongPress: (visibility: boolean) => void,
@@ -69,4 +69,4 @@ const useMultiStoryContainer = (
   };
 };
 
-export default useMultiStoryContainer;
+export default useStoryViewContainer;

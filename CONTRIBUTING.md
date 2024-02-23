@@ -31,5 +31,5 @@ docs(StoryContainer): update contributing guide
 ```
 
 ```
-fix(MultiStoryContainer): story progressbar is stuck
+fix(StoryViewContainer): story progressbar is stuck
 ```

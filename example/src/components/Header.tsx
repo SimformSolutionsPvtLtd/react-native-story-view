@@ -2,13 +2,13 @@ import React from 'react';
 import { ProfileHeader } from 'react-native-story-view';
 import { HeaderProps } from './types';
 
-const Header = ({ userStories, multiStoryRef, ...props }: HeaderProps) => (
+const Header = ({ userStories, StoryViewRef, ...props }: HeaderProps) => (
   <ProfileHeader
     userImage={{ uri: userStories?.profile ?? '' }}
     userName={userStories?.username}
     userMessage={userStories?.title}
     onClosePress={() => {
-      multiStoryRef?.current?.close?.();
+      StoryViewRef?.current?.close?.();
     }}
     {...props}
   />

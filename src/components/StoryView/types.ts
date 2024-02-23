@@ -36,7 +36,7 @@ export enum ProgressState {
 }
 
 export enum StoryMode {
-  MultiStory = 'MultiStory',
+  StoryView = 'StoryView',
   SingleStory = 'SingleStory',
 }
 

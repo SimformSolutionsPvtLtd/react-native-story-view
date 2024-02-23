@@ -1,9 +1,9 @@
 import type { FlatListProps } from 'react-native';
-import type { TransitionMode } from '../MultiStoryContainer/types';
+import type { TransitionMode } from '../StoryViewContainer/types';
 import type { StoryAvatarStyleProps } from '../StoryAvatar/types';
 import type { StoriesType, StoryContainerProps } from '../StoryView/types';
 
-export interface MultiStoryProps extends Partial<FlatListProps<any>> {
+export interface StoryViewContentProps extends Partial<FlatListProps<any>> {
   stories: StoriesType[];
   onComplete?: (viewedStories?: Array<boolean[]>) => void;
   onChangePosition?: (progressIndex: number, storyIndex: number) => void;
@@ -13,6 +13,6 @@ export interface MultiStoryProps extends Partial<FlatListProps<any>> {
   transitionMode?: TransitionMode;
 }
 
-export interface MultiStoryRef {
+export interface StoryViewContentRef {
   close: () => void;
 }
