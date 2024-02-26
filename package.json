@@ -57,8 +57,7 @@
     "react-native": "*",
     "react-native-gesture-handler": ">=2.5.0",
     "react-native-reanimated": ">=3.0.0",
-    "react-native-video": ">=5",
-    "react-native-video-cache-control": "*"
+    "react-native-video": ">=5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

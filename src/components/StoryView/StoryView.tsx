@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, useWindowDimensions, View } from 'react-native';
 import Video, { OnBufferData, OnLoadData } from 'react-native-video';
-import convertToProxyURL from 'react-native-video-cache-control';
 import { Colors, Metrics } from '../../theme';
 import ProgressiveImage from './ProgressiveImage';
 import styles from './styles';
@@ -59,9 +58,7 @@ const StoryView = (props: StoryViewProps) => {
               resizeMode="contain"
               paused={props.pause || loading}
               source={{
-                uri: convertToProxyURL({
-                  url: source?.url!,
-                }),
+                uri: source?.url,
               }}
               onEnd={props?.onVideoEnd}
               onError={(_error: any) => {
