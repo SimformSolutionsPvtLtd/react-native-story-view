@@ -57,8 +57,7 @@
     "react-native": "*",
     "react-native-gesture-handler": ">=2.5.0",
     "react-native-reanimated": ">=3.0.0",
-    "react-native-video": ">=5",
-    "react-native-video-cache-control": "*"
+    "react-native-video": ">=5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -86,7 +85,7 @@
     "react-native-gesture-handler": "2.13.4",
     "react-native-reanimated": "3.5.4",
     "react-native-video": "^5",
-    "react-native-video-cache-control": "^1.1.1",
+    "react-native-video-cache-control": "^1.2.2",
     "react-test-renderer": "17.0.2",
     "typescript": "4.7.4"
   },

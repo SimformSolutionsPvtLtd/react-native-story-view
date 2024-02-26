@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, useWindowDimensions, View } from 'react-native';
+import { ActivityIndicator, View, useWindowDimensions } from 'react-native';
 import Video, { OnBufferData, OnLoadData } from 'react-native-video';
 import convertToProxyURL from 'react-native-video-cache-control';
 import { Colors, Metrics } from '../../theme';

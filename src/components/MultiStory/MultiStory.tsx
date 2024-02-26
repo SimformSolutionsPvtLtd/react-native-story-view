@@ -45,6 +45,7 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
     return (
       <View>
         <FlatList
+          scrollEnabled={stories?.length > 1}
           horizontal
           data={stories}
           showsHorizontalScrollIndicator={false}

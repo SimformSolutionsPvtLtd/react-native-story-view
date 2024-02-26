@@ -3,18 +3,23 @@ import { Colors, moderateScale, verticalScale } from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: Colors.grey,
+    flex: 1
   },
-  storyAvatarContainer: {
+  storyWrapper: {
+    flex: 1,
     marginTop: verticalScale(40),
-    alignSelf: 'center',
+    marginHorizontal: moderateScale(10)
   },
-  storyContainer: {
-    paddingTop: moderateScale(40),
-    backgroundColor: 'black',
-    flex: 1,
+  albumText: {
+    fontSize: moderateScale(30),
+    marginHorizontal: moderateScale(10),
+    color: Colors.white,
+    fontWeight: 'bold',
+    marginBottom: verticalScale(20)
   },
+  separator: {
+    marginHorizontal: moderateScale(6)
+  }
 });
 
 export default styles;
