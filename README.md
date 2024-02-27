@@ -26,12 +26,13 @@ $ yarn add react-native-story-view
 ##### 2. Install peer dependencies
 
 ```bash
-$ npm install react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control
+$ npm install react-native-video react-native-reanimated react-native-gesture-handler
+
 # --- or ---
-$ yarn add react-native-video react-native-reanimated react-native-gesture-handler react-native-video-cache-control
+$ yarn add react-native-video react-native-reanimated react-native-gesture-handler
 ```
 
-> Note: If you already have these libraries installed and at the latest version, you are done here!
+> Note: Keep react-native-gesture-handler@2.13.4 and react-native-reanimated@3.5.4
 
 ##### 3. Install cocoapods in the ios project
 
@@ -53,7 +54,7 @@ module.exports = {
 
 <br />
 
-#### Extra Step
+<!-- #### Extra Step
 
 <b>Android:</b><br />
 If you're facing issue related to 'android-scalablevideoview' or 'videocache' module not found.
@@ -66,7 +67,7 @@ jcenter() {
         includeModule("com.danikula", "videocache")
     }
 }
-```
+``` -->
 
 ##### Know more about [react-native-video](https://www.npmjs.com/package/react-native-video), [react-native-reanimated](https://www.npmjs.com/package/react-native-reanimated), [react-native-gesture-handler](https://www.npmjs.com/package/react-native-gesture-handler) and [react-native-video-cache-control](https://www.npmjs.com/package/react-native-video-cache-control)
 
