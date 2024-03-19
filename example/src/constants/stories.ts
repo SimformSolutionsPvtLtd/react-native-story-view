@@ -26,7 +26,7 @@ const stories = [
       },
       {
         id: 3,
-        url: 'https://statusguide.com/anykreeg/2021/04/Alan-Walker-_Faded-Explore-Whatsapp-status-full-screen-@peace-creation.mp4',
+        url: 'https://vfss.b-cdn.net/library/A/Alan-Walker-Status-Video/Hindi_Alan-Walker-Full-Screen.mp4',
         type: 'video',
         duration: 15,
         isReadMore: true,
