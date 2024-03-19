@@ -53,6 +53,34 @@ module.exports = {
 
 <br />
 
+### Android Cache control dependency (Mandatory)
+
+> In your project's `android/app/build.gradle`
+
+```
+dependencies {
+    implementation 'com.danikula:videocache:2.7.1'
+    // Your rest of the code
+}
+```
+
+> In your project's `android/build.gradle`
+
+```
+buildscript {
+    // Your rest of the code
+}
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        jcenter()
+    }
+}
+
+```
+
 #### Extra Step
 
 <b>Android:</b><br />
