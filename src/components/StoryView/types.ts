@@ -128,6 +128,7 @@ export interface CallbackProps {
 }
 
 export interface StoryContainerProps extends CommonProps {
+  extended?: boolean;
   stories: StoryType[];
   userStories?: StoriesType;
   visible?: boolean | undefined;

@@ -72,6 +72,7 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
           <Animated.View style={animationStyle}>
             <StoryContainer
               visible={true}
+              extended={false}
               key={index + item?.id}
               ref={storyRef}
               userStories={item}

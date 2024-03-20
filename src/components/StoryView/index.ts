@@ -1,14 +1,15 @@
-import StoryContainer from './StoryContainer';
-import ProfileHeader from './ProfileHeader';
 import Indicator from './Indicator';
+import ProfileHeader from './ProfileHeader';
+import { default as StoryContainer } from './Story';
+import { default as StoryViewContainer } from './StoryContainer';
 
 export type {
-  StoryViewProps,
-  StoryContainerProps,
-  StoriesType,
-  StoryType,
-  UserProps,
-  StoryRef,
   CallbackProps,
+  StoriesType,
+  StoryContainerProps,
+  StoryRef,
+  StoryType,
+  StoryViewProps,
+  UserProps,
 } from './types';
-export { ProfileHeader, StoryContainer, Indicator };
+export { Indicator, ProfileHeader, StoryContainer, StoryViewContainer };
