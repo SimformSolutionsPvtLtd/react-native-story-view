@@ -62,6 +62,7 @@ const StoryScreen = () => {
           <StoryContainer
             visible
             ref={ref}
+            extended
             progressIndex={storyInitialIndex < 0 ? 0 : storyInitialIndex}
             stories={userStories.stories}
             maxVideoDuration={10}

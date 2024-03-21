@@ -300,6 +300,8 @@ const [isStoryViewVisible, setIsStoryViewShow] = useState(false);
 
 <StoryContainer
   visible={isStoryViewVisible}
+  extended={true}
+  // extended enables play & pause feature on single story view default is "true"
   maxVideoDuration={10}
   stories={userStories[0].stories}
   renderFooterComponent={({ story, progressIndex }) => (
@@ -533,6 +535,7 @@ Pass any custom view in story view. It will be rendered on top of story view as 
 > | :----------------------- | :-------: | :--------------------------------------------------------- | -------------------------------------------------------------------------------- |
 > | **visible\***            |   false   | boolean                                                    | Hide / show story view                                                           |
 > | **stories\***            | undefined | StoryType[]                                                | Array of stories                                                                 |
+> | **extended\***           |   true    | boolean                                                    | Enables pause / play feature on single story view                                |
 > | backgroundColor          |  #000000  | string                                                     | Background color of story view                                                   |
 > | maxVideoDuration         |   null    | number                                                     | Override video progress duration (default is actual duration of video)           |
 > | style                    |    {}     | ViewStyle                                                  | Style of story view                                                              |

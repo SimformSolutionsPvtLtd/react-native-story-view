@@ -1,6 +1,6 @@
 {
   "name": "react-native-story-view",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Native component to provide status/stories feature.",
   "main": "lib/index",
   "types": "lib/index.d.ts",
@@ -55,8 +55,8 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-gesture-handler": ">=2.5.0",
-    "react-native-reanimated": ">=3.0.0",
+    "react-native-gesture-handler": ">=2.13.4",
+    "react-native-reanimated": ">=3.5.4",
     "react-native-video": ">=5",
     "react-native-video-cache-control": "*"
   },
