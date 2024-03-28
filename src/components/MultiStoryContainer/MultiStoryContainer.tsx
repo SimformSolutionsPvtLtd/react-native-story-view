@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Modal } from 'react-native';
+import { Modal, View } from 'react-native';
 import Animated, { useAnimatedStyle } from 'react-native-reanimated';
 import { Metrics } from '../../theme';
 import { Footer } from '../Footer';
@@ -67,7 +67,7 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
     }, [index, scrollX.value]);
 
     return (
-      <Animated.View key={item.id} style={styles.itemContainer}>
+      <View key={item.id} style={styles.itemContainer}>
         {storyIndex === index || isTransitionActive ? (
           <Animated.View style={animationStyle}>
             <StoryContainer
@@ -101,7 +101,7 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
         ) : (
           props?.renderIndicatorComponent?.() ?? <Indicator />
         )}
-      </Animated.View>
+      </View>
     );
   }
 );

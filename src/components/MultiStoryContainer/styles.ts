@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { Colors, Metrics, moderateScale } from '../../theme';
 
 const styles = StyleSheet.create({
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.black,
   },
   itemContainer: {
-    flex: 1,
+    height: Dimensions.get('window').height,
     width: Metrics.screenWidth,
   },
   touchContainer: {
