@@ -118,7 +118,11 @@ const useStoryContainer = (
   ]);
 
   const onVideoLoaded = (length: OnLoadData) => {
-    setPause(false);
+    // Only unpause if we're not in a manual pause state
+    if (!isPause) {
+      setPause(false);
+    }
+
     setDuration(
       props?.stories?.[progressIndex]?.duration ??
         props?.maxVideoDuration ??
@@ -187,13 +191,13 @@ const useStoryContainer = (
   };
 
   const onStoryPressHold = () => {
-    if (storyMode === StoryMode.MultiStory) return;
-    setVisibleElements(false);
-    setPause(true);
+    if (!isPause) {
+      setVisibleElements(false);
+      setPause(true);
+    }
   };
 
   const onStoryPressRelease = () => {
-    if (storyMode === StoryMode.MultiStory) return;
     if (isPause && !visibleElements) {
       setVisibleElements(true);
       setPause(false);

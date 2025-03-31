@@ -106,6 +106,7 @@ export interface StoryViewProps {
   videoProps?: VideoProperties;
   index?: number;
   storyIndex?: number;
+  isMuted?: boolean;
 }
 
 export interface StoryViewProps extends CommonProps {
@@ -240,5 +241,6 @@ export type StoriesType = {
 export type StoryRef = {
   pause: (pause: boolean) => void;
   handleLongPress: (visibility: boolean) => void;
+  setMuted: (muteState: boolean) => void;
   viewedStories: boolean[];
 };

@@ -1,5 +1,12 @@
 import { FlashList, FlashListProps } from '@shopify/flash-list';
-import React, { forwardRef, memo, useEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  memo,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import { Modal } from 'react-native';
 import {
   GestureDetector,
@@ -64,6 +71,17 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
       props?.transitionMode
     );
 
+    useImperativeHandle(ref, () => ({
+      handleLongPress: (visibility: boolean) =>
+        storyRef.current?.handleLongPress(visibility),
+      pause: (pauseState: boolean) => storyRef.current?.pause(pauseState),
+      setMuted: (muteState: boolean) => {
+        storyRef.current?.setMuted(muteState);
+      },
+      onScrollBegin: () => {},
+      onScrollEnd: () => {},
+    }));
+
     return (
       <>
         <Animated.View
@@ -72,7 +90,7 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
           {storyIndex === index || isTransitionActive ? (
             <StoryContainer
               visible={true}
-              extended={false}
+              extended={true}
               key={index + item?.id}
               ref={storyRef}
               userStories={item}
@@ -107,130 +125,150 @@ const MultiStoryListItem = forwardRef<ListItemRef, MultiStoryListItemProps>(
   }
 );
 
-const MultiStoryContainer = ({
-  stories,
-  visible,
-  onComplete,
-  onUserStoryIndexChange,
-  viewedStories = [],
-  pointers = { pageX: 0, pageY: 0 },
-  ...props
-}: MultiStoryContainerProps) => {
-  const flatListRef = useRef<any>(null);
-  const initialStoryIndex = useRef(props.userStoryIndex);
-  const itemsRef = useRef<ListItemRef[]>([]);
-  const [isTransitionActive, setIsTransitionActive] = useState<boolean>(false);
+const MultiStoryContainer = forwardRef<ListItemRef, MultiStoryContainerProps>(
+  (
+    {
+      stories,
+      visible,
+      onComplete,
+      onUserStoryIndexChange,
+      viewedStories = [],
+      pointers = { pageX: 0, pageY: 0 },
+      ...props
+    },
+    ref
+  ) => {
+    const flatListRef = useRef<any>(null);
+    const initialStoryIndex = useRef(props.userStoryIndex);
+    const itemsRef = useRef<ListItemRef[]>([]);
+    const [isTransitionActive, setIsTransitionActive] =
+      useState<boolean>(false);
 
-  useEffect(() => {
-    itemsRef.current = itemsRef.current.slice(0, stories.length);
-  }, [itemsRef, stories]);
+    useEffect(() => {
+      itemsRef.current = itemsRef.current.slice(0, stories.length);
+    }, [itemsRef, stories]);
 
-  const handleLongPress = (visiblity: boolean) => {
-    itemsRef.current[storyIndexRef.current]?.handleLongPress(visiblity);
-  };
+    const handleLongPress = (visiblity: boolean) => {
+      itemsRef.current[storyIndexRef.current]?.handleLongPress(visiblity);
+    };
 
-  const {
-    storyIndex,
-    onViewRef,
-    viewabilityConfig,
-    gestureHandler,
-    onScroll,
-    scrollX,
-    listAnimatedStyle,
-    isKeyboardVisible,
-    setIsScrollActive,
-    updateStoryIndex,
-    isScrollActiveRef,
-    storyIndexRef,
-    animationModalStyle,
-  } = useMultiStoryContainer(
-    flatListRef,
-    props,
-    handleLongPress,
-    onComplete,
-    pointers,
-    visible
-  );
+    useImperativeHandle(ref, () => ({
+      pause: (pauseState: boolean) => {
+        itemsRef.current[storyIndexRef.current]?.pause(pauseState);
+      },
+      setMuted: (muteState: boolean) => {
+        itemsRef.current[storyIndexRef.current]?.setMuted(muteState);
+      },
+      handleLongPress: (visibility: boolean) => {
+        itemsRef.current[storyIndexRef.current]?.handleLongPress(visibility);
+      },
+      onScrollBegin: () => {},
+      onScrollEnd: () => {},
+    }));
 
-  const onScrollBeginDragFlashList = () => {
-    setIsScrollActive(true);
-    isScrollActiveRef.current = true;
-    itemsRef.current[storyIndex]?.onScrollBegin();
-  };
+    const {
+      storyIndex,
+      onViewRef,
+      viewabilityConfig,
+      gestureHandler,
+      onScroll,
+      scrollX,
+      listAnimatedStyle,
+      isKeyboardVisible,
+      setIsScrollActive,
+      updateStoryIndex,
+      isScrollActiveRef,
+      storyIndexRef,
+      animationModalStyle,
+    } = useMultiStoryContainer(
+      flatListRef,
+      props,
+      handleLongPress,
+      onComplete,
+      pointers,
+      visible
+    );
 
-  const onScrollEndDragFlashList = () => {
-    setIsScrollActive(false);
-    isScrollActiveRef.current = false;
-    itemsRef.current[storyIndex]?.onScrollEnd();
-    updateStoryIndex();
-  };
+    const onScrollBeginDragFlashList = () => {
+      setIsScrollActive(true);
+      isScrollActiveRef.current = true;
+      itemsRef.current[storyIndex]?.onScrollBegin();
+    };
 
-  useEffect(() => {
-    onUserStoryIndexChange?.(storyIndex);
-  }, [onUserStoryIndexChange, storyIndex]);
+    const onScrollEndDragFlashList = () => {
+      setIsScrollActive(false);
+      isScrollActiveRef.current = false;
+      itemsRef.current[storyIndex]?.onScrollEnd();
+      updateStoryIndex();
+    };
 
-  if (!visible) return null;
+    useEffect(() => {
+      onUserStoryIndexChange?.(storyIndex);
+    }, [onUserStoryIndexChange, storyIndex]);
 
-  return (
-    <Modal
-      visible={visible}
-      transparent={true}
-      onRequestClose={() => onComplete?.()}>
-      <GestureHandlerRootView style={styles.rootViewStyle}>
-        <GestureDetector gesture={gestureHandler}>
-          <Animated.View
-            style={[styles.mainFlashListContainer, animationModalStyle]}>
-            <AnimatedFlashList
-              horizontal
-              pagingEnabled
-              bounces={false}
-              data={stories}
-              scrollEnabled={!isKeyboardVisible}
-              ref={flatListRef}
-              onScroll={onScroll}
-              onScrollBeginDrag={onScrollBeginDragFlashList}
-              onScrollEndDrag={onScrollEndDragFlashList}
-              scrollEventThrottle={16}
-              initialScrollIndex={storyIndex}
-              estimatedItemSize={Metrics.windowWidth}
-              overrideItemLayout={layout => {
-                layout.size = Metrics.windowWidth;
-              }}
-              keyboardShouldPersistTaps="handled"
-              onLayout={() => setIsTransitionActive(true)}
-              onViewableItemsChanged={onViewRef}
-              viewabilityConfig={viewabilityConfig.current}
-              keyExtractor={item => item?.title + item?.id?.toString()}
-              extraData={storyIndex}
-              renderItem={({ item, index }: ListItemProps) => (
-                <Animated.View
-                  style={[styles.mainFlashListContainer, listAnimatedStyle]}>
-                  <MultiStoryListItem
-                    ref={(elements: any) =>
-                      (itemsRef.current[index] = elements)
-                    }
-                    {...{
-                      item,
-                      index,
-                      storyIndex,
-                      onComplete,
-                      viewedStories,
-                      scrollX,
-                      isTransitionActive,
-                      flatListRef,
-                      storyLength: stories.length,
-                      isInitialStory: initialStoryIndex.current === index,
-                    }}
-                    {...props}
-                  />
-                </Animated.View>
-              )}
-            />
-          </Animated.View>
-        </GestureDetector>
-      </GestureHandlerRootView>
-    </Modal>
-  );
-};
+    if (!visible) return null;
+
+    return (
+      <Modal
+        visible={visible}
+        transparent={true}
+        onRequestClose={() => onComplete?.()}>
+        <GestureHandlerRootView style={styles.rootViewStyle}>
+          <GestureDetector gesture={gestureHandler}>
+            <Animated.View
+              style={[styles.mainFlashListContainer, animationModalStyle]}>
+              <AnimatedFlashList
+                horizontal
+                pagingEnabled
+                bounces={false}
+                data={stories}
+                scrollEnabled={!isKeyboardVisible}
+                ref={flatListRef}
+                onScroll={onScroll}
+                onScrollBeginDrag={onScrollBeginDragFlashList}
+                onScrollEndDrag={onScrollEndDragFlashList}
+                scrollEventThrottle={16}
+                initialScrollIndex={storyIndex}
+                estimatedItemSize={Metrics.windowWidth}
+                overrideItemLayout={layout => {
+                  layout.size = Metrics.windowWidth;
+                }}
+                keyboardShouldPersistTaps="handled"
+                onLayout={() => setIsTransitionActive(true)}
+                onViewableItemsChanged={onViewRef}
+                viewabilityConfig={viewabilityConfig.current}
+                keyExtractor={item => item?.title + item?.id?.toString()}
+                extraData={storyIndex}
+                renderItem={({ item, index }: ListItemProps) => (
+                  <Animated.View
+                    style={[styles.mainFlashListContainer, listAnimatedStyle]}>
+                    <MultiStoryListItem
+                      ref={(elements: any) =>
+                        (itemsRef.current[index] = elements)
+                      }
+                      {...{
+                        item,
+                        index,
+                        storyIndex,
+                        onComplete,
+                        viewedStories,
+                        scrollX,
+                        isTransitionActive,
+                        flatListRef,
+                        storyLength: stories.length,
+                        isInitialStory: initialStoryIndex.current === index,
+                      }}
+                      {...props}
+                    />
+                  </Animated.View>
+                )}
+              />
+            </Animated.View>
+          </GestureDetector>
+        </GestureHandlerRootView>
+      </Modal>
+    );
+  }
+);
 
 export default memo(MultiStoryContainer);

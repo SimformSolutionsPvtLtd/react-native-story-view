@@ -11,7 +11,7 @@ import { MultiStoryContainer } from '../MultiStoryContainer';
 import { StoryAvatar } from '../StoryAvatar';
 import type { StoryType } from '../StoryView';
 import type { MultiStoryProps, MultiStoryRef } from './types';
-import type { PointerType } from '../MultiStoryContainer/types';
+import type { PointerType, ListItemRef } from '../MultiStoryContainer/types';
 
 const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
   ({ stories, transitionMode, avatarProps, ...props }, ref) => {
@@ -23,6 +23,39 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
     });
     const profileRef = useRef<FlatList>(null);
     const itemsRef = useRef<View[]>([]);
+    const multiStoryContainerRef = useRef<ListItemRef>(null);
+
+    // Initialize viewedStories state
+    const [viewedStories, setViewedStories] = useState(() =>
+      Array.isArray(stories) && stories.length > 0
+        ? stories.map(storyGroup =>
+            storyGroup?.stories.map(
+              (story: StoryType) => story?.isSeen || false
+            )
+          )
+        : []
+    );
+
+    // const { current: viewedStories } = useRef(
+    //   Array(stories.length)
+    //     .fill(stories)
+    //     .map((row, index) =>
+    //       row?.[index]?.stories.map((item: StoryType) => item?.isSeen ?? false)
+    //     )
+    // );
+
+    // Update viewedStories when stories change
+    useEffect(() => {
+      setViewedStories(prevViewedStories =>
+        stories.map((storyGroup, index) => {
+          const prevGroup = prevViewedStories[index] || [];
+          return storyGroup?.stories.map(
+            (story, storyIndex) =>
+              prevGroup[storyIndex] || story?.isSeen || false
+          );
+        })
+      );
+    }, [stories]);
 
     const openStories = (index: number) => {
       itemsRef.current?.[index]?.measure(
@@ -37,16 +70,19 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
       setPressedIndex(index);
     };
 
-    const { current: viewedStories } = useRef(
-      Array(stories.length)
-        .fill(stories)
-        .map((row, index) =>
-          row?.[index]?.stories.map((item: StoryType) => item?.isSeen ?? false)
-        )
-    );
-
     useImperativeHandle(ref, () => ({
       close: _onClose,
+      pause: (pauseState: boolean) => {
+        multiStoryContainerRef.current?.pause(pauseState);
+      },
+      setMuted: (muteState: boolean) => {
+        multiStoryContainerRef.current?.setMuted(muteState);
+      },
+      handleLongPress: (visibility: boolean) => {
+        multiStoryContainerRef.current?.handleLongPress(visibility);
+      },
+      onScrollBegin: () => {},
+      onScrollEnd: () => {},
     }));
 
     const _onClose = () => {
@@ -99,6 +135,7 @@ const MultiStory = forwardRef<MultiStoryRef, MultiStoryProps>(
         />
         {isStoryViewVisible && (
           <MultiStoryContainer
+            ref={multiStoryContainerRef}
             visible={isStoryViewVisible}
             pointers={pointers}
             onComplete={_onClose}

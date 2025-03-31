@@ -1,5 +1,5 @@
 import type { FlatListProps } from 'react-native';
-import type { TransitionMode } from '../MultiStoryContainer/types';
+import type { TransitionMode, ListItemRef } from '../MultiStoryContainer/types';
 import type { StoryAvatarStyleProps } from '../StoryAvatar/types';
 import type {
   StoriesType,
@@ -31,6 +31,6 @@ export interface MultiStoryMainProps extends MultiStoryBaseProps {
 
 export type MultiStoryProps = MultiStoryMainProps | OverlayViewMultiStoryProps;
 
-export interface MultiStoryRef {
+export interface MultiStoryRef extends ListItemRef {
   close: () => void;
 }

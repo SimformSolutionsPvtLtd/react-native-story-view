@@ -20,16 +20,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   divStory: {
-    alignSelf: 'center',
-    height: '100%',
-    width: Metrics.screenWidth,
-    paddingBottom: moderateScale(4),
+    backgroundColor: '#000',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  storyMedia: {
+    marginTop: 35,
+    backgroundColor: '#101010',
+    borderRadius: 10,
+    overflow: 'hidden',
   },
   imgStyle: {
-    width: Metrics.screenWidth,
+    width: '100%',
     height: '100%',
-    alignSelf: 'center',
+    backgroundColor: 'transparent',
     resizeMode: 'contain',
+    borderRadius: 10,
   },
   imageOverlay: {
     position: 'absolute',
@@ -80,10 +86,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   contentVideoView: {
-    flex: 1,
-    borderRadius: 4,
-    overflow: 'hidden',
+    width: '100%',
+    height: '100%',
     backgroundColor: 'transparent',
+    borderRadius: 10,
   },
   progressBarArray: {
     flexDirection: 'row',
@@ -158,7 +164,7 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'absolute',
     top: '50%',
-    left: '45%',
+    left: '48%',
   },
   loaderStyle: {
     flex: 1,

@@ -60,9 +60,11 @@ export interface ListItemProps {
 }
 
 export interface ListItemRef {
+  handleLongPress: (visibility: boolean) => void;
+  pause: (pauseState: boolean) => void;
+  setMuted: (muteState: boolean) => void;
   onScrollBegin: () => void;
   onScrollEnd: () => void;
-  handleLongPress: (visibility: boolean) => void;
 }
 
 export interface DraggableGestureProps {
